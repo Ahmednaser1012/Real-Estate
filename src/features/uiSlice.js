@@ -29,6 +29,7 @@ const uiSlice = createSlice({
       state.isDropdownOpen = !state.isDropdownOpen;
     },
 
+    //sidebar
     openSidebar: (state) => {
       state.isSidebarOpen = true;
     },
@@ -38,6 +39,8 @@ const uiSlice = createSlice({
     toggleSidebar: (state) => {
       state.isSidebarOpen = !state.isSidebarOpen;
     },
+
+    //menu
     openFilterMenu: (state) => {
       state.isFilterMenuOpen = true;
     },
