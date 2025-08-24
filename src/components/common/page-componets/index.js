@@ -1,6 +1,6 @@
 export { default as BlogPostsList } from "./BlogPostsList";
 export { default as Brands } from "./Brands";
-export { default as AboutUs } from "./AboutUs";
+// export { default as AboutUs } from "./AboutUs";
 export { default as Categories } from "./Categories";
 export { default as Counter } from "./Counter";
 export { default as CTA } from "./CTA";
