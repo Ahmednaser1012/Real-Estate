@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
-import { BiBuildingHouse } from "react-icons/bi";
+// import { BiBuildingHouse } from "react-icons/bi";
 import { FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { FiFacebook } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -11,15 +11,11 @@ const Footer = () => {
       <footer>
         <div className="flex flex-wrap gap-2 max-w-7xl mx-auto px-4">
           <div className="flex-1 basis-[10rem]">
-            <Link to="/" className="flex-shrink-0 flex-align-center gap-x-1">
-              <BiBuildingHouse className="text-3xl text-primary" />
-              <h1 className="hidden md:block">MartVilla</h1>
+            <Link to="/" className="flex-shrink-0 flex-align-center gap-x-1 ">
+
+               <img src="/Logo.PNG" alt="Logo" className="w-28 h-22" />
             </Link>
-            <div className="mt-3">
-              <p className="text-sm">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab
-                harum explicabo illo, magnam vitae expedita.
-              </p>
+            <div className="mt-1">
               <div className="gap-5 my-6 flex-center-center">
                 <div className="icon-box bg-dark-light hover:bg-hover-color-dark">
                   <FiFacebook />
@@ -121,7 +117,7 @@ const Footer = () => {
       </footer>
       <div className="py-2 mt-3 text-center border-t text-muted border-dark">
         <p>
-          Created By <span className="text-primary">Kisakye Martha</span> | All
+          Created By <span className="text-primary">Levels Development</span> | All
           Rights Reserved
         </p>
       </div>

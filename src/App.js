@@ -4,6 +4,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import BackToTopButton from "./components/common/BackToTopButton";
 import Footer from "./components/common/Footer";
 import Navbar from "./components/common/Navbar";
+import LoadingScreen from "./components/common/LoadingScreen";
 import {
 
   // About,
@@ -33,6 +34,7 @@ import Dropdown from "./components/common/DropDown";
 import NewsLetter from "./components/common/NewsLetter";
 function App() {
   const [showButton, setShowButton] = useState(false);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const route = useLocation();
 
@@ -51,13 +53,17 @@ function App() {
 
   return (
     <div>
-      <Navbar />
-      <Dropdown />
-      <div
-        className="min-h-screen pb-40"
-        onClick={handleCloseDropdown}
-        onMouseOver={() => dispatch(closeDropdown())}
-      >
+      {loading ? (
+        <LoadingScreen onComplete={() => setLoading(false)} />
+      ) : (
+        <>
+          <Navbar />
+          <Dropdown />
+          <div
+            className="min-h-screen pb-40"
+            onClick={handleCloseDropdown}
+            onMouseOver={() => dispatch(closeDropdown())}
+          >
         <Routes>
           <Route path="/" element={<Home />} />
         
@@ -83,14 +89,16 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
-      </div>
-      <div className="px-[2%] md:px-[6%] bg-card-dark border border-card-dark">
-        <NewsLetter />
-        <div className="mt-20">
-          <Footer />
-        </div>
-      </div>
-      <BackToTopButton showButton={showButton} />
+          </div>
+          <div className="px-[2%] md:px-[6%] bg-card-dark border border-card-dark">
+            <NewsLetter />
+            <div className="mt-20">
+              <Footer />
+            </div>
+          </div>
+          <BackToTopButton showButton={showButton} />
+        </>
+      )}
     </div>
   );
 }
