@@ -5,6 +5,7 @@ import { BiSearch, BiMenu, BiUser } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import LoadingScreen from "./LoadingScreen";
+import logo from "../../assets/Logo.PNG";
 
 import {
   closeDropdown,
@@ -77,7 +78,7 @@ const Navbar = () => {
               onClick={handleLogoClick}
               className="flex-shrink-0 flex-align-center gap-x-1 cursor-pointer "
             >
-              <img src="/Logo.PNG" alt="Logo" className="w-28 h-20" />
+              <img src={logo} alt="Logo" className="w-28 h-20" />
               {/* <h1 className="hidden md:block">Levels Development</h1> */}
             </div>
 

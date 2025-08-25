@@ -4,6 +4,7 @@
 import { FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { FiFacebook } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import logo from "../../assets/Logo.PNG";
 
 const Footer = () => {
   return (
@@ -12,8 +13,7 @@ const Footer = () => {
         <div className="flex flex-wrap gap-2 max-w-7xl mx-auto px-4">
           <div className="flex-1 basis-[10rem]">
             <Link to="/" className="flex-shrink-0 flex-align-center gap-x-1 ">
-
-               <img src="/Logo.PNG" alt="Logo" className="w-28 h-22" />
+              <img src={logo} alt="Logo" className="w-16 h-16 object-contain" />
             </Link>
             <div className="mt-1">
               <div className="gap-5 my-6 flex-center-center">
@@ -117,8 +117,8 @@ const Footer = () => {
       </footer>
       <div className="py-2 mt-3 text-center border-t text-muted border-dark">
         <p>
-          Created By <span className="text-primary">Levels Development</span> | All
-          Rights Reserved
+          Created By <span className="text-primary">Levels Development</span> |
+          All Rights Reserved
         </p>
       </div>
     </div>
