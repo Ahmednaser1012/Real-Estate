@@ -23,8 +23,18 @@ const Navbar = () => {
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [showLoading, setShowLoading] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Dark mode toggle
   const handleDarkMode = () => {
@@ -70,7 +80,11 @@ const Navbar = () => {
         <LoadingScreen />
       ) : (
         <div
-          className="navbar  w-full z-20 top-0 left-0 py-2 bg-white/95  dark:fixed  dark:bg-card-dark/60"
+          className={`navbar fixed w-full z-20 top-0 left-0 py-2 transition-all duration-300 ${
+            isScrolled 
+              ? "bg-gray-900/90 backdrop-blur-md shadow-lg dark:bg-card-dark/90" 
+              : "bg-transparent"
+          }`}
           onMouseOver={handleClose}
         >
           <div className="max-w-7xl mx-auto px-4 flex-center-between">
@@ -78,14 +92,14 @@ const Navbar = () => {
               onClick={handleLogoClick}
               className="flex-shrink-0 flex-align-center gap-x-1 cursor-pointer "
             >
-              <img src={logo} alt="Logo" className="w-28 h-20" />
+              <img src={logo} alt="Logo" className="object-contain w-36 h-16" />
               {/* <h1 className="hidden md:block">Levels Development</h1> */}
             </div>
 
             <div className="flex-align-center gap-x-4">
               {/*-------------------------------------- Desktop Menu------------------------------------- */}
               <ul
-                className={`hidden md:flex-align-center ${
+                className={`hidden md:flex-align-center text-gray-200 dark:text-white ${
                   showSearchBar && "!hidden"
                 }`}
               >
