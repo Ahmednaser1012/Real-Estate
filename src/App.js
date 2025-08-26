@@ -31,7 +31,7 @@ import {
 } from "./pages";
 import { closeDropdown } from "./features/uiSlice";
 import Dropdown from "./components/common/DropDown";
-import NewsLetter from "./components/common/NewsLetter";
+// import NewsLetter from "./components/common/NewsLetter";
 function App() {
   const [showButton, setShowButton] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -91,7 +91,7 @@ function App() {
         </Routes>
           </div>
           <div className="px-[2%] md:px-[6%] bg-card-dark border border-card-dark">
-            <NewsLetter />
+            {/* <NewsLetter /> */}
             <div className="mt-20">
               <Footer />
             </div>

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { navLinks } from "../data/navLinks";
 
-const mode = JSON.parse(localStorage.getItem("Martvilla-theme-mode")) || false;
+const mode = JSON.parse(localStorage.getItem("Martvilla-theme-mode")) || true;
 
 const initialState = {
   isDropdownOpen: false,
