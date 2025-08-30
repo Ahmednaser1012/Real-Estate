@@ -5,11 +5,15 @@ import Navbar from "./components/common/Navbar";
 import LoadingScreen from "./components/common/LoadingScreen";
 import { closeDropdown } from "./features/uiSlice";
 import Dropdown from "./components/common/DropDown";
+import FloatingButtons from "./components/common/FloatingButtons";
 
-
-const BackToTopButton = lazy(() => import("./components/common/BackToTopButton"));
+const BackToTopButton = lazy(() =>
+  import("./components/common/BackToTopButton")
+);
 const Footer = lazy(() => import("./components/common/Footer"));
-const BackgroundAnimation = lazy(() => import("./components/BackgroundAnimation"));
+const BackgroundAnimation = lazy(() =>
+  import("./components/BackgroundAnimation")
+);
 
 const Home = lazy(() => import("./pages/Home"));
 const AboutTwo = lazy(() => import("./pages/AboutTwo"));
@@ -47,7 +51,9 @@ function App() {
         <LoadingScreen onComplete={() => setLoading(false)} />
       ) : (
         <>
-          <Suspense fallback={<div className="loading-placeholder">Loading...</div>}>
+          <Suspense
+            fallback={<div className="loading-placeholder">Loading...</div>}
+          >
             <BackgroundAnimation />
           </Suspense>
           <Navbar />
@@ -57,7 +63,11 @@ function App() {
             onClick={handleCloseDropdown}
             onMouseOver={() => dispatch(closeDropdown())}
           >
-            <Suspense fallback={<div className="loading-placeholder">Loading page...</div>}>
+            <Suspense
+              fallback={
+                <div className="loading-placeholder">Loading page...</div>
+              }
+            >
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about-2" element={<AboutTwo />} />
@@ -75,13 +85,19 @@ function App() {
           <div className="px-[2%] md:px-[6%] bg-card-dark border border-card-dark">
             {/* <NewsLetter /> */}
             <div className="mt-20">
-              <Suspense fallback={<div className="loading-placeholder">Loading footer...</div>}>
+              <Suspense
+                fallback={
+                  <div className="loading-placeholder">Loading footer...</div>
+                }
+              >
                 <Footer />
               </Suspense>
             </div>
           </div>
           <Suspense fallback={null}>
             <BackToTopButton showButton={showButton} />
+            <FloatingButtons />
+            
           </Suspense>
         </>
       )}
