@@ -1,7 +1,7 @@
 import { FiCheck } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import video1 from "../../../assets/Speciality/video1.mp4";
+import video1 from "../../../assets/HomePage/video1.mp4";
 
 const Speciality = () => {
   const { ref, inView } = useInView({

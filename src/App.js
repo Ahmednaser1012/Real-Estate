@@ -1,36 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { useDispatch } from "react-redux";
 import { Routes, Route, useLocation } from "react-router-dom";
-import BackToTopButton from "./components/common/BackToTopButton";
-import Footer from "./components/common/Footer";
 import Navbar from "./components/common/Navbar";
 import LoadingScreen from "./components/common/LoadingScreen";
-import {
-
-  // About,
-  AboutTwo,
-  Services,
-  // ServicesTwo,
-  // Property,
-  // PropertyTwo,
-  // PropertyThree,
-  // PropertyFour,
-  PropertyFive,
-  // PropertySix,
-  // Blog,
-  // BlogTwo,
-  BlogThree,
-  // BlogFour,
-  Contact,
-  Portifolio,
-  // PortifolioTwo,
-  // Team,
-  Faqs,
-  PageNotFound,
-  Home,
-} from "./pages";
 import { closeDropdown } from "./features/uiSlice";
 import Dropdown from "./components/common/DropDown";
+
+
+const BackToTopButton = lazy(() => import("./components/common/BackToTopButton"));
+const Footer = lazy(() => import("./components/common/Footer"));
+const BackgroundAnimation = lazy(() => import("./components/BackgroundAnimation"));
+
+const Home = lazy(() => import("./pages/Home"));
+const AboutTwo = lazy(() => import("./pages/AboutTwo"));
+const Services = lazy(() => import("./pages/Services"));
+const PropertyFive = lazy(() => import("./pages/PropertyFive"));
+const BlogThree = lazy(() => import("./pages/BlogThree"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Portifolio = lazy(() => import("./pages/Portifolio"));
+const Faqs = lazy(() => import("./pages/Faqs"));
+const PageNotFound = lazy(() => import("./pages/PageNotFound"));
+
 // import NewsLetter from "./components/common/NewsLetter";
 function App() {
   const [showButton, setShowButton] = useState(false);
@@ -57,46 +47,42 @@ function App() {
         <LoadingScreen onComplete={() => setLoading(false)} />
       ) : (
         <>
+          <Suspense fallback={<div className="loading-placeholder">Loading...</div>}>
+            <BackgroundAnimation />
+          </Suspense>
           <Navbar />
           <Dropdown />
           <div
-            className="min-h-screen pb-40"
+            className="min-h-screen pb-40 relative"
             onClick={handleCloseDropdown}
             onMouseOver={() => dispatch(closeDropdown())}
           >
-        <Routes>
-          <Route path="/" element={<Home />} />
-        
-          {/* <Route path="/about-us" element={<About />} />+ */}
-          <Route path="/about-2" element={<AboutTwo />} />
-          <Route path="/services" element={<Services />} />
-          {/* <Route path="/services-2" element={<ServicesTwo />} /> */}
-          {/* <Route path="/property" element={<Property />} /> */}
-          {/* <Route path="/property-2" element={<PropertyTwo />} /> */}
-          {/* <Route path="/property-3" element={<PropertyThree />} /> */}
-          {/* <Route path="/property-4" element={<PropertyFour />} /> */}
-          <Route path="/property-5" element={<PropertyFive />} />
-          {/* <Route path="/property-6" element={<PropertySix />} /> */}
-          {/* <Route path="/blog" element={<Blog />} /> */}
-          {/* <Route path="/blog-2" element={<BlogTwo />} /> */}
-          <Route path="/blog-3" element={<BlogThree />} />
-          {/* <Route path="/blog-4" element={<BlogFour />} /> */}
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/portifolio" element={<Portifolio />} />
-          {/* <Route path="/portifolio-2" element={<PortifolioTwo />} /> */}
-          {/* <Route path="/team" element={<Team />} /> */}
-          <Route path="/faqs" element={<Faqs />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
+            <Suspense fallback={<div className="loading-placeholder">Loading page...</div>}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about-2" element={<AboutTwo />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/property-5" element={<PropertyFive />} />
+                <Route path="/blog-3" element={<BlogThree />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/portifolio" element={<Portifolio />} />
+                <Route path="/faqs" element={<Faqs />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="*" element={<PageNotFound />} />
+              </Routes>
+            </Suspense>
           </div>
           <div className="px-[2%] md:px-[6%] bg-card-dark border border-card-dark">
             {/* <NewsLetter /> */}
             <div className="mt-20">
-              <Footer />
+              <Suspense fallback={<div className="loading-placeholder">Loading footer...</div>}>
+                <Footer />
+              </Suspense>
             </div>
           </div>
-          <BackToTopButton showButton={showButton} />
+          <Suspense fallback={null}>
+            <BackToTopButton showButton={showButton} />
+          </Suspense>
         </>
       )}
     </div>

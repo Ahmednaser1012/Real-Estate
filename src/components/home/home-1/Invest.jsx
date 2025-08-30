@@ -7,7 +7,7 @@ const Invest = () => {
         <div className="md:col-span-1">
           <img
             src="/images/property (1).jpeg"
-            alt=""
+            alt="Property investment"
             className="w-full h-full"
           />
         </div>
@@ -16,22 +16,22 @@ const Invest = () => {
             <div className="flex-shrink-0 flex-align-center">
               <img
                 src="/images/avatar.png"
-                alt=""
+                alt="Avatar"
                 className="flex-shrink-0 w-8 h-8 rounded-full"
               />
               <img
                 src="/images/avatar-1.png"
-                alt=""
+                alt="Avatar 1"
                 className="flex-shrink-0 w-8 h-8 -ml-2 border-2 border-white rounded-full dark:border-dark"
               />
               <img
                 src="/images/avatar-2.png"
-                alt=""
+                alt="Avatar 2"
                 className="flex-shrink-0 w-8 h-8 -ml-2 border-2 border-white rounded-full dark:border-dark"
               />
               <img
                 src="/images/avatar-3.png"
-                alt=""
+                alt="Avatar 3"
                 className="flex-shrink-0 w-8 h-8 -ml-2 border-2 border-white rounded-full dark:border-dark"
               />
               <div className="grid flex-shrink-0 w-8 h-8 -ml-2 text-white border-2 border-white rounded-full bg-primary place-items-center dark:border-dark">
