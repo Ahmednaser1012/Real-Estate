@@ -4,7 +4,7 @@ import {
   Featured,
   Projects,
   Services,
-  Testimonial,
+  // Testimonial,
 } from "../components/common/page-componets";
 import {
   Feeds,
@@ -27,7 +27,7 @@ const Home = () => {
         <Featured />
         <Counter />
         <Projects />
-        <Testimonial />
+        {/* <Testimonial /> */}
         <Brands />
         <Feeds />
       </div>

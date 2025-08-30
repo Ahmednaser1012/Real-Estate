@@ -3,25 +3,29 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import  Image1  from "../../../assets/Hero/feeek1.jpg"
 import  Image2  from "../../../assets/Hero/feeek2.jpg"
 import  Image3  from "../../../assets/Hero/feeek3.jpg"
+// import  Image4  from "../../../assets/Hero/feeek4.jpg"
+// import  Image5  from "../../../assets/Hero/feeek5.jpg"
+// import  Image6  from "../../../assets/Hero/feeek6.jpg"
+import  Image7  from "../../../assets/Hero/feeek7.jpg"
 
 const slides = [
   {
     id: 1,
-    image: Image1,
+    image: Image7,
     // mainTitle: "Levels",
     // title: "Luxury Living",
     // subtitle: "Experience premium real estate",
   },
   {
     id: 2,
-    image: Image2,
-    mainTitle: "Levels",
-    title: "Modern Design",
-    subtitle: "Contemporary spaces for modern life",
+    image: Image1,
+    // mainTitle: "Levels",
+    // title: "Modern Design",
+    // subtitle: "Contemporary spaces for modern life",
   },
   {
     id: 3,
-    image: Image3,
+    image: Image2,
     mainTitle: "Levels",
     title: "Future Projects",
     subtitle: "Building tomorrow's communities",

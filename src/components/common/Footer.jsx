@@ -13,7 +13,7 @@ const Footer = () => {
         <div className="flex flex-wrap gap-2 max-w-7xl mx-auto px-4">
           <div className="flex-1 basis-[10rem]">
             <Link to="/" className="flex-shrink-0 flex-align-center gap-x-1 ">
-              <img src={logo} alt="Logo" className="w-16 h-16 object-contain" />
+              <img src={logo} alt="Logo" className="object-contain w-36 h-16" />
             </Link>
             <div className="mt-1">
               <div className="gap-5 my-6 flex-center-center">
