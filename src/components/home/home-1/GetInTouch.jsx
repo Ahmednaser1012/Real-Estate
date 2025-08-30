@@ -31,17 +31,17 @@ const GetInTouch = () => {
             <div className="mt-4 space-y-3">
               <input
                 type="text"
-                className="w-full px-3 py-2 rounded-md outline-none bg-secondary/90 text-slate-100 placeholder:text-slate-300/70 transition-all duration-300 focus:bg-secondary focus:ring-2 focus:ring-blue-400 focus:-translate-y-0.5"
+                className="w-full px-3 py-2 rounded-md outline-none bg-gray-600/90 text-slate-100 placeholder:text-slate-300/70 transition-all duration-300 focus:bg-secondary focus:ring-2 focus:ring-blue-400 focus:-translate-y-0.5"
                 placeholder="Your name.."
               />
               <input
                 type="text"
-                className="w-full px-3 py-2 rounded-md outline-none bg-secondary/90 text-slate-100 placeholder:text-slate-300/70 transition-all duration-300 focus:bg-secondary focus:ring-2 focus:ring-blue-400 focus:-translate-y-0.5"
+                className="w-full px-3 py-2 rounded-md outline-none bg-gray-600/90 text-slate-100 placeholder:text-slate-300/70 transition-all duration-300 focus:bg-secondary focus:ring-2 focus:ring-blue-400 focus:-translate-y-0.5"
                 placeholder="Your email.."
               />
               <textarea
                 type="text"
-                className="w-full p-3 rounded-md outline-none bg-secondary/90 text-slate-100 placeholder:text-slate-300/70 transition-all duration-300 focus:bg-secondary focus:ring-2 focus:ring-blue-400 focus:-translate-y-0.5"
+                className="w-full p-3 rounded-md outline-none bg-gray-600/90 text-slate-100 placeholder:text-slate-300/70 transition-all duration-300 focus:bg-secondary focus:ring-2 focus:ring-blue-400 focus:-translate-y-0.5"
                 rows={3}
                 placeholder="Your message.."
               ></textarea>
