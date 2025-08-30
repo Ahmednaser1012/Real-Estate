@@ -1,4 +1,5 @@
 import { FiArrowRight } from "react-icons/fi";
+import OptimizedImage from "../../common/OptimizedImage";
 
 const Hero = () => {
   return (
@@ -43,7 +44,7 @@ const Hero = () => {
       <div className="flex-1 basis-[20rem] h-full">
         <img
           src="/images/hero-5.jpeg"
-          alt=""
+          alt="Hero image"
           className="w-full h-fit  md:h-[80vh] rounded-xl object-cover"
         />
       </div>

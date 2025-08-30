@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
@@ -13,7 +13,9 @@ root.render(
     <Router>
       <Provider store={store}>
         <AnimatePresence>
-          <App />
+          <Suspense fallback={<div className="loading-placeholder">Loading...</div>}>
+            <App />
+          </Suspense>
         </AnimatePresence>
       </Provider>
     </Router>

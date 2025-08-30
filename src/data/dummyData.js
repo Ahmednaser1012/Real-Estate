@@ -1,10 +1,8 @@
 import {
   BiBuildingHouse,
   BiBuildings,
-  BiFullscreen,
   BiHomeAlt,
   BiMoney,
-  BiShieldAlt2,
 } from "react-icons/bi";
 import {
   FaBehance,
@@ -12,12 +10,12 @@ import {
   FaFacebook,
   FaInstagram,
   FaLinkedin,
-  FaPaintRoller,
   FaTwitter,
   FaVimeo,
   FaYoutube,
 } from "react-icons/fa";
-import { FiHeadphones } from "react-icons/fi";
+
+import { HiOutlineOfficeBuilding } from "react-icons/hi";
 
 export const property = [
   {
@@ -598,39 +596,21 @@ export const teamMembers = [
 export const services = [
   {
     id: 1,
-    name: "luxury apartment",
+    name: "Construction",
     icon: <BiBuildingHouse />,
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod earum commodi provident est ex similique.",
+    text: "Committing to environmentally responsible practices and sustainable developments in all projects. Striving for excellence in every aspect of the business, from design and construction to customer relations and project management.",
   },
   {
     id: 2,
-    name: "architectural design",
-    icon: <BiFullscreen />,
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod earum commodi provident est ex similique.",
+    name: "Commercial Property Developments",
+    icon: <HiOutlineOfficeBuilding />,
+    text: "At Levels, we are committed to transforming commercial spaces into dynamic business hubs. Whether it's office buildings, retail spaces, or mixed-use developments, our expertise ensures functional, modern, and attractive properties.",
   },
   {
     id: 3,
-    name: "extra security",
-    icon: <BiShieldAlt2 />,
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod earum commodi provident est ex similique.",
-  },
-  {
-    id: 4,
-    name: "Home remodelling",
+    name: "Residential Property Developments",
     icon: <BiHomeAlt />,
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod earum commodi provident est ex similique.",
-  },
-  {
-    id: 5,
-    name: "office renovation",
-    icon: <FaPaintRoller />,
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod earum commodi provident est ex similique.",
-  },
-  {
-    id: 6,
-    name: "24/7 support",
-    icon: <FiHeadphones />,
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod earum commodi provident est ex similique.",
+    text: "Levels is dedicated to creating exceptional residential communities that cater to a variety of lifestyles. We focus on building homes that combine comfort, modern design, and functionality.",
   },
 ];
 

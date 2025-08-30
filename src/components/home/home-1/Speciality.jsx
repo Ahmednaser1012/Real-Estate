@@ -1,73 +1,210 @@
-import { FiCheck, FiLayers, FiUsers } from "react-icons/fi";
+import { FiCheck } from "react-icons/fi";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import video1 from "../../../assets/HomePage/video1.mp4";
 
 const Speciality = () => {
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        duration: 0.6,
+      },
+    },
+  };
+
+  const leftSideVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const rightSideVariants = {
+    hidden: { opacity: 0, x: 50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const checkItemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  
   return (
-    <div className="pt-10 pb-16">
+    <motion.div
+      ref={ref}
+      className="pt-10 pb-16"
+      variants={containerVariants}
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
+    >
       <div className="flex flex-wrap gap-10">
-        <div className="flex-1 basis-[20rem]">
-          <h1 className="sub-heading">about us</h1>
-          <h1 className="heading">we specialize in quality home renovations</h1>
-          <p className="mt-3">
+        <motion.div 
+          className="flex-1 basis-[20rem]"
+          variants={leftSideVariants}
+        >
+          <motion.h1 
+            className="sub-heading"
+            variants={checkItemVariants}
+          >
+            about us
+          </motion.h1>
+          <motion.h1 
+            className="heading"
+            variants={checkItemVariants}
+          >
+            we specialize in quality home renovations
+          </motion.h1>
+          <motion.p 
+            className="mt-3"
+            variants={checkItemVariants}
+          >
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo laborum
             earum saepe quibusdam, temporibus aut sapiente, ea alias libero,
             ipsam perferendis. Consectetur maiores, dicta, earum eaque facilis
             adipisci dignissimos optio fuga officia itaque quo impedit.
-          </p>
-          <div className="mt-4">
-            <div className="flex-align-center gap-x-2">
-              <div className="icon-box text-primary !bg-primary/20">
+          </motion.p>
+          <motion.div 
+            className="mt-4"
+            variants={checkItemVariants}
+          >
+            <motion.div 
+              className="flex-align-center gap-x-2"
+              variants={checkItemVariants}
+              whileHover={{ x: 5 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <motion.div 
+                className="icon-box text-primary !bg-primary/20"
+                whileHover={{ scale: 1.1, rotate: 360 }}
+                transition={{ duration: 0.3 }}
+              >
                 <FiCheck />
-              </div>
+              </motion.div>
               <p>Outstanding Property</p>
-            </div>
-            <div className="mt-2 flex-align-center gap-x-2">
-              <div className="icon-box text-primary !bg-primary/20">
+            </motion.div>
+            <motion.div 
+              className="mt-2 flex-align-center gap-x-2"
+              variants={checkItemVariants}
+              whileHover={{ x: 5 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <motion.div 
+                className="icon-box text-primary !bg-primary/20"
+                whileHover={{ scale: 1.1, rotate: 360 }}
+                transition={{ duration: 0.3 }}
+              >
                 <FiCheck />
-              </div>
+              </motion.div>
               <p>Professional and experienced human resource</p>
-            </div>
-            <div className="mt-2 flex-align-center gap-x-2">
-              <div className="icon-box text-primary !bg-primary/20">
+            </motion.div>
+            <motion.div 
+              className="mt-2 flex-align-center gap-x-2"
+              variants={checkItemVariants}
+              whileHover={{ x: 5 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <motion.div 
+                className="icon-box text-primary !bg-primary/20"
+                whileHover={{ scale: 1.1, rotate: 360 }}
+                transition={{ duration: 0.3 }}
+              >
                 <FiCheck />
-              </div>
+              </motion.div>
               <p>Provide the best services for users</p>
-            </div>
-            <div className="mt-2 flex-align-center gap-x-2">
-              <div className="icon-box text-primary !bg-primary/20">
+            </motion.div>
+            <motion.div 
+              className="mt-2 flex-align-center gap-x-2"
+              variants={checkItemVariants}
+              whileHover={{ x: 5 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <motion.div 
+                className="icon-box text-primary !bg-primary/20"
+                whileHover={{ scale: 1.1, rotate: 360 }}
+                transition={{ duration: 0.3 }}
+              >
                 <FiCheck />
-              </div>
+              </motion.div>
               <p>Modern city locations and exceptional lifestyle</p>
-            </div>
-            <button className="mt-4 btn btn-primary">read more</button>
-          </div>
-        </div>
-        <div className="flex-1 basis-[20rem]">
+            </motion.div>
+            <motion.button 
+              className="mt-4 btn btn-primary"
+              variants={checkItemVariants}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              read more
+            </motion.button>
+          </motion.div>
+        </motion.div>
+        <motion.div 
+          className="flex-1 basis-[20rem]"
+          variants={rightSideVariants}
+        >
           <div className="relative">
-            <img
-              src="/images/property (5).jpg"
-              alt=""
-              className="rounded-lg w-full sm:h-[400px] object-cover"
+            <motion.video
+              src={video1}
+              autoPlay
+              loop
+              muted
+              playsInline
+              controls
+              className="rounded-lg w-full sm:h-[400px] object-fill"
+              initial={{ 
+                scale: 1.2, 
+                opacity: 0,
+                clipPath: "inset(0 100% 0 0)"
+              }}
+              animate={inView ? { 
+                scale: 1, 
+                opacity: 1,
+                clipPath: "inset(0 0% 0 0)"
+              } : { 
+                scale: 1.2, 
+                opacity: 0,
+                clipPath: "inset(0 100% 0 0)"
+              }}
+              transition={{ 
+                duration: 1.2, 
+                ease: "easeOut",
+                clipPath: { duration: 1.5, ease: "easeInOut" }
+              }}
+              whileHover={{ scale: 1.02 }}
             />
-            <div className="absolute -bottom-10 sm:bottom-5 -left-2 md:-left-20">
-              <div className="p-3 bg-white rounded-lg shadow-md w-72 flex-center-between gap-x-3 dark:bg-dark-light">
-                <h1>We have been serving our customers for over 70 years</h1>
-                <div className="icon-box text-primary !bg-primary/20">
-                  <FiUsers />
-                </div>
-              </div>
-              <div className="p-3 mt-4 ml-8 bg-white rounded-lg shadow-md w-72 flex-center-between gap-x-3 dark:bg-dark-light">
-                <h1>
-                  Working with the symbol and reputation of trustworthy trait
-                </h1>
-                <div className="icon-box text-primary !bg-primary/20">
-                  <FiLayers />
-                </div>
-              </div>
-            </div>
+           
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
