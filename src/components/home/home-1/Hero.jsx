@@ -13,21 +13,21 @@ const slides = [
     id: 1,
     image: Image7,
     // mainTitle: "Levels",
-    // title: "Luxury Living",
+    title: "Luxury Living",
     // subtitle: "Experience premium real estate",
   },
   {
     id: 2,
     image: Image1,
     // mainTitle: "Levels",
-    // title: "Modern Design",
+    title: "Modern Design",
     // subtitle: "Contemporary spaces for modern life",
   },
   {
     id: 3,
     image: Image2,
     mainTitle: "Levels",
-    title: "Future Projects",
+    // title: "Future Projects",
     subtitle: "Building tomorrow's communities",
   },
   {
@@ -128,7 +128,7 @@ export default function ImageSlider() {
               isAnimating ? "opacity-0 translate-y-20 scale-95" : "opacity-100 translate-y-0 scale-100"
             }`}
           >
-            <h2 className="text-2xl md:text-3xl font-light mb-2 tracking-wide">{slides[currentSlide].title}</h2>
+            {/* <h2 className="text-2xl md:text-3xl font-light mb-2 tracking-wide">{slides[currentSlide].title}</h2> */}
             <p className="text-lg md:text-xl opacity-90 tracking-wide">{slides[currentSlide].subtitle}</p>
           </div>
         </div>
