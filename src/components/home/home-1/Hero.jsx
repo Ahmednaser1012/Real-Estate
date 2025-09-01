@@ -27,7 +27,7 @@ const slides = [
     id: 3,
     image: Image2,
     mainTitle: "Levels",
-    // title: "Future Projects",
+    title: "Future Projects",
     subtitle: "Building tomorrow's communities",
   },
   {
