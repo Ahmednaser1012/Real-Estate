@@ -65,7 +65,7 @@ function App() {
           >
             <Suspense
               fallback={
-                <div className="loading-placeholder">Loading page...</div>
+                <div className="loading-placeholder"></div>
               }
             >
               <Routes>
@@ -82,7 +82,7 @@ function App() {
               </Routes>
             </Suspense>
           </div>
-          <div className="px-[2%] md:px-[6%] bg-card-dark border border-card-dark">
+          <div className="px-[2%] md:px-[6%] bg-black  py-5">
             {/* <NewsLetter /> */}
             <div className="mt-20">
               <Suspense

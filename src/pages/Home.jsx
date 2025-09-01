@@ -1,6 +1,6 @@
 import {
   Brands,
-  Counter,
+  // Counter,
   Featured,
   Projects,
   Services,
@@ -26,7 +26,7 @@ const Home = () => {
           <Speciality />
           <Services />
           <Featured />
-          <Counter />
+          {/* <Counter /> */}
           <Projects />
           {/* <Testimonial /> */}
           <Brands />
