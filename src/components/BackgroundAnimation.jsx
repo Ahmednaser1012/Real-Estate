@@ -5,7 +5,7 @@ const GradientDefinitions = () => (
   <defs>
     {/* Gradient definitions with real estate colors */}
     <linearGradient id="curve1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stopColor="rgba(59, 130, 246, 0.15)" />
+      <stop offset="0%" stopColor="rgba(13, 57, 128, 0.15)" />
       <stop offset="50%" stopColor="rgba(147, 51, 234, 0.1)" />
       <stop offset="100%" stopColor="rgba(236, 72, 153, 0.05)" />
     </linearGradient>
@@ -45,33 +45,33 @@ const FlowingCurves = () => (
     />
 
     {/* Top flowing curves */}
-    <path
+    {/* <path
       d="M-200 200 Q400 100 800 200 T1600 100 Q1800 50 2000 150 L2000 0 L-200 0 Z"
       fill="url(#curve3)"
       className="float-curve-animation-delayed"
-    />
+    /> */}
   </>
 );
 
  
-const GlowCircles = () => (
-  <>
-    <circle 
-      cx="600" 
-      cy="300" 
-      r="300" 
-      fill="url(#glow1)" 
-      className="glow-pulse-animation"
-    />
-    <circle 
-      cx="1300" 
-      cy="700" 
-      r="400" 
-      fill="url(#glow2)" 
-      className="glow-pulse-animation-delayed"
-    />
-  </>
-);
+// const GlowCircles = () => (
+//   <>
+//     <circle 
+//       cx="600" 
+//       cy="300" 
+//       r="300" 
+//       fill="url(#glow1)" 
+//       className="glow-pulse-animation"
+//     />
+//     <circle 
+//       cx="1300" 
+//       cy="700" 
+//       r="400" 
+//       fill="url(#glow2)" 
+//       className="glow-pulse-animation-delayed"
+//     />
+//   </>
+// );
 
  
 const FloatingParticles = () => (
@@ -80,9 +80,9 @@ const FloatingParticles = () => (
       <div
         key={`particle-${i}`}
         className={`absolute rounded-full ${
-          i % 4 === 0 ? "bg-blue-400/10" : 
-          i % 4 === 1 ? "bg-purple-400/10" : 
-          i % 4 === 2 ? "bg-emerald-400/10" : "bg-amber-400/10"
+          i % 4 === 0 ? "bg-blue-400/30" : 
+          i % 4 === 1 ? "bg-purple-400/30" : 
+          i % 4 === 2 ? "bg-emerald-400/20" : "bg-amber-400/20"
         } ${
           i % 3 === 0 ? "w-1 h-1" : 
           i % 3 === 1 ? "w-2 h-2" : "w-3 h-3"
@@ -99,18 +99,18 @@ const FloatingParticles = () => (
 );
 
  
-const GridPattern = () => (
-  <div 
-    className="absolute inset-0 opacity-[0.02] grid-move-animation"
-    style={{
-      backgroundImage: `
-        linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
-      `,
-      backgroundSize: '50px 50px'
-    }}
-  />
-);
+// const GridPattern = () => (
+//   <div 
+//     className="absolute inset-0 opacity-[0.02] grid-move-animation"
+//     style={{
+//       backgroundImage: `
+//         linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+//         linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+//       `,
+//       backgroundSize: '50px 50px'
+//     }}
+//   />
+// );
 
 
 export default function BackgroundAnimation() {
@@ -127,16 +127,16 @@ export default function BackgroundAnimation() {
         >
           <GradientDefinitions />
           <FlowingCurves />
-          <GlowCircles />
+          {/* <GlowCircles /> */}
         </svg>
       </div>
       
       <FloatingParticles />
 
       {/* Gradient overlay for depth */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900/20 via-transparent to-slate-900/20" />
+      {/* <div className="absolute inset-0 bg-gradient-to-br from-slate-900/20 via-transparent to-slate-900/20" /> */}
       
-      <GridPattern />
+      {/* <GridPattern /> */}
     </div>
   );
 }

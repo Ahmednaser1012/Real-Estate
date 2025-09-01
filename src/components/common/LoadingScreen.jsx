@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
+import "../../styles/loadingScreen.css";
 
-/**
- * Loading screen component with animated transitions
- * @param {Object} props - Component props
- * @param {Function} props.onComplete - Callback function to execute when animation completes
- */
 export default function LoadingScreen({ onComplete }) {
   const [animationPhase, setAnimationPhase] = useState("falling");
 
@@ -35,20 +31,21 @@ export default function LoadingScreen({ onComplete }) {
           {[...Array(20)].map((_, i) => (
             <div
               key={i}
-              className={`absolute w-2 h-2 bg-gray-300 rounded-full opacity-30 ${
+              className={`absolute w-2 h-2 bg-gray-300 rounded-full opacity-30  ${
                 animationPhase === "falling" ? "animate-float-particle" : ""
               }`}
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
                 animationDelay: `${Math.random() * 2}s`,
+                
               }}
             />
           ))}
         </div>
 
         <div className="text-center relative z-10">
-          <div className="text-9xl font-light text-gray-800 tracking-wider">
+          <div className="text-9xl font-light text-gray-800 tracking-wider" style={{ fontFamily: 'thenightwatch, sans-serif' }}>
             <span
               className={`inline-block transition-all duration-700 ${
                 animationPhase === "falling" ? "animate-fall-letter-1" : ""
@@ -92,7 +89,7 @@ export default function LoadingScreen({ onComplete }) {
               s
             </span>
           </div>
-          <div className="text-4xl font-light text-gray-600 tracking-wider mt-2">
+          <div className="text-4xl font-light text-red-500 tracking-wider mt-2" style={{ fontFamily: 'thenightwatch, sans-serif' }}>
             <span
               className={`inline-block transition-all duration-700 ${
                 animationPhase === "falling" ? "animate-fade-up-1" : ""
@@ -187,7 +184,7 @@ export default function LoadingScreen({ onComplete }) {
             <div className="w-8 h-8 border-4 border-gray-800 rounded-full animate-spiral-center"></div>
           </div>
 
-          {[...Array(8)].map((_, i) => (
+          {/* {[...Array(8)].map((_, i) => (
             <div
               key={`spiral-arm-${i}`}
               className="fixed w-2 h-96 bg-gradient-to-t from-gray-800 via-gray-600 to-transparent z-49 animate-spiral-arm"
@@ -199,7 +196,7 @@ export default function LoadingScreen({ onComplete }) {
                 animationDelay: `${i * 0.1}s`,
               }}
             />
-          ))}
+          ))} */}
 
           {[...Array(6)].map((_, i) => (
             <div
@@ -217,7 +214,7 @@ export default function LoadingScreen({ onComplete }) {
             />
           ))}
 
-          {[...Array(20)].map((_, i) => (
+          {/* {[...Array(20)].map((_, i) => (
             <div
               key={`spiral-particle-${i}`}
               className="fixed w-2 h-2 bg-gray-600 rounded-full z-47 animate-spiral-particle"
@@ -227,7 +224,7 @@ export default function LoadingScreen({ onComplete }) {
                 animationDelay: `${i * 0.05}s`,
               }}
             />
-          ))}
+          ))} */}
 
           <div className="fixed inset-0 bg-gradient-radial from-transparent via-gray-100/50 to-white z-46 animate-spiral-expand"></div>
         </>

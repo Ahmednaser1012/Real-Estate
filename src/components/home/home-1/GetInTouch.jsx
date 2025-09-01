@@ -20,7 +20,7 @@ const GetInTouch = () => {
         </div>
 
         {/* Form side with animated card */}
-        <div className="flex-1 basis-[18rem] bg-gray-800 py-6 !text-slate-200 flex items-center">
+        <div className="flex-1 basis-[18rem] bg-[#1d1d304c]  py-6 !text-slate-200 flex items-center">
           <div className="max-w-[350px] w-full mx-auto bg-[#27282e55] p-4 rounded-lg shadow-xl transition-all duration-300 hover:-translate-y-0.5 focus-within:-translate-y-0.5 hover:shadow-2xl">
             <h1 className="text-lg font-semibold">Write To Us</h1>
             <p className="mt-1 text-sm text-slate-200/90">
