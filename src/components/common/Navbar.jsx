@@ -116,7 +116,7 @@ const Navbar = () => {
                 onClick={handleCloseSidebar}
               >
                 <ul
-                  className={`mobile-dialog overflow-auto absolute flex flex-col space-y-4 p-3 bg-white dark:bg-card-dark h-screen max-w-[300px] w-full -translate-x-[500px] transition-a ${
+                  className={`mobile-dialog overflow-auto absolute flex flex-col space-y-4 p-3 bg-white dark:bg-black h-screen max-w-[300px] w-full -translate-x-[500px] transition-a ${
                     isSidebarOpen && "open"
                   }`}
                 >

@@ -52,7 +52,7 @@ const FloatingButtons = () => {
       {/* Register Form Modal */}
       {showRegisterForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-card-dark rounded-lg shadow-xl p-6 w-full max-w-md mx-4 relative">
+          <div className="bg-white dark:bg-main-dark rounded-lg shadow-xl p-6 w-full max-w-md mx-4 relative">
             <button
               onClick={toggleRegisterForm}
               className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-white"

@@ -20,7 +20,7 @@ const Stats = () => {
             alt=""
             className="object-cover w-full h-full rounded-lg"
           />
-          <div className="absolute w-4/5 p-3 -translate-x-1/2 border-4 border-white rounded-lg -bottom-10 left-1/2 dark:border-main-dark bg-secondary text-slate-200">
+          {/* <div className="absolute w-4/5 p-3 -translate-x-1/2 border-4 border-white rounded-lg -bottom-10 left-1/2 dark:border-main-dark bg-secondary text-slate-200">
             <div className="gap-5 flex-center-between">
               <h1 className="font-semibold">
                 Come & join with our Leading Technology Firm
@@ -31,7 +31,7 @@ const Stats = () => {
                 <p>People Joined</p>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="relative flex-1 basis-[22rem]">
