@@ -54,7 +54,7 @@ const Services = () => {
       </motion.div>
 
       {/* Services Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
         {services.map(({ id, name, icon, text }) => (
           <motion.div
             key={id}
@@ -68,7 +68,7 @@ const Services = () => {
           >
             {/* Icon */}
             <motion.div
-              className="w-20 h-20 mx-auto mb-6 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300"
+              className="w-20 h-20 mx-auto mb-6 bg-primary/4 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300"
               whileHover={{ 
                 scale: 1.1,
                 rotate: 5,
@@ -80,7 +80,7 @@ const Services = () => {
 
             {/* Content */}
             <div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-primary transition-colors duration-300">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-gray-600 transition-colors duration-300">
                 {name}
               </h3>
               <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">

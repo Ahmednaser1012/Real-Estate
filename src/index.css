@@ -55,7 +55,7 @@ footer a:hover {
 }
 
 .sub-heading {
-  @apply text-primary text-sm uppercase w-fit bg-primary/20 px-3 py-[3px] rounded-full mb-3 max-w-[200px];
+  @apply text-white text-sm uppercase w-fit bg-gradient-to-r from-secondary to-primary px-3 py-[3px] rounded-full mb-3 max-w-[200px];
 }
 
 .image {
@@ -75,11 +75,11 @@ footer a:hover {
 }
 
 .btn-primary {
-  @apply bg-primary text-white hover:bg-[#f7751e] shadow-md shadow-primary/60;
+  @apply bg-gradient-to-r from-primary to-secondaryOrange text-white hover:bg-[#f7751e] shadow-md shadow-primary/60;
 }
 
 .btn-secondary {
-  @apply bg-secondary text-white hover:bg-[#02293e];
+  @apply bg-gradient-to-r from-primary to-secondary text-white hover:bg-[#02293e];
 }
 
 .icon-box {

@@ -19,9 +19,9 @@ module.exports = {
         questrial: "Questrial",
       },
       colors: {
-        primary: "#FF6400",
-        secondary: "#3340946a",
-        // secondaryOrange: "#e12107ff",
+        primary: "#c20202c7",
+        secondary: "#3340949c",
+        secondaryOrange: "#111010ff",
         "main-bg": "#e2e2e2a9",
         "main-dark": "#100f0ff9",
         "card-dark": "rgba(20, 23, 30, 0.15)",

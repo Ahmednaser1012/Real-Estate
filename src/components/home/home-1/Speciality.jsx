@@ -102,7 +102,7 @@ const Speciality = () => {
               transition={{ type: "spring", stiffness: 300 }}
             >
               <motion.div 
-                className="icon-box text-primary !bg-primary/20"
+                className="icon-box text-primary bg-gray-200/60 "
                 whileHover={{ scale: 1.1, rotate: 360 }}
                 transition={{ duration: 0.3 }}
               >
@@ -117,7 +117,7 @@ const Speciality = () => {
               transition={{ type: "spring", stiffness: 300 }}
             >
               <motion.div 
-                className="icon-box text-primary !bg-primary/20"
+                className="icon-box text-primary bg-gray-200/60 "
                 whileHover={{ scale: 1.1, rotate: 360 }}
                 transition={{ duration: 0.3 }}
               >
@@ -132,7 +132,7 @@ const Speciality = () => {
               transition={{ type: "spring", stiffness: 300 }}
             >
               <motion.div 
-                className="icon-box text-primary !bg-primary/20"
+                className="icon-box text-primary bg-gray-200/60 "
                 whileHover={{ scale: 1.1, rotate: 360 }}
                 transition={{ duration: 0.3 }}
               >
@@ -147,7 +147,7 @@ const Speciality = () => {
               transition={{ type: "spring", stiffness: 300 }}
             >
               <motion.div 
-                className="icon-box text-primary !bg-primary/20"
+                className="icon-box text-primary bg-gray-200/60"
                 whileHover={{ scale: 1.1, rotate: 360 }}
                 transition={{ duration: 0.3 }}
               >

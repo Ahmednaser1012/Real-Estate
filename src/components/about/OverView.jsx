@@ -25,6 +25,7 @@ const OverView = () => {
             <div className="absolute top-0 left-0 flex-col w-full h-full bg-black/50 flex-center-center">
               <div className="icon-box !text-primary !bg-transparent border !border-primary relative before:absolute before:w-full before:h-full before:rounded-full before:animate-ping before:bg-primary/60">
                 <BiPlay className="text-2xl" />
+                
               </div>
               <h1 className="mt-3 text-3xl font-semibold text-white capitalize">
                 watch the overview
