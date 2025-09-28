@@ -24,6 +24,8 @@ const Contact = lazy(() => import("./pages/Contact"));
 const Portifolio = lazy(() => import("./pages/Portifolio"));
 const Faqs = lazy(() => import("./pages/Faqs"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
+const AdminLogin = lazy(() => import("./pages/AdminLogin"));
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 
 // import NewsLetter from "./components/common/NewsLetter";
 function App() {
@@ -31,6 +33,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const route = useLocation();
+  const isAdminRoute = route.pathname.startsWith('/admin');
 
   // Show/Hide scroll to top button
   window.addEventListener("scroll", () => {
@@ -45,6 +48,25 @@ function App() {
     window.scrollTo(0, 0);
   }, [route]);
 
+  // Admin routes layout (without navbar/footer)
+  if (isAdminRoute) {
+    return (
+      <div>
+        {loading ? (
+          <LoadingScreen onComplete={() => setLoading(false)} />
+        ) : (
+          <Suspense fallback={<div className="loading-placeholder">Loading...</div>}>
+            <Routes>
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            </Routes>
+          </Suspense>
+        )}
+      </div>
+    );
+  }
+
+  // Regular routes layout (with navbar/footer)
   return (
     <div>
       {loading ? (
