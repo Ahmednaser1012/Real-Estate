@@ -14,7 +14,7 @@ const GetInTouch = () => {
             loop
             playsInline
             controls
-            className={`w-full h-full object-fill transition-opacity transition-transform duration-700 ease-out ${videoReady ? 'opacity-100' : 'opacity-0'} group-hover:scale-105`}
+            className={`w-full h-full object-fill transition-opacity transition-transform duration-700 ease-out ${videoReady ? 'opacity-100' : 'opacity-0'} `}
             onLoadedData={() => setVideoReady(true)}
           />
         </div>
