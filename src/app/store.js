@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import dataReducer from "../features/dataSlice";
 import uiReducer from "../features/uiSlice";
+import adminReducer from "../features/adminSlice";
 import { api } from "./api";
 
 const store = configureStore({
   reducer: {
     ui: uiReducer,
     data: dataReducer,
+    admin: adminReducer,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>

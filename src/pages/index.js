@@ -20,3 +20,5 @@ export { default as Portifolio } from "./Portifolio";
 // export { default as Team } from "./Team";
 export { default as Faqs } from "./Faqs";
 export { default as PageNotFound } from "./PageNotFound";
+export { default as AdminLogin } from "./AdminLogin";
+export { default as AdminDashboard } from "./AdminDashboard";

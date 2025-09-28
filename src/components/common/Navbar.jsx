@@ -32,8 +32,8 @@ const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Dark mode toggle
@@ -81,8 +81,8 @@ const Navbar = () => {
       ) : (
         <div
           className={`navbar fixed w-full z-20 top-0 left-0 py-2 transition-all duration-300 ${
-            isScrolled 
-              ? "bg-gray-900/90 backdrop-blur-md shadow-lg dark:bg-card-dark/90" 
+            isScrolled
+              ? "bg-gray-900/90 backdrop-blur-md shadow-lg dark:bg-card-dark/90"
               : "bg-transparent"
           }`}
           onMouseOver={handleClose}
@@ -116,7 +116,7 @@ const Navbar = () => {
                 onClick={handleCloseSidebar}
               >
                 <ul
-                  className={`mobile-dialog overflow-auto absolute flex flex-col space-y-4 p-3 bg-white dark:bg-black h-screen max-w-[300px] w-full -translate-x-[500px] transition-a ${
+                  className={`mobile-dialog overflow-auto absolute flex flex-col space-y-4 p-3 bg-white dark:bg-black h-screen max-w-[300px] w-full -translate-x-[500px] transition-a z-50 ${
                     isSidebarOpen && "open"
                   }`}
                 >
@@ -199,7 +199,7 @@ const Navbar = () => {
                 </div>
                 {/*------------------------------- Mobile Menu Toogle------------------------- */}
                 <div
-                  className="icon-box md:hidden"
+                  className="icon-box md:hidden "
                   onClick={() => dispatch(openSidebar())}
                 >
                   <BiMenu />
