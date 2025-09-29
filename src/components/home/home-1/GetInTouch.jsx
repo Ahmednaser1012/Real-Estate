@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import video2 from "../../../assets/HomePage/video2.mp4";
 const GetInTouch = () => {
   const [videoReady, setVideoReady] = useState(false);
@@ -14,7 +14,9 @@ const GetInTouch = () => {
             loop
             playsInline
             controls
-            className={`w-full h-full object-fill transition-opacity transition-transform duration-700 ease-out ${videoReady ? 'opacity-100' : 'opacity-0'} `}
+            className={`w-full h-full object-fill transition-opacity transition-transform duration-700 ease-out ${
+              videoReady ? "opacity-100" : "opacity-0"
+            } `}
             onLoadedData={() => setVideoReady(true)}
           />
         </div>
@@ -38,6 +40,11 @@ const GetInTouch = () => {
                 type="text"
                 className="w-full px-3 py-2 rounded-md outline-none bg-gray-600/90 text-slate-100 placeholder:text-slate-300/70 transition-all duration-300 focus:bg-secondary focus:ring-2 focus:ring-blue-400 focus:-translate-y-0.5"
                 placeholder="Your email.."
+              />
+              <input
+                type="phone"
+                className="w-full px-3 py-2 rounded-md outline-none bg-gray-600/90 text-slate-100 placeholder:text-slate-300/70 transition-all duration-300 focus:bg-secondary focus:ring-2 focus:ring-blue-400 focus:-translate-y-0.5"
+                placeholder="Your phone number.."
               />
               <textarea
                 type="text"
