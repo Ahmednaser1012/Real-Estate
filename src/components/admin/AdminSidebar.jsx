@@ -6,7 +6,7 @@ import {
   BiHome,
   BiBuildings,
   BiUser,
-  BiBarChart,
+  BiBookOpen,
   BiCog,
   BiLogOut,
   BiMenu,
@@ -22,7 +22,7 @@ const AdminSidebar = ({ onLogout }) => {
     { id: "overview", name: "Overview", icon: BiHome },
     { id: "properties", name: "Properties", icon: BiBuildings },
     { id: "clients", name: "Clients", icon: BiUser },
-    { id: "reports", name: "Reports", icon: BiBarChart },
+    { id: "blogs", name: "Blogs", icon: BiBookOpen },
     { id: "settings", name: "Settings", icon: BiCog },
   ];
 
