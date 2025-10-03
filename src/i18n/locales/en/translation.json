@@ -1,0 +1,101 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "properties": "Properties",
+    "blog": "Blog",
+    "contact": "Contact",
+    "portfolio": "Portfolio",
+    "faqs": "FAQs"
+  },
+  "hero": {
+    "title": "Find Your Dream Property",
+    "subtitle": "Discover the perfect place to call home",
+    "searchPlaceholder": "Search for properties...",
+    "searchButton": "Search"
+  },
+  "common": {
+    "learnMore": "Learn More",
+    "readMore": "Read More",
+    "viewAll": "View All",
+    "contactUs": "Contact Us",
+    "getStarted": "Get Started",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "loading": "Loading...",
+    "noData": "No data available",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "property": {
+    "forSale": "For Sale",
+    "forRent": "For Rent",
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "area": "Area",
+    "price": "Price",
+    "location": "Location",
+    "type": "Type",
+    "status": "Status",
+    "features": "Features",
+    "description": "Description",
+    "viewDetails": "View Details",
+    "contactAgent": "Contact Agent"
+  },
+  "about": {
+    "title": "About Us",
+    "subtitle": "Your Trusted Real Estate Partner",
+    "description": "We are committed to helping you find your dream property",
+    "ourMission": "Our Mission",
+    "ourVision": "Our Vision",
+    "ourValues": "Our Values"
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "What We Offer",
+    "buying": "Property Buying",
+    "selling": "Property Selling",
+    "renting": "Property Renting",
+    "consultation": "Real Estate Consultation"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in Touch",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "sendMessage": "Send Message",
+    "address": "Address",
+    "callUs": "Call Us",
+    "emailUs": "Email Us"
+  },
+  "footer": {
+    "aboutUs": "About Us",
+    "quickLinks": "Quick Links",
+    "contactInfo": "Contact Info",
+    "followUs": "Follow Us",
+    "allRightsReserved": "All Rights Reserved",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service"
+  },
+  "admin": {
+    "dashboard": "Dashboard",
+    "properties": "Properties",
+    "users": "Users",
+    "settings": "Settings",
+    "logout": "Logout",
+    "addNew": "Add New",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel"
+  }
+}

@@ -11,8 +11,8 @@ import {
   adminStore,
 } from "../features/adminSlice";
 import { toggleDarkMode, uiStore } from "../features/uiSlice";
-import AdminInput from "../components/admin/AdminInput";
-import AdminButton from "../components/admin/AdminButton";
+import AdminInput from "../components/admin/ui/AdminInput";
+import AdminButton from "../components/admin/ui/AdminButton";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");

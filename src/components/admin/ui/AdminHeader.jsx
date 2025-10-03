@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleDarkMode, uiStore } from "../../features/uiSlice";
-import { adminStore } from "../../features/adminSlice";
+import { toggleDarkMode, uiStore } from "../../../features/uiSlice";
+import { adminStore } from "../../../features/adminSlice";
 import { FiSun, FiMoon, FiLogOut, FiSettings, FiUser } from "react-icons/fi";
 import { BiUser, BiChevronDown } from "react-icons/bi";
 import { motion, AnimatePresence } from "framer-motion";

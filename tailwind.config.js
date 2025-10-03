@@ -173,5 +173,6 @@ module.exports = {
       };
       addUtilities(newUtilities);
     }),
+    require('tailwindcss-rtl'),
   ],
 };

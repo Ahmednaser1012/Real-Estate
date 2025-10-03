@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import LoadingScreen from "./LoadingScreen";
 import logo from "../../assets/Logo.PNG";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 import {
   closeDropdown,
@@ -186,6 +187,11 @@ const Navbar = () => {
                   </div>
                 </form>
 
+                {/*----------------------------- Language Switcher-------------------------------------------------- */}
+                <div className="hidden md:block">
+                  <LanguageSwitcher />
+                </div>
+                
                 {/*----------------------------- Dark mode toggle-------------------------------------------------- */}
                 <div
                   className="bg-white shadow-md icon-box dark:bg-dark-light hover:shadow-lg hover:bg-transparent"

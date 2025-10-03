@@ -6,6 +6,7 @@ import App from "./App";
 import { Provider } from "react-redux";
 import store from "./app/store";
 import { AnimatePresence } from "framer-motion";
+import "./i18n/config"; // Import i18n configuration
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

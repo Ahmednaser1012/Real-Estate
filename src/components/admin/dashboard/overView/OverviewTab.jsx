@@ -1,10 +1,10 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { BiBuildings, BiUser, BiMoney, BiEnvelope } from 'react-icons/bi';
-import AdminCard from '../AdminCard';
-import StatsCard from '../StatsCard';
-import AdminButton from '../AdminButton';
-import PropertiesTable from './PropertiesTable';
+import React from "react";
+import { motion } from "framer-motion";
+import { BiBuildings, BiUser, BiMoney, BiEnvelope } from "react-icons/bi";
+import AdminCard from "../../ui/AdminCard";
+import StatsCard from "../../ui/StatsCard";
+import AdminButton from "../../ui/AdminButton";
+import PropertiesTable from "./PropertiesTable";
 
 const OverviewTab = () => {
   // Mock data - in real app would come from API
