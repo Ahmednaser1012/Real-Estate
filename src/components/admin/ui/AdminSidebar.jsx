@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
-import { setActiveTab, adminStore } from "../../features/adminSlice";
+import { setActiveTab, adminStore } from "../../../features/adminSlice";
 import {
   BiHome,
   BiBuildings,

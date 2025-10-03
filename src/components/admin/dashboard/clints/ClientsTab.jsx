@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import {
   BiUser,
   BiEnvelope,
@@ -8,7 +8,7 @@ import {
   BiCalendar,
   BiMap,
 } from "react-icons/bi";
-import AdminCard from "../AdminCard";
+import AdminCard from "../../ui/AdminCard";
 
 const ClientsTab = () => {
   // Modal state
@@ -26,7 +26,6 @@ const ClientsTab = () => {
       registrationDate: "2024-01-15",
       location: "New Cairo, Egypt",
       propertyType: "Apartment",
-      
     },
     {
       id: 2,
@@ -37,7 +36,6 @@ const ClientsTab = () => {
       registrationDate: "2024-01-12",
       location: "6th of October, Egypt",
       propertyType: "Villa",
-      
     },
     {
       id: 3,
@@ -48,7 +46,6 @@ const ClientsTab = () => {
       registrationDate: "2024-01-10",
       location: "Downtown Cairo, Egypt",
       propertyType: "Commercial",
-       
     },
   ]);
 

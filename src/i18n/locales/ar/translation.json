@@ -1,0 +1,101 @@
+{
+  "nav": {
+    "home": "الرئيسية",
+    "about": "من نحن",
+    "services": "الخدمات",
+    "properties": "العقارات",
+    "blog": "المدونة",
+    "contact": "اتصل بنا",
+    "portfolio": "معرض الأعمال",
+    "faqs": "الأسئلة الشائعة"
+  },
+  "hero": {
+    "title": "اعثر على عقار أحلامك",
+    "subtitle": "اكتشف المكان المثالي لتسميه منزلك",
+    "searchPlaceholder": "ابحث عن العقارات...",
+    "searchButton": "بحث"
+  },
+  "common": {
+    "learnMore": "اعرف المزيد",
+    "readMore": "اقرأ المزيد",
+    "viewAll": "عرض الكل",
+    "contactUs": "اتصل بنا",
+    "getStarted": "ابدأ الآن",
+    "submit": "إرسال",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "loading": "جاري التحميل...",
+    "noData": "لا توجد بيانات متاحة",
+    "search": "بحث",
+    "filter": "تصفية",
+    "sort": "ترتيب",
+    "previous": "السابق",
+    "next": "التالي"
+  },
+  "property": {
+    "forSale": "للبيع",
+    "forRent": "للإيجار",
+    "bedrooms": "غرف النوم",
+    "bathrooms": "الحمامات",
+    "area": "المساحة",
+    "price": "السعر",
+    "location": "الموقع",
+    "type": "النوع",
+    "status": "الحالة",
+    "features": "المميزات",
+    "description": "الوصف",
+    "viewDetails": "عرض التفاصيل",
+    "contactAgent": "تواصل مع الوكيل"
+  },
+  "about": {
+    "title": "من نحن",
+    "subtitle": "شريكك الموثوق في العقارات",
+    "description": "نحن ملتزمون بمساعدتك في العثور على عقار أحلامك",
+    "ourMission": "مهمتنا",
+    "ourVision": "رؤيتنا",
+    "ourValues": "قيمنا"
+  },
+  "services": {
+    "title": "خدماتنا",
+    "subtitle": "ما نقدمه",
+    "buying": "شراء العقارات",
+    "selling": "بيع العقارات",
+    "renting": "تأجير العقارات",
+    "consultation": "استشارات عقارية"
+  },
+  "contact": {
+    "title": "اتص�� بنا",
+    "subtitle": "تواصل معنا",
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "message": "الرسالة",
+    "sendMessage": "إرسال الرسالة",
+    "address": "العنوان",
+    "callUs": "اتصل بنا",
+    "emailUs": "راسلنا"
+  },
+  "footer": {
+    "aboutUs": "من نحن",
+    "quickLinks": "روابط سريعة",
+    "contactInfo": "معلومات الاتصال",
+    "followUs": "تابعنا",
+    "allRightsReserved": "جميع الحقوق محفوظة",
+    "privacyPolicy": "سياسة الخصوصية",
+    "termsOfService": "شروط الخدمة"
+  },
+  "admin": {
+    "dashboard": "لوحة التحكم",
+    "properties": "العقارات",
+    "users": "المستخدمين",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج",
+    "addNew": "إضافة جديد",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "save": "حفظ",
+    "cancel": "إلغاء"
+  }
+}

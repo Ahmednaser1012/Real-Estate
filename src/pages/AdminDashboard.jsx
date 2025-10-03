@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import { logout, adminStore } from "../features/adminSlice";
 import { uiStore } from "../features/uiSlice";
-import AdminHeader from "../components/admin/AdminHeader";
-import AdminSidebar from "../components/admin/AdminSidebar";
+import AdminHeader from "../components/admin/ui/AdminHeader";
+import AdminSidebar from "../components/admin/ui/AdminSidebar";
 import {
   OverviewTab,
   PropertiesTab,

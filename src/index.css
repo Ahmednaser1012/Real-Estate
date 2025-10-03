@@ -1,8 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Mulish&family=Nunito&family=Nunito+Sans:wght@400;600&family=Poppins:ital,wght@0,400;0,500;1,300;1,400&family=Questrial&family=Raleway&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* RTL Support */
+[dir="rtl"] {
+  direction: rtl;
+}
+
+[dir="ltr"] {
+  direction: ltr;
+}
 
 /* Testing on phone offline */
 @font-face {
@@ -31,6 +41,11 @@ body {
   font-family: myFont;
 }
 
+/* Arabic Font Support */
+[dir="rtl"] body {
+  font-family: 'Cairo', 'Tajawal', sans-serif;
+}
+
 /* General styles */
 p,
 a,
@@ -47,7 +62,7 @@ footer a {
 }
 
 footer a:hover {
-  @apply ml-2 text-primary;
+  @apply text-primary ltr:ml-2 rtl:mr-2;
 }
 
 .heading {
@@ -186,10 +201,11 @@ a.active {
 }
 
 .wb-pagination .prev {
-  @apply mr-4;
+  @apply ltr:mr-4 rtl:ml-4;
 }
+
 .wb-pagination .next {
-  @apply ml-4;
+  @apply ltr:ml-4 rtl:mr-4;
 }
 
 .disabled {
@@ -233,7 +249,7 @@ a.active {
 
 .input-check label::before {
   content: "";
-  @apply w-4 h-4 mr-2 border rounded border-primary;
+  @apply w-4 h-4 ltr:mr-2 rtl:ml-2 border rounded border-primary;
 }
 
 .input-check input[type="checkbox"]:checked + label::before {
@@ -243,11 +259,12 @@ a.active {
 
 .input-radio label::before {
   content: "";
-  @apply w-4 h-4 mr-2 rounded-full border !border-primary;
+  @apply w-4 h-4 ltr:mr-2 rtl:ml-2 rounded-full border !border-primary;
 }
+
 .input-radio label::after {
   content: "";
-  @apply absolute w-2 h-2 top-1/2 left-0 -translate-y-1/2 scale-0 ml-[0.25rem] bg-primary transition-a rounded-full;
+  @apply absolute w-2 h-2 top-1/2 ltr:left-0 rtl:right-0 ltr:ml-[0.25rem] rtl:mr-[0.25rem] -translate-y-1/2 scale-0 bg-primary transition-a rounded-full;
 }
 
 .input-radio input[type="radio"]:checked + label::after {

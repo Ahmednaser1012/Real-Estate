@@ -8,7 +8,8 @@ import {
   BiTrash,
   BiCalendar,
 } from "react-icons/bi";
-import AdminCard from "../AdminCard";
+import AdminCard from "../../ui/AdminCard";
+import AdminButton from "../../ui/AdminButton";
 
 const BlogsTab = () => {
   // Modal state
@@ -177,13 +178,14 @@ const BlogsTab = () => {
         {/* Add Blog Button */}
         <div className="flex justify-between items-center">
           <h3 className="text-lg font-semibold text-white">All Blogs</h3>
-          <button
+          <AdminButton
+            variant="primary"
+            size="md"
+            icon={BiPlus}
             onClick={() => setIsAddModalOpen(true)}
-            className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
           >
-            <BiPlus className="w-5 h-5" />
             Add New Blog
-          </button>
+          </AdminButton>
         </div>
 
         {/* Blogs Grid */}
@@ -204,7 +206,7 @@ const BlogsTab = () => {
                   }}
                 />
                 <div className="absolute top-2 right-2 flex gap-1">
-                  <button 
+                  <button
                     onClick={() => handleEditBlog(blog)}
                     className="p-1 bg-white bg-opacity-80 rounded-full hover:bg-opacity-100 transition-all"
                   >
@@ -244,12 +246,14 @@ const BlogsTab = () => {
           <div className="text-center py-12">
             <BiBookOpen className="w-16 h-16 text-gray-300 mx-auto mb-4" />
             <p className="text-gray-500 mb-4">No blogs found</p>
-            <button
+            <AdminButton
+              variant="primary"
+              size="md"
+              icon={BiPlus}
               onClick={() => setIsAddModalOpen(true)}
-              className="btn btn-primary"
             >
               Add Your First Blog
-            </button>
+            </AdminButton>
           </div>
         )}
       </div>
