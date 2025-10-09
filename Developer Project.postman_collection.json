@@ -1,0 +1,1599 @@
+{
+	"info": {
+		"_postman_id": "c3ef5fb6-9377-4aee-894c-17a64ac992b7",
+		"name": "Developer Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27268334",
+		"_collection_link": "https://restless-water-163295.postman.co/workspace/easy-deal-team~1dd7048c-89da-4f2a-9285-6a0f99ca3f6c/collection/27268334-c3ef5fb6-9377-4aee-894c-17a64ac992b7?action=share&source=collection_link&creator=27268334"
+	},
+	"item": [
+		{
+			"name": "projects",
+			"item": [
+				{
+					"name": "getAll Projects",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "jWe2PlVSKPF0lkYPVZkNYSUpvRGlupQfkw9LWc9ua80e74ed",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/projects?limit=20&offset=0&sort=ASC&sortBy=id",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"projects"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "sort",
+									"value": "ASC"
+								},
+								{
+									"key": "sortBy",
+									"value": "id"
+								},
+								{
+									"key": "projectType",
+									"value": "residential",
+									"disabled": true
+								},
+								{
+									"key": "developerId",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProjectById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/projects/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"projects",
+								"1"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "id",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete project",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/projects/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"projects",
+								"2"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "id",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create project",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "metaTitle",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "metaDescription",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "cityId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "areaId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "residential",
+									"type": "text"
+								},
+								{
+									"key": "area",
+									"value": "500",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "test url location",
+									"type": "text"
+								},
+								{
+									"key": "masterPlan",
+									"type": "file",
+									"src": "postman-cloud:///1f0a0ecf-7b36-42e0-bb2e-29ea6ae6abc0"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"projects"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "id",
+									"disabled": true
+								},
+								{
+									"key": "Content-Type",
+									"value": "multipart/encrypted",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update project",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "metaTitle",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "metaDescription",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "cityId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "areaId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "residential",
+									"type": "text"
+								},
+								{
+									"key": "area",
+									"value": "700",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "test url location",
+									"type": "text"
+								},
+								{
+									"key": "masterPlan",
+									"type": "file",
+									"src": "/C:/Users/hp/Desktop/download (1).jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/projects/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"projects",
+								"1"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "id",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "clients",
+			"item": [
+				{
+					"name": "getAll Clients",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "jWe2PlVSKPF0lkYPVZkNYSUpvRGlupQfkw9LWc9ua80e74ed",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/clients?limit=20&offset=0&sort=ASC&sortBy=id",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"clients"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "sort",
+									"value": "ASC"
+								},
+								{
+									"key": "sortBy",
+									"value": "id"
+								},
+								{
+									"key": "projectType",
+									"value": "residential",
+									"disabled": true
+								},
+								{
+									"key": "developerId",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getClientById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/clients/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"clients",
+								"1"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "id",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete client",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/clients/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"clients",
+								"2"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "id",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create client",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@test.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "01020303938",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "tesrrrrrrrrrrrrrrrrrrrrrrrrrttttttttt",
+									"type": "text"
+								},
+								{
+									"key": "unitType",
+									"value": "apartments",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/clients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"clients"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "id",
+									"disabled": true
+								},
+								{
+									"key": "Content-Type",
+									"value": "multipart/encrypted",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update client",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test updated",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@test.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "01020303938",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "tesrrrrrrrrrrrrrrrrrrrrrrrrrttttttttt",
+									"type": "text"
+								},
+								{
+									"key": "unitType",
+									"value": "apartments",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/clients/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"clients",
+								"1"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "id",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Services",
+			"item": [
+				{
+					"name": "getAll services",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "jWe2PlVSKPF0lkYPVZkNYSUpvRGlupQfkw9LWc9ua80e74ed",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/services?limit=20&offset=0&sort=ASC&sortBy=id",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"services"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "sort",
+									"value": "ASC"
+								},
+								{
+									"key": "sortBy",
+									"value": "id"
+								},
+								{
+									"key": "projectType",
+									"value": "residential",
+									"disabled": true
+								},
+								{
+									"key": "developerId",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getServiceById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/services/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"services",
+								"1"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "id",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete service",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/services/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"services",
+								"2"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "id",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create service",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name_en",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "name_ar",
+									"value": "تيست",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/hp/Desktop/download (1).jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/services",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"services"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "id",
+									"disabled": true
+								},
+								{
+									"key": "Content-Type",
+									"value": "multipart/encrypted",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update service",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name_en",
+									"value": "test updated",
+									"type": "text"
+								},
+								{
+									"key": "name_ar",
+									"value": "تيست",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/hp/Desktop/download (1).jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/services/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"services",
+								"1"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "id",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Properties",
+			"item": [
+				{
+					"name": "getAll properties",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "jWe2PlVSKPF0lkYPVZkNYSUpvRGlupQfkw9LWc9ua80e74ed",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/properties?limit=20&offset=0&sort=ASC&sortBy=id",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"properties"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "sort",
+									"value": "ASC"
+								},
+								{
+									"key": "sortBy",
+									"value": "id"
+								},
+								{
+									"key": "projectType",
+									"value": "residential",
+									"disabled": true
+								},
+								{
+									"key": "developerId",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPropertyById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/properties/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"properties",
+								"1"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "id",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Property",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/properties/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"properties",
+								"2"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "id",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create property",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "areaMin",
+									"value": "100",
+									"type": "text"
+								},
+								{
+									"key": "areaMax",
+									"value": "120",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/hp/Desktop/download (1).jpg"
+								},
+								{
+									"key": "priceMin",
+									"value": "300",
+									"type": "text"
+								},
+								{
+									"key": "priceMax",
+									"value": "500",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "apartments",
+									"type": "text"
+								},
+								{
+									"key": "projectId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "noOfBedroomsMin",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "noOfBedroomsMax",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "noOfBathroomsMin",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "noOfBathroomsMax",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/properties",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"properties"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "id",
+									"disabled": true
+								},
+								{
+									"key": "Content-Type",
+									"value": "multipart/encrypted",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update property",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "areaMin",
+									"value": "100",
+									"type": "text"
+								},
+								{
+									"key": "areaMax",
+									"value": "120",
+									"type": "text"
+								},
+								{
+									"key": "priceMin",
+									"value": "300",
+									"type": "text"
+								},
+								{
+									"key": "priceMax",
+									"value": "500",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "apartments",
+									"type": "text"
+								},
+								{
+									"key": "projectId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "noOfBedroomsMin",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "noOfBedroomsMax",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "noOfBathroomsMin",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "noOfBathroomsMax",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/hp/Desktop/download (1).jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/properties/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"properties",
+								"1"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "id",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Location",
+			"item": [
+				{
+					"name": "List all Cities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/locations/cities?limit=20&offset=0&sort=ASC&sortBy=id",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"locations",
+								"cities"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "sort",
+									"value": "ASC"
+								},
+								{
+									"key": "sortBy",
+									"value": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List all Areas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/locations/areas?limit=27&offset=0&sort=desc&sortBy=id",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"locations",
+								"areas"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "27"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "sort",
+									"value": "desc"
+								},
+								{
+									"key": "sortBy",
+									"value": "id"
+								},
+								{
+									"key": "cityId",
+									"value": "25",
+									"disabled": true
+								},
+								{
+									"key": "CityName",
+									"value": "cairo",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create city",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name_en",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "name_ar",
+									"value": "تيست",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/locations/cities",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"locations",
+								"cities"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "id",
+									"disabled": true
+								},
+								{
+									"key": "Content-Type",
+									"value": "multipart/encrypted",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create area",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name_en",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "name_ar",
+									"value": "تيست",
+									"type": "text"
+								},
+								{
+									"key": "city_id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/locations/areas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"locations",
+								"areas"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "id",
+									"disabled": true
+								},
+								{
+									"key": "Content-Type",
+									"value": "multipart/encrypted",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
