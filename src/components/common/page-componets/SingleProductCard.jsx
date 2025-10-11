@@ -1,4 +1,4 @@
-import { BiBed, BiMap, BiMapAlt, BiTab } from "react-icons/bi";
+import { BiBed, BiMap, BiTab } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import CardHoverIcons from "./CardHoverIcons";
 import CardLabels from "./CardLabels";
@@ -11,7 +11,6 @@ const SingleProductCard = ({
   purpose,
   number_of_beds,
   number_of_bathrooms,
-  dimensions,
   image,
   basis,
 }) => {
@@ -55,16 +54,16 @@ const SingleProductCard = ({
             </div>
             <p className="text-sm">{number_of_bathrooms} Bathrooms</p>
           </div>
-          <div className="flex-align-center gap-x-2">
+          {/* <div className="flex-align-center gap-x-2">
             <div className="icon-box !w-7 !h-7 bg-primary/20 hover:!bg-primary/40 text-primary">
               <BiMapAlt />
             </div>
             <p className="text-sm">{dimensions}</p>
-          </div>
+          </div> */}
         </div>
 
         <div className="mt-4 flex-center-between">
-          <h1 className="text-lg font-semibold text-primary">${price}</h1>
+          <h1 className="text-lg font-semibold text-primary">{price}</h1>
           <button className="btn btn-secondary">details</button>
         </div>
       </div>

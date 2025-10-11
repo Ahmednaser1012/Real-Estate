@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { FaBed, FaBath, FaMapMarkerAlt, FaCalendarAlt } from "react-icons/fa";
+import { FaBed, FaBath, FaRulerCombined, FaCalendarAlt, FaMoneyBillWave } from "react-icons/fa";
 import { MdEdit, MdDelete } from "react-icons/md";
 
 const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
@@ -30,51 +30,16 @@ const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
     }
   };
 
-  const getSubTypeText = (subType) => {
-    switch (subType) {
-      case "townhouse":
-        return "Townhouse";
-      case "twin":
-        return "Twin House";
-      case "villa":
-        return "Standalone Villa";
-      default:
-        return "";
-    }
-  };
-
-  const renderPropertyDetails = () => {
-    switch (property.type) {
-      case "apartment":
-        return (
-          <>
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <FaBed className="text-primary" />
-              <span>{property.bedrooms} Beds</span>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <FaBath className="text-primary" />
-              <span>{property.bathrooms} Baths</span>
-            </div>
-            {property.deliveryDate && (
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <FaCalendarAlt className="text-primary" />
-                <span>{property.deliveryDate}</span>
-              </div>
-            )}
-          </>
-        );
-      case "office":
-      case "shop":
-        return (
-          <div className="flex items-center gap-2 text-sm text-gray-600">
-            <FaCalendarAlt className="text-primary" />
-            <span>Delivery: {property.deliveryDate}</span>
-          </div>
-        );
-      default:
-        return null;
-    }
+  const getTypeLabel = (type) => {
+    const labels = {
+      apartments: "Apartments",
+      duplexes: "Duplexes",
+      studios: "Studios",
+      offices: "Offices",
+      clinics: "Clinics",
+      retails: "Retails",
+    };
+    return labels[type] || type;
   };
 
   return (
@@ -89,7 +54,7 @@ const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
       <div className="relative h-48 overflow-hidden">
         <img
           src={property.image || "/images/property (1).jpg"}
-          alt={property.title}
+          alt={getTypeLabel(property.type)}
           className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
         />
         <div className="absolute top-3 right-3">
@@ -101,28 +66,58 @@ const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
             {getStatusText(property.status)}
           </span>
         </div>
-        {property.subType && (
-          <div className="absolute top-3 left-3 bg-secondary text-white px-3 py-1 rounded-full text-xs font-semibold">
-            {getSubTypeText(property.subType)}
-          </div>
-        )}
-        <div className="absolute bottom-3 left-3 bg-primary text-white px-3 py-1 rounded-full text-sm font-bold">
-          {property.price.toLocaleString()} EGP
+        <div className="absolute top-3 left-3 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
+          {getTypeLabel(property.type)}
         </div>
       </div>
 
       {/* Content */}
       <div className="p-4">
-        <h3 className="text-lg font-bold text-gray-800 mb-2 truncate">
-          {property.title}
+        <h3 className="text-lg font-bold text-gray-800 mb-3">
+          {getTypeLabel(property.type)}
         </h3>
 
-        <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
-          <FaMapMarkerAlt className="text-primary" />
-          <span className="truncate">{property.location}</span>
+        {/* Price Range */}
+        <div className="flex items-center gap-2 text-sm mb-3 bg-green-50 p-2 rounded-lg">
+          <FaMoneyBillWave className="text-green-600" />
+          <span className="font-semibold text-green-700">
+            {property.price_min?.toLocaleString()} - {property.price_max?.toLocaleString()} EGP
+          </span>
         </div>
 
-        <div className="flex items-center gap-4 mb-4">{renderPropertyDetails()}</div>
+        {/* Area Range */}
+        <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
+          <FaRulerCombined className="text-blue-600" />
+          <span>
+            {property.area_min} - {property.area_max} m²
+          </span>
+        </div>
+
+        {/* Bedrooms & Bathrooms */}
+        {(property.no_of_bedrooms_min > 0 || property.no_of_bedrooms_max > 0) && (
+          <div className="flex items-center gap-4 mb-2">
+            <div className="flex items-center gap-2 text-sm text-gray-600">
+              <FaBed className="text-purple-600" />
+              <span>
+                {property.no_of_bedrooms_min} - {property.no_of_bedrooms_max} Beds
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-gray-600">
+              <FaBath className="text-cyan-600" />
+              <span>
+                {property.no_of_bathrooms_min} - {property.no_of_bathrooms_max} Baths
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* Delivery Date */}
+        {property.deliveryDate && (
+          <div className="flex items-center gap-2 text-sm text-gray-600 mb-4">
+            <FaCalendarAlt className="text-orange-600" />
+            <span>{new Date(property.deliveryDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+          </div>
+        )}
 
         {/* Action Buttons */}
         <div className="flex items-center gap-2 pt-3 border-t border-gray-200">

@@ -4,10 +4,13 @@
     "about": "About",
     "services": "Services",
     "properties": "Properties",
+    "projects": "Projects",
     "blog": "Blog",
     "contact": "Contact",
+    "pages": "Pages",
     "portfolio": "Portfolio",
-    "faqs": "FAQs"
+    "faqs": "FAQs",
+    "menu": "Menu"
   },
   "hero": {
     "title": "Find Your Dream Property",
@@ -55,7 +58,47 @@
     "description": "We are committed to helping you find your dream property",
     "ourMission": "Our Mission",
     "ourVision": "Our Vision",
-    "ourValues": "Our Values"
+    "ourValues": "Our Values",
+    "stats": {
+      "heading": "We specialize in quality home renovations - you've just found it - we can realize any projects",
+      "description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum animi aut enim unde illum magni asperiores quidem sint autem, dolor labore voluptas ipsum blanditiis voluptate adipisci ducimus voluptatibus. Magnam, suscipit.",
+      "paragraph1": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum ab distinctio suscipit magni? Sapiente veniam distinctio iure neque! Harum necessitatibus voluptate excepturi asperiores neque ex modi deserunt. Praesentium, cupiditate voluptatem!",
+      "paragraph2": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Alias rerum architecto fugit sed hic porro at vero voluptatibus ipsa accusantium.",
+      "investmentPlan": "Investment Plan",
+      "consultingExperience": "Consulting Experience",
+      "planning": "Planning",
+      "growBusiness": "Grow Business"
+    },
+    "overview": {
+      "heading": "What We Do",
+      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus earum, laboriosam soluta, sit natus corporis ab ullam vel voluptates inventore ipsa repudiandae minus? Non, deleniti! Quos reiciendis saepe voluptatem accusantium nemo praesentium reprehenderit nostrum veritatis.",
+      "readMore": "Read More",
+      "watchOverview": "Watch the Overview"
+    },
+    "brands": {
+      "subHeading": "Brands",
+      "heading": "Our Brands",
+      "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus quia eius quaerat, quas deleniti sed. Sapiente illo architecto!"
+    },
+    "whatWeDo": {
+      "subHeading": "What We Do",
+      "heading": "Our Main Focus Your Property Grow",
+      "viewMoreDetails": "View More Details",
+      "items": {
+        "buyHome": {
+          "name": "Buy a New Home",
+          "text": "We help you find your dream home at the best prices and locations that suit your needs and budget."
+        },
+        "sellHome": {
+          "name": "Sell a Home",
+          "text": "We provide you with the best solutions to sell your home quickly and at the best market price with comprehensive professional service."
+        },
+        "rentHome": {
+          "name": "Rent a Home",
+          "text": "We offer you a variety of rental property options that suit your needs with the best terms and prices."
+        }
+      }
+    }
   },
   "services": {
     "title": "Our Services",

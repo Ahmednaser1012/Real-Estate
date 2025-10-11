@@ -2,7 +2,6 @@ import BlogList from "../components/blog/blog-3/BlogList";
 import {
   CTA,
   Pagination,
-  PopularTags,
   SocialIcons,
   TopRated,
   Type,
@@ -24,7 +23,7 @@ const BlogThree = () => {
           />
           <Type />
           <TopRated />
-          <PopularTags />
+          {/* <PopularTags /> */}
           <SocialIcons />
           <CTA />
         </div>

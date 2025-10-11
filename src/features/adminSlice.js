@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isAuthenticated: localStorage.getItem('adminLoggedIn') === 'true',
   adminEmail: localStorage.getItem('adminEmail') || '',
-  activeTab: 'overview',
+  activeTab: 'properties',
   loading: false,
   error: null,
 };
@@ -32,7 +32,7 @@ const adminSlice = createSlice({
     logout: (state) => {
       state.isAuthenticated = false;
       state.adminEmail = '';
-      state.activeTab = 'overview';
+      state.activeTab = 'properties';
       state.error = null;
       localStorage.removeItem('adminLoggedIn');
       localStorage.removeItem('adminEmail');

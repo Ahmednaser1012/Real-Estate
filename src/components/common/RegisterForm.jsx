@@ -160,15 +160,7 @@ const RegisterForm = ({ onClose }) => {
           <option className="text-slate-800" value="apartment">
             Apartment
           </option>
-          <option className="text-slate-800" value="villa">
-            Villa
-          </option>
-          <option className="text-slate-800" value="townhouse">
-            Townhouse
-          </option>
-          <option className="text-slate-800" value="penthouse">
-            Penthouse
-          </option>
+          
           <option className="text-slate-800" value="studio">Studio</option>
           <option className="text-slate-800" value="duplex">Duplex</option>
           <option className="text-slate-800" value="commercial">Commercial</option>

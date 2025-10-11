@@ -18,41 +18,6 @@ export const adminApi = api.injectEndpoints({
       providesTags: ["Admin"],
     }),
 
-    // Properties Management
-    getAdminProperties: builder.query({
-      query: ({ page = 1, limit = 10, status, search } = {}) => ({
-        url: "/admin/properties",
-        params: { page, limit, status, search },
-      }),
-      providesTags: ["Property"],
-    }),
-
-    createProperty: builder.mutation({
-      query: (propertyData) => ({
-        url: "/admin/properties",
-        method: "POST",
-        body: propertyData,
-      }),
-      invalidatesTags: ["Property"],
-    }),
-
-    updateProperty: builder.mutation({
-      query: ({ id, ...propertyData }) => ({
-        url: `/admin/properties/${id}`,
-        method: "PUT",
-        body: propertyData,
-      }),
-      invalidatesTags: ["Property"],
-    }),
-
-    deleteProperty: builder.mutation({
-      query: (id) => ({
-        url: `/admin/properties/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: ["Property"],
-    }),
-
     // Clients Management
     getAdminClients: builder.query({
       query: ({ page = 1, limit = 10, search } = {}) => ({
@@ -91,10 +56,6 @@ export const adminApi = api.injectEndpoints({
 export const {
   useAdminLoginMutation,
   useGetDashboardStatsQuery,
-  useGetAdminPropertiesQuery,
-  useCreatePropertyMutation,
-  useUpdatePropertyMutation,
-  useDeletePropertyMutation,
   useGetAdminClientsQuery,
   useGetReportsQuery,
   useGetAdminSettingsQuery,

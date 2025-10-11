@@ -5,47 +5,56 @@ import AdminButton from "../../../ui/AdminButton";
 
 const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
   const [formData, setFormData] = useState({
-    title: "",
-    type: "apartment",
-    subType: "",
-    price: "",
-    location: "",
+    type: "apartments",
+    image: null,
+    area_min: "",
+    area_max: "",
+    price_min: "",
+    price_max: "",
+    no_of_bedrooms_min: "",
+    no_of_bedrooms_max: "",
+    no_of_bathrooms_min: "",
+    no_of_bathrooms_max: "",
     status: "available",
-    image: "",
-    bedrooms: "",
-    bathrooms: "",
     deliveryDate: "",
-    area: "",
-    description: "",
-    features: "",
   });
 
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (property) {
       setFormData({
-        ...property,
-        subType: property.subType || "",
-        features: property.features ? property.features.join(", ") : "",
+        type: property.type || "apartments",
+        image: null,
+        area_min: property.area_min || "",
+        area_max: property.area_max || "",
+        price_min: property.price_min || "",
+        price_max: property.price_max || "",
+        no_of_bedrooms_min: property.no_of_bedrooms_min || "",
+        no_of_bedrooms_max: property.no_of_bedrooms_max || "",
+        no_of_bathrooms_min: property.no_of_bathrooms_min || "",
+        no_of_bathrooms_max: property.no_of_bathrooms_max || "",
+        status: property.status || "available",
+        deliveryDate: property.deliveryDate || "",
       });
     } else {
       setFormData({
-        title: "",
-        type: "apartment",
-        subType: "",
-        price: "",
-        location: "",
+        type: "apartments",
+        image: null,
+        area_min: "",
+        area_max: "",
+        price_min: "",
+        price_max: "",
+        no_of_bedrooms_min: "",
+        no_of_bedrooms_max: "",
+        no_of_bathrooms_min: "",
+        no_of_bathrooms_max: "",
         status: "available",
-        image: "",
-        bedrooms: "",
-        bathrooms: "",
         deliveryDate: "",
-        area: "",
-        description: "",
-        features: "",
       });
     }
+    setErrors({});
   }, [property, isOpen]);
 
   const handleChange = (e) => {
@@ -54,33 +63,90 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
       ...prev,
       [name]: value,
     }));
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+  };
+
+  const handleFileChange = (e) => {
+    const { files } = e.target;
+    if (files?.[0]) {
+      setFormData((prev) => ({ ...prev, image: files[0] }));
+      if (errors.image) {
+        setErrors((prev) => ({ ...prev, image: "" }));
+      }
+    }
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    
+    if (!formData.type) newErrors.type = "Property type is required";
+    if (!property && !formData.image) newErrors.image = "Image is required";
+    if (!formData.area_min) newErrors.area_min = "Minimum area is required";
+    if (!formData.area_max) newErrors.area_max = "Maximum area is required";
+    if (!formData.price_min) newErrors.price_min = "Minimum price is required";
+    if (!formData.price_max) newErrors.price_max = "Maximum price is required";
+    if (!formData.deliveryDate) newErrors.deliveryDate = "Delivery date is required";
+    
+    // Validate min/max ranges
+    if (formData.area_min && formData.area_max && parseFloat(formData.area_min) > parseFloat(formData.area_max)) {
+      newErrors.area_max = "Maximum area must be greater than minimum area";
+    }
+    if (formData.price_min && formData.price_max && parseFloat(formData.price_min) > parseFloat(formData.price_max)) {
+      newErrors.price_max = "Maximum price must be greater than minimum price";
+    }
+    if (formData.no_of_bedrooms_min && formData.no_of_bedrooms_max && parseInt(formData.no_of_bedrooms_min) > parseInt(formData.no_of_bedrooms_max)) {
+      newErrors.no_of_bedrooms_max = "Maximum bedrooms must be greater than minimum bedrooms";
+    }
+    if (formData.no_of_bathrooms_min && formData.no_of_bathrooms_max && parseInt(formData.no_of_bathrooms_min) > parseInt(formData.no_of_bathrooms_max)) {
+      newErrors.no_of_bathrooms_max = "Maximum bathrooms must be greater than minimum bathrooms";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!validate()) return;
+
     setLoading(true);
 
-    // Convert features string to array
-    const processedData = {
-      ...formData,
-      price: parseFloat(formData.price),
-      bedrooms: formData.bedrooms ? parseInt(formData.bedrooms) : undefined,
-      bathrooms: formData.bathrooms ? parseInt(formData.bathrooms) : undefined,
-      area: formData.area ? parseFloat(formData.area) : undefined,
-      features: formData.features
-        ? formData.features
-            .split(",")
-            .map((f) => f.trim())
-            .filter(Boolean)
-        : [],
-    };
+    try {
+      const submitData = new FormData();
+      
+      submitData.append('type', formData.type);
+      if (formData.image) {
+        submitData.append('image', formData.image);
+      }
+      submitData.append('areaMin', formData.area_min);
+      submitData.append('areaMax', formData.area_max);
+      submitData.append('priceMin', formData.price_min);
+      submitData.append('priceMax', formData.price_max);
+      if (formData.no_of_bedrooms_min) {
+        submitData.append('noOfBedroomsMin', formData.no_of_bedrooms_min);
+      }
+      if (formData.no_of_bedrooms_max) {
+        submitData.append('noOfBedroomsMax', formData.no_of_bedrooms_max);
+      }
+      if (formData.no_of_bathrooms_min) {
+        submitData.append('noOfBathroomsMin', formData.no_of_bathrooms_min);
+      }
+      if (formData.no_of_bathrooms_max) {
+        submitData.append('noOfBathroomsMax', formData.no_of_bathrooms_max);
+      }
+      submitData.append('status', formData.status);
+      submitData.append('deliveryDate', formData.deliveryDate);
 
-    // Simulate API call
-    setTimeout(() => {
-      onSave(processedData);
-      setLoading(false);
+      await onSave(submitData);
       onClose();
-    }, 1000);
+    } catch (error) {
+      setErrors({ submit: "Failed to save property type. Please try again." });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -97,13 +163,13 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
-            className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+            className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
             <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex items-center justify-between z-10">
               <h2 className="text-2xl font-bold text-gray-800">
-                {property ? "Edit Property" : "Add New Property"}
+                {property ? "Edit Property Type" : "Add New Property Type"}
               </h2>
               <button
                 onClick={onClose}
@@ -115,42 +181,225 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="p-6">
+              {errors.submit && (
+                <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg">
+                  {errors.submit}
+                </div>
+              )}
+
               <div className="space-y-4">
-                {/* Title */}
+                {/* Property Type */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Property Title *
+                    Property Type *
                   </label>
-                  <input
-                    type="text"
-                    name="title"
-                    value={formData.title}
+                  <select
+                    name="type"
+                    value={formData.type}
                     onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-black"
-                    placeholder="Example: Luxury Apartment in New Cairo"
-                  />
+                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black ${
+                      errors.type ? "border-red-500" : "border-gray-300"
+                    }`}
+                  >
+                    <option value="apartments">Apartments</option>
+                    <option value="duplexes">Duplexes</option>
+                    <option value="studios">Studios</option>
+                    <option value="offices">Offices</option>
+                    <option value="clinics">Clinics</option>
+                    <option value="retails">Retails</option>
+                  </select>
+                  {errors.type && (
+                    <p className="text-red-500 text-sm mt-1">{errors.type}</p>
+                  )}
                 </div>
 
-                {/* Type and Status */}
+                {/* Image */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Property Image {!property && "*"}
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+                      errors.image ? "border-red-500" : "border-gray-300"
+                    }`}
+                  />
+                  {errors.image && (
+                    <p className="text-red-500 text-sm mt-1">{errors.image}</p>
+                  )}
+                  {property && (
+                    <p className="text-gray-500 text-xs mt-1">Leave empty to keep current image</p>
+                  )}
+                </div>
+
+                {/* Area Range */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Property Type *
+                      Minimum Area (m²) *
                     </label>
-                    <select
-                      name="type"
-                      value={formData.type}
+                    <input
+                      type="number"
+                      name="area_min"
+                      value={formData.area_min}
                       onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-black"
-                    >
-                      <option value="apartment">Apartment</option>
-                      <option value="office">Office</option>
-                      <option value="shop">Shop</option>
-                    </select>
+                      className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black ${
+                        errors.area_min ? "border-red-500" : "border-gray-300"
+                      }`}
+                      placeholder="Example: 100"
+                    />
+                    {errors.area_min && (
+                      <p className="text-red-500 text-sm mt-1">{errors.area_min}</p>
+                    )}
                   </div>
 
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Maximum Area (m²) *
+                    </label>
+                    <input
+                      type="number"
+                      name="area_max"
+                      value={formData.area_max}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black ${
+                        errors.area_max ? "border-red-500" : "border-gray-300"
+                      }`}
+                      placeholder="Example: 200"
+                    />
+                    {errors.area_max && (
+                      <p className="text-red-500 text-sm mt-1">{errors.area_max}</p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Price Range */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Minimum Price (EGP) *
+                    </label>
+                    <input
+                      type="number"
+                      name="price_min"
+                      value={formData.price_min}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black ${
+                        errors.price_min ? "border-red-500" : "border-gray-300"
+                      }`}
+                      placeholder="Example: 1500000"
+                    />
+                    {errors.price_min && (
+                      <p className="text-red-500 text-sm mt-1">{errors.price_min}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Maximum Price (EGP) *
+                    </label>
+                    <input
+                      type="number"
+                      name="price_max"
+                      value={formData.price_max}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black ${
+                        errors.price_max ? "border-red-500" : "border-gray-300"
+                      }`}
+                      placeholder="Example: 2500000"
+                    />
+                    {errors.price_max && (
+                      <p className="text-red-500 text-sm mt-1">{errors.price_max}</p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Bedrooms Range */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Minimum Bedrooms
+                    </label>
+                    <input
+                      type="number"
+                      name="no_of_bedrooms_min"
+                      value={formData.no_of_bedrooms_min}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black ${
+                        errors.no_of_bedrooms_min ? "border-red-500" : "border-gray-300"
+                      }`}
+                      placeholder="Example: 2"
+                    />
+                    {errors.no_of_bedrooms_min && (
+                      <p className="text-red-500 text-sm mt-1">{errors.no_of_bedrooms_min}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Maximum Bedrooms
+                    </label>
+                    <input
+                      type="number"
+                      name="no_of_bedrooms_max"
+                      value={formData.no_of_bedrooms_max}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black ${
+                        errors.no_of_bedrooms_max ? "border-red-500" : "border-gray-300"
+                      }`}
+                      placeholder="Example: 4"
+                    />
+                    {errors.no_of_bedrooms_max && (
+                      <p className="text-red-500 text-sm mt-1">{errors.no_of_bedrooms_max}</p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Bathrooms Range */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Minimum Bathrooms
+                    </label>
+                    <input
+                      type="number"
+                      name="no_of_bathrooms_min"
+                      value={formData.no_of_bathrooms_min}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black ${
+                        errors.no_of_bathrooms_min ? "border-red-500" : "border-gray-300"
+                      }`}
+                      placeholder="Example: 1"
+                    />
+                    {errors.no_of_bathrooms_min && (
+                      <p className="text-red-500 text-sm mt-1">{errors.no_of_bathrooms_min}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Maximum Bathrooms
+                    </label>
+                    <input
+                      type="number"
+                      name="no_of_bathrooms_max"
+                      value={formData.no_of_bathrooms_max}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black ${
+                        errors.no_of_bathrooms_max ? "border-red-500" : "border-gray-300"
+                      }`}
+                      placeholder="Example: 3"
+                    />
+                    {errors.no_of_bathrooms_max && (
+                      <p className="text-red-500 text-sm mt-1">{errors.no_of_bathrooms_max}</p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Status and Delivery Date */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Status *
@@ -159,196 +408,31 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                       name="status"
                       value={formData.status}
                       onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-black"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-black"
                     >
                       <option value="available">Available</option>
                       <option value="reserved">Reserved</option>
                       <option value="sold">Sold</option>
                     </select>
                   </div>
-                </div>
 
-                {/* Sub Type for Apartments */}
-                {formData.type === "apartment" && (
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Unit Type
-                    </label>
-                    <select
-                      name="subType"
-                      value={formData.subType}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-black"
-                    >
-                      <option value="">Standard Apartment</option>
-                      <option value="townhouse">Townhouse</option>
-                      <option value="twin">Twin House</option>
-                      <option value="villa">Standalone Villa</option>
-                    </select>
-                  </div>
-                )}
-
-                {/* Price and Location */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Price (EGP) *
-                    </label>
-                    <input
-                      type="number"
-                      name="price"
-                      value={formData.price}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-black"
-                      placeholder="Example: 2500000"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Location *
-                    </label>
-                    <input
-                      type="text"
-                      name="location"
-                      value={formData.location}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-black"
-                      placeholder="Example: New Cairo, Cairo"
-                    />
-                  </div>
-                </div>
-
-                {/* Conditional Fields based on Type */}
-                {formData.type === "apartment" && (
-                  <>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Bedrooms *
-                        </label>
-                        <input
-                          type="number"
-                          name="bedrooms"
-                          value={formData.bedrooms}
-                          onChange={handleChange}
-                          required
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-black"
-                          placeholder="Example: 3"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Bathrooms *
-                        </label>
-                        <input
-                          type="number"
-                          name="bathrooms"
-                          value={formData.bathrooms}
-                          onChange={handleChange}
-                          required
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-black"
-                          placeholder="Example: 2"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Delivery Date *
-                      </label>
-                      <input
-                        type="text"
-                        name="deliveryDate"
-                        value={formData.deliveryDate}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-black"
-                        placeholder="Example: December 2024 or Immediate"
-                      />
-                    </div>
-                  </>
-                )}
-
-                {(formData.type === "office" || formData.type === "shop") && (
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Delivery Date *
                     </label>
                     <input
-                      type="text"
+                      type="date"
                       name="deliveryDate"
                       value={formData.deliveryDate}
                       onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-black"
-                      placeholder="Example: December 2024"
+                      className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black ${
+                        errors.deliveryDate ? "border-red-500" : "border-gray-300"
+                      }`}
                     />
+                    {errors.deliveryDate && (
+                      <p className="text-red-500 text-sm mt-1">{errors.deliveryDate}</p>
+                    )}
                   </div>
-                )}
-
-                {/* Area */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Area (m²)
-                  </label>
-                  <input
-                    type="number"
-                    name="area"
-                    value={formData.area}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-black"
-                    placeholder="Example: 150"
-                  />
-                </div>
-
-                {/* Image URL */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Image URL
-                  </label>
-                  <input
-                    type="text"
-                    name="image"
-                    value={formData.image}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-black"
-                    placeholder="Example: /images/property (1).jpg"
-                  />
-                </div>
-
-                {/* Description */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Description
-                  </label>
-                  <textarea
-                    name="description"
-                    value={formData.description}
-                    onChange={handleChange}
-                    rows="4"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-black"
-                    placeholder="Detailed property description..."
-                  />
-                </div>
-
-                {/* Features */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Features (comma separated)
-                  </label>
-                  <input
-                    type="text"
-                    name="features"
-                    value={formData.features}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-black"
-                    placeholder="Example: Parking, Garden, 24/7 Security"
-                  />
                 </div>
               </div>
 
@@ -370,7 +454,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                   loading={loading}
                   className="flex-1"
                 >
-                  {property ? "Save Changes" : "Add Property"}
+                  {property ? "Save Changes" : "Add Property Type"}
                 </AdminButton>
               </div>
             </form>

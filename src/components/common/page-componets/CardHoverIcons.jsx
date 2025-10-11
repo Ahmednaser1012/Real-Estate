@@ -1,4 +1,4 @@
-import { BiHeart, BiStar } from "react-icons/bi";
+import { BiHeart } from "react-icons/bi";
 import { FiEye } from "react-icons/fi";
 
 const CardHoverIcons = () => {
@@ -11,9 +11,9 @@ const CardHoverIcons = () => {
         <div className="icon-box !w-7 !h-7 bg-primary hover:bg-secondary !opacity-100">
           <FiEye />
         </div>
-        <div className="icon-box !w-7 !h-7 bg-primary hover:bg-secondary !opacity-100">
+        {/* <div className="icon-box !w-7 !h-7 bg-primary hover:bg-secondary !opacity-100">
           <BiStar />
-        </div>
+        </div> */}
       </div>
     </div>
   );

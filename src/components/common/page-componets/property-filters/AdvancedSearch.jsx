@@ -5,13 +5,14 @@ const AdvancedSearch = () => {
       <div className="mt-3">
         <select name="" id="" className="filter">
           <option value="">Categories</option>
-          <option value="condors">Condors</option>
+          {/* <option value="condors">Condors</option> */}
           <option value="offfice buildings">Offfice Buildings</option>
           <option value="apartments">Apartments</option>
-          <option value="mansions">Mansions</option>
-          <option value="real estate">Real Estate</option>
+          {/* <option value="mansions">Mansions</option> */}
+          {/* <option value="real estate">Real Estate</option> */}
           <option value="penthouse">Penthouse</option>
-          <option value="living room">Living Room</option>
+
+          {/* <option value="living room">Living Room</option> */}
         </select>
       </div>
       <div className="mt-3">
@@ -27,9 +28,9 @@ const AdvancedSearch = () => {
       </div>
       <div className="mt-3">
         <select name="" id="" className="filter">
-          <option value="">Purpose</option>
+          <option value="">Property Type</option>
           <option value="sell">Sell</option>
-          <option value="rent">Rent</option>
+          {/* <option value="rent">Rent</option> */}
         </select>
       </div>
       <div className="gap-2 mt-3 flex-align-center">
@@ -44,9 +45,11 @@ const AdvancedSearch = () => {
           <option value="">Beds</option>
           <option value="1">1</option>
           <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
         </select>
       </div>
-      <button className="btn bg-secondary w-full mt-4 text-slate-200 !rounded-none">
+      <button className="btn bg-secondary w-full mt-4 text-slate-200 !rounded-none hover:bg-primary transition-a">
         search property
       </button>
     </div>

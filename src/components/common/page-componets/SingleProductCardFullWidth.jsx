@@ -11,7 +11,6 @@ const SingleProductCardFullWidth = ({
   purpose,
   number_of_beds,
   number_of_bathrooms,
-  dimensions,
   image,
   description,
   textLength,
@@ -30,7 +29,7 @@ const SingleProductCardFullWidth = ({
           </Link>
           <CardHoverIcons />
         </div>
-        {!showLabels && <CardLabels purpose={purpose} distance={distance} />}
+        {!showLabels && <CardLabels purpose={purpose} />}
       </div>
       <div className="sm:col-span-2 md:col-span-3">
         <div className="p-3">
@@ -59,16 +58,16 @@ const SingleProductCardFullWidth = ({
               </div>
               <p className="text-sm">{number_of_bathrooms} Bathrooms</p>
             </div>
-            <div className="flex-align-center gap-x-2">
+            {/* <div className="flex-align-center gap-x-2">
               <div className="icon-box !w-7 !h-7 bg-primary/20 hover:!bg-primary/40 text-primary">
                 <BiMapAlt />
               </div>
               <p className="text-sm">{dimensions}</p>
-            </div>
+            </div> */}
           </div>
 
           <div className="mt-4 flex-center-between">
-            <h1 className="text-lg font-semibold text-primary">${price}</h1>
+            <h1 className="text-lg font-semibold text-primary">{price}</h1>
             <button className="btn btn-secondary">details</button>
           </div>
         </div>
