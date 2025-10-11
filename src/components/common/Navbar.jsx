@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { FiDelete, FiMoon, FiSun } from "react-icons/fi";
-import { BiSearch, BiMenu, BiUser } from "react-icons/bi";
+import { BiSearch, BiMenu } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import LoadingScreen from "./LoadingScreen";
 import logo from "../../assets/Logo.PNG";
 import LanguageSwitcher from "./LanguageSwitcher";
@@ -19,6 +20,7 @@ import { navLinks } from "../../data/navLinks";
 import SingleLink from "./SingleLink";
 
 const Navbar = () => {
+  const { t } = useTranslation();
   const rootDoc = document.querySelector(":root");
   const { darkMode, isSidebarOpen } = useSelector(uiStore);
   const [showSearchBar, setShowSearchBar] = useState(false);
@@ -122,7 +124,7 @@ const Navbar = () => {
                   }`}
                 >
                   <div className="border-b flex-center-between dark:border-slate-800">
-                    <p className="uppercase">menu</p>
+                    <p className="uppercase">{t("nav.menu")}</p>
                     <div
                       className="icon-box md:hidden"
                       onClick={() => dispatch(closeSidebar())}
@@ -130,7 +132,7 @@ const Navbar = () => {
                       <FiDelete />
                     </div>
                   </div>
-                  {navLinks?.map(({ id, linkText, url, subLinks }) => (
+                  {navLinks?.map(({ id, linkTextKey, url, subLinks }) => (
                     <ul key={id}>
                       <NavLink
                         to={url}
@@ -138,9 +140,9 @@ const Navbar = () => {
                         className="w-fit before:!hidden"
                         onClick={() => dispatch(closeSidebar())}
                       >
-                        {linkText}
+                        {t(linkTextKey)}
                       </NavLink>
-                      {subLinks?.map(({ id, linkText, url }) => (
+                      {subLinks?.map(({ id, linkTextKey, url }) => (
                         <ul key={id} className="mt-2">
                           <NavLink
                             to={url}
@@ -148,7 +150,7 @@ const Navbar = () => {
                             className="relative ml-8 text-sm before:hidden w-fit after:absolute after:w-2 after:h-2 after:rounded-full after:border-2 after:top-1/2 after:-translate-y-1/2 after:-left-4 dark:after:opacity-50"
                             onClick={() => dispatch(closeSidebar())}
                           >
-                            {linkText}
+                            {t(linkTextKey)}
                           </NavLink>
                         </ul>
                       ))}
@@ -171,41 +173,41 @@ const Navbar = () => {
                       className={`outline-none border-none h-0 w-0 bg-transparent ${
                         showSearchBar && "!w-full !h-full px-4"
                       }`}
-                      placeholder="search..."
+                      placeholder={t("common.search") + "..."}
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
                     <span
-                      className={`grid flex-shrink-0 rounded-full w-9 h-9 place-items-center text-white bg-primary sm:cursor-pointer ${
+                      className={`grid flex-shrink-0 rounded-full w-9 h-9 place-items-center text-white bg-primary cursor-pointer ${
                         showSearchBar &&
                         "bg-transparent hover:bg-slate-100 text-inherit sm:cursor-pointer dark:hover:bg-hover-color-dark"
                       }`}
                       onClick={() => setShowSearchBar(!showSearchBar)}
                     >
-                      <BiSearch className="text-muted" />
+                      <BiSearch className="text-muted " />
                     </span>
                   </div>
                 </form>
 
                 {/*----------------------------- Language Switcher-------------------------------------------------- */}
-                <div className="hidden md:block">
+                <div className="hidden md:block cursor-pointer">
                   <LanguageSwitcher />
                 </div>
-                
+
                 {/*----------------------------- Dark mode toggle-------------------------------------------------- */}
                 <div
-                  className="bg-white shadow-md icon-box dark:bg-dark-light hover:shadow-lg hover:bg-transparent"
+                  className="bg-white shadow-md icon-box dark:bg-dark-light hover:shadow-lg hover:bg-transparent cursor-pointer"
                   onClick={handleDarkMode}
                 >
                   {darkMode ? <FiSun /> : <FiMoon />}
                 </div>
                 {/*----------------------------- Profile Icon-------------------------------------------------- */}
-                <div className="bg-white shadow-md icon-box dark:bg-dark-light hover:shadow-lg hover:bg-transparent">
+                {/* <div className="bg-white shadow-md icon-box dark:bg-dark-light hover:shadow-lg hover:bg-transparent">
                   <BiUser />
-                </div>
+                </div> */}
                 {/*------------------------------- Mobile Menu Toogle------------------------- */}
                 <div
-                  className="icon-box md:hidden "
+                  className="icon-box md:hidden bg-black/20 hover:bg-black/30 text-white cursor-pointer"
                   onClick={() => dispatch(openSidebar())}
                 >
                   <BiMenu />

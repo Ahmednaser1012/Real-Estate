@@ -25,13 +25,27 @@ const Filters = () => {
                 id=""
                 className="w-full  bg-transparent border-0 outline-none dark:bg-hover-color-dark opacity-70"
               >
-                <option className="text-slate-800" value="condors">Condors</option>
-                <option className="text-slate-800" value="apartments">Apartments</option>
-                <option className="text-slate-800" value="offfice buildings">Offfice Buildings</option>
-                <option className="text-slate-800" value="mansions">Mansions</option>
-                <option className="text-slate-800" value="real estate">Real Estate</option>
-                <option className="text-slate-800" value="penthouse">Penthouse</option>
-                <option className="text-slate-800" value="living room">Living Room</option>
+                <option className="text-slate-800" value="condors">
+                  Condors
+                </option>
+                <option className="text-slate-800" value="apartments">
+                  Apartments
+                </option>
+                <option className="text-slate-800" value="offfice buildings">
+                  Offfice Buildings
+                </option>
+                <option className="text-slate-800" value="mansions">
+                  Mansions
+                </option>
+                <option className="text-slate-800" value="real estate">
+                  Real Estate
+                </option>
+                <option className="text-slate-800" value="penthouse">
+                  Penthouse
+                </option>
+                <option className="text-slate-800" value="living room">
+                  Living Room
+                </option>
               </select>
             </div>
           </div>
@@ -46,11 +60,21 @@ const Filters = () => {
                 id=""
                 className="w-full bg-transparent border-0 outline-none dark:bg-hover-color-dark opacity-70"
               >
-                <option className="text-slate-800" value="$40,000 - $80,000">$40,000 - $80,000</option>
-                <option className="text-slate-800" value="$80,000 - $120,000">$80,000 - $120,000</option>
-                <option className="text-slate-800" value="$120,000 - $200,000">$120,000 - $200,000</option>
-                <option className="text-slate-800" value="$200,000 - $300,000">$200,000 - $300,000</option>
-                <option className="text-slate-800" value="$300,000 - $500,000">$300,000 - $500,000</option>
+                <option className="text-slate-800" value="$40,000 - $80,000">
+                  $40,000 - $80,000
+                </option>
+                <option className="text-slate-800" value="$80,000 - $120,000">
+                  $80,000 - $120,000
+                </option>
+                <option className="text-slate-800" value="$120,000 - $200,000">
+                  $120,000 - $200,000
+                </option>
+                <option className="text-slate-800" value="$200,000 - $300,000">
+                  $200,000 - $300,000
+                </option>
+                <option className="text-slate-800" value="$300,000 - $500,000">
+                  $300,000 - $500,000
+                </option>
                 <option className="text-slate-800" value="$500,000 - $1000,000">
                   $500,000 - $1000,000
                 </option>
@@ -66,8 +90,10 @@ const Filters = () => {
                 id=""
                 className="w-full bg-transparent border-0 outline-none opacity-70 dark:bg-hover-color-dark"
               >
-                <option className="text-slate-800" value="sell">Sell</option>
-                <option className="text-slate-800" value="rent">Rent</option>
+                <option className="text-slate-800" value="sell">
+                  Sell
+                </option>
+                {/* <option className="text-slate-800" value="rent">Rent</option> */}
               </select>
             </div>
           </div>

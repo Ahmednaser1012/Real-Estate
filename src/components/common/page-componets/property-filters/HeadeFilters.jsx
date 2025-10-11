@@ -39,18 +39,18 @@ const HeadeFilters = ({ layout, setLayout }) => {
         <select
           name=""
           id=""
-          className="w-full px-3 py-2 bg-white border outline-none dark:border-dark dark:bg-main-dark"
+          className="w-[290px] px-3 py-2 bg-white border outline-none dark:border-dark dark:bg-main-dark"
         >
           <option value="">Sorty by</option>
           <option value="latest">Latest</option>
           <option value="cheapest">Cheapest</option>
           <option value="expensive">Expensive</option>
         </select>
-        <input
+        {/* <input
           type="text"
           className="border outline-none bg-transparent dark:border-dark px-3 py-[0.35rem] w-full"
           placeholder="Enter Keywords.."
-        />
+        /> */}
       </div>
     </div>
   );

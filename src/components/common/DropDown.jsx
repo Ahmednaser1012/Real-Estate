@@ -1,15 +1,20 @@
 import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { uiStore } from "../../features/uiSlice";
+
 const Dropdown = () => {
+  const { t } = useTranslation();
   const { currentLink, isDropdownOpen, position } = useSelector(uiStore);
-  const { subLinks } = currentLink;
+  const subLinks = currentLink?.subLinks;
   const container = useRef(null);
 
   useEffect(() => {
     const dropdown = container.current;
-    dropdown.style.left = `${position}px`;
+    if (dropdown) {
+      dropdown.style.left = `${position}px`;
+    }
   }, [position]);
 
   return (
@@ -24,14 +29,14 @@ const Dropdown = () => {
           ref={container}
         >
           <div className={`${subLinks && "p-2"}`}>
-            {subLinks?.map(({ id, linkText, url }) => (
+            {subLinks?.map(({ id, linkTextKey, url }) => (
               <NavLink
                 key={id}
                 end
                 to={url}
                 className="p-2 space-x-3 rounded-lg flex-align-center sm:cursor-pointer hover:bg-slate-100 dark:hover:bg-hover-color-dark before:!hidden"
               >
-                {linkText}
+                {t(linkTextKey)}
               </NavLink>
             ))}
           </div>

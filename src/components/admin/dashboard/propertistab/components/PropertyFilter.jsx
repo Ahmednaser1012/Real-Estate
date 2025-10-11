@@ -1,12 +1,15 @@
 import { motion } from "framer-motion";
-import { FaBuilding, FaBriefcase, FaStore } from "react-icons/fa";
+import { FaBuilding, FaBriefcase, FaStore, FaHome, FaHospital, FaCouch } from "react-icons/fa";
 
 const PropertyFilter = ({ activeFilter, onFilterChange }) => {
   const filters = [
     { id: "all", label: "All", icon: FaBuilding },
-    { id: "apartment", label: "Apartments", icon: FaBuilding },
-    { id: "office", label: "Offices", icon: FaBriefcase },
-    { id: "shop", label: "Shops", icon: FaStore },
+    { id: "apartments", label: "Apartments", icon: FaBuilding },
+    { id: "duplexes", label: "Duplexes", icon: FaHome },
+    { id: "studios", label: "Studios", icon: FaCouch },
+    { id: "offices", label: "Offices", icon: FaBriefcase },
+    { id: "clinics", label: "Clinics", icon: FaHospital },
+    { id: "retails", label: "Retails", icon: FaStore },
   ];
 
   return (

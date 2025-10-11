@@ -7,12 +7,14 @@ import { uiStore } from "../features/uiSlice";
 import AdminHeader from "../components/admin/ui/AdminHeader";
 import AdminSidebar from "../components/admin/ui/AdminSidebar";
 import {
-  OverviewTab,
   PropertiesTab,
+  ProjectsTab,
   ClientsTab,
   BlogsTab,
   SettingsTab,
 } from "../components/admin/dashboard";
+import { ServicesTab } from "../components/admin/dashboard/servicestab";
+import { LocationsTab } from "../components/admin/dashboard/locationstab";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -44,10 +46,14 @@ const AdminDashboard = () => {
 
   const renderContent = () => {
     switch (activeTab) {
-      case "overview":
-        return <OverviewTab />;
       case "properties":
         return <PropertiesTab />;
+      case "projects":
+        return <ProjectsTab />;
+      case "services":
+        return <ServicesTab />;
+      case "locations":
+        return <LocationsTab />;
       case "clients":
         return <ClientsTab />;
       case "blogs":
@@ -55,7 +61,7 @@ const AdminDashboard = () => {
       case "settings":
         return <SettingsTab />;
       default:
-        return <OverviewTab />;
+        return <PropertiesTab />;
     }
   };
 

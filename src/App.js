@@ -33,7 +33,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const route = useLocation();
-  const isAdminRoute = route.pathname.startsWith('/admin');
+  const isAdminRoute = route.pathname.startsWith("/admin");
 
   // Show/Hide scroll to top button
   window.addEventListener("scroll", () => {
@@ -55,7 +55,9 @@ function App() {
         {loading ? (
           <LoadingScreen onComplete={() => setLoading(false)} />
         ) : (
-          <Suspense fallback={<div className="loading-placeholder">Loading...</div>}>
+          <Suspense
+            fallback={<div className="loading-placeholder">Loading...</div>}
+          >
             <Routes>
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
@@ -85,16 +87,12 @@ function App() {
             onClick={handleCloseDropdown}
             onMouseOver={() => dispatch(closeDropdown())}
           >
-            <Suspense
-              fallback={
-                <div className="loading-placeholder"></div>
-              }
-            >
+            <Suspense fallback={<div className="loading-placeholder"></div>}>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about-2" element={<AboutTwo />} />
                 <Route path="/services" element={<Services />} />
-                <Route path="/property-5" element={<PropertyFive />} />
+                <Route path="/projects" element={<PropertyFive />} />
                 <Route path="/blog-3" element={<BlogThree />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/portifolio" element={<Portifolio />} />
@@ -119,7 +117,6 @@ function App() {
           <Suspense fallback={null}>
             <BackToTopButton showButton={showButton} />
             <FloatingButtons />
-            
           </Suspense>
         </>
       )}

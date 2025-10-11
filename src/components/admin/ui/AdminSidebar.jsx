@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { setActiveTab, adminStore } from "../../../features/adminSlice";
 import {
-  BiHome,
   BiBuildings,
   BiUser,
   BiBookOpen,
@@ -12,6 +11,8 @@ import {
   BiMenu,
   BiX,
 } from "react-icons/bi";
+import { MdApartment, MdMiscellaneousServices } from "react-icons/md";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 const AdminSidebar = ({ onLogout }) => {
   const dispatch = useDispatch();
@@ -19,8 +20,10 @@ const AdminSidebar = ({ onLogout }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const tabs = [
-    { id: "overview", name: "Overview", icon: BiHome },
+    { id: "projects", name: "Projects", icon: MdApartment },
     { id: "properties", name: "Properties", icon: BiBuildings },
+    { id: "services", name: "Services", icon: MdMiscellaneousServices },
+    { id: "locations", name: "Locations", icon: FaMapMarkerAlt },
     { id: "clients", name: "Clients", icon: BiUser },
     { id: "blogs", name: "Blogs", icon: BiBookOpen },
     { id: "settings", name: "Settings", icon: BiCog },
@@ -156,9 +159,7 @@ const AdminSidebar = ({ onLogout }) => {
                   className="w-full text-left px-4 py-4 rounded-lg transition-a flex items-center gap-4 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
                 >
                   <BiLogOut className="w-6 h-6 flex-shrink-0" />
-                  <span className="font-medium text-lg">
-                    Log Outbbbbbbbbbbbbb
-                  </span>
+                  <span className="font-medium text-lg">Log Out</span>
                 </motion.button>
               </div>
             </nav>
