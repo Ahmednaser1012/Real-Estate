@@ -159,10 +159,16 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
       selectedServices.forEach((id) => submitData.append("services[]", id));
 
       // Append galleries
-      galleries.forEach((g) => {
+      // galleries.forEach((g) => {
+      //   if (g.file) {
+      //     submitData.append(`galleries[]`, g.file);
+      //     submitData.append(`galleryTypes[]`, g.type);
+      //   }
+      // });
+      galleries.forEach((g, index) => {
         if (g.file) {
-          submitData.append(`galleries[]`, g.file);
-          submitData.append(`galleryTypes[]`, g.type);
+          submitData.append(`galleries[${index}][file]`, g.file);
+          submitData.append(`galleries[${index}][type]`, g.type);
         }
       });
 
@@ -190,16 +196,16 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50">
       <div className="bg-white rounded-lg max-w-6xl w-full max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between z-10">
+        <div className="sticky top-0 z-10 flex items-center justify-between px-6 py-4 bg-white border-b">
           <h2 className="text-2xl font-bold text-gray-800">
             {project ? "Edit Project" : "Add New Project"}
           </h2>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 transition-colors"
+            className="text-gray-500 transition-colors hover:text-gray-700"
           >
             <FaTimes size={24} />
           </button>
@@ -208,19 +214,19 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6">
           {errors.submit && (
-            <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg">
+            <div className="p-3 mb-4 text-red-700 bg-red-100 rounded-lg">
               {errors.submit}
             </div>
           )}
 
           {/* Basic Information */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">
+            <h3 className="mb-4 text-lg font-semibold text-gray-800">
               Basic Information
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block mb-2 text-sm font-medium text-gray-700">
                   Title *
                 </label>
                 <input
@@ -233,19 +239,19 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                   }`}
                 />
                 {errors.title && (
-                  <p className="text-red-500 text-sm mt-1">{errors.title}</p>
+                  <p className="mt-1 text-sm text-red-500">{errors.title}</p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block mb-2 text-sm font-medium text-gray-700">
                   Project Type *
                 </label>
                 <select
                   name="type"
                   value={formData.type}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900"
+                  className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="residential">Residential</option>
                   <option value="commercial">Commercial</option>
@@ -253,7 +259,7 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
               </div>
 
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block mb-2 text-sm font-medium text-gray-700">
                   Description *
                 </label>
                 <textarea
@@ -266,14 +272,14 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                   }`}
                 />
                 {errors.description && (
-                  <p className="text-red-500 text-sm mt-1">
+                  <p className="mt-1 text-sm text-red-500">
                     {errors.description}
                   </p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block mb-2 text-sm font-medium text-gray-700">
                   Meta Title *
                 </label>
                 <input
@@ -286,12 +292,12 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                   }`}
                 />
                 {errors.metaTitle && (
-                  <p className="text-red-500 text-sm mt-1">{errors.metaTitle}</p>
+                  <p className="mt-1 text-sm text-red-500">{errors.metaTitle}</p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block mb-2 text-sm font-medium text-gray-700">
                   Meta Description *
                 </label>
                 <input
@@ -304,12 +310,12 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                   }`}
                 />
                 {errors.metaDescription && (
-                  <p className="text-red-500 text-sm mt-1">{errors.metaDescription}</p>
+                  <p className="mt-1 text-sm text-red-500">{errors.metaDescription}</p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block mb-2 text-sm font-medium text-gray-700">
                   Project Area (m²) *
                 </label>
                 <input
@@ -322,12 +328,12 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                   }`}
                 />
                 {errors.area && (
-                  <p className="text-red-500 text-sm mt-1">{errors.area}</p>
+                  <p className="mt-1 text-sm text-red-500">{errors.area}</p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block mb-2 text-sm font-medium text-gray-700">
                   Master Plan Image {!project && "*"}
                 </label>
                 {project && project.masterPlan && (
@@ -335,9 +341,9 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                     <img 
                       src={project.masterPlan} 
                       alt="Current Master Plan" 
-                      className="w-32 h-32 object-cover rounded-lg border border-gray-300"
+                      className="object-cover w-32 h-32 border border-gray-300 rounded-lg"
                     />
-                    <p className="text-gray-600 text-xs mt-1">Current Image</p>
+                    <p className="mt-1 text-xs text-gray-600">Current Image</p>
                   </div>
                 )}
                 <input
@@ -350,10 +356,10 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                   }`}
                 />
                 {errors.masterPlan && (
-                  <p className="text-red-500 text-sm mt-1">{errors.masterPlan}</p>
+                  <p className="mt-1 text-sm text-red-500">{errors.masterPlan}</p>
                 )}
                 {project && (
-                  <p className="text-gray-500 text-xs mt-1">Leave empty to keep current image</p>
+                  <p className="mt-1 text-xs text-gray-500">Leave empty to keep current image</p>
                 )}
               </div>
             </div>
@@ -361,12 +367,12 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
 
           {/* Location */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">
+            <h3 className="mb-4 text-lg font-semibold text-gray-800">
               Location
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block mb-2 text-sm font-medium text-gray-700">
                   City *
                 </label>
                 <select
@@ -385,12 +391,12 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                   ))}
                 </select>
                 {errors.cityId && (
-                  <p className="text-red-500 text-sm mt-1">{errors.cityId}</p>
+                  <p className="mt-1 text-sm text-red-500">{errors.cityId}</p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block mb-2 text-sm font-medium text-gray-700">
                   Area *
                 </label>
                 <select
@@ -410,12 +416,12 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                   ))}
                 </select>
                 {errors.areaId && (
-                  <p className="text-red-500 text-sm mt-1">{errors.areaId}</p>
+                  <p className="mt-1 text-sm text-red-500">{errors.areaId}</p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block mb-2 text-sm font-medium text-gray-700">
                   Location URL (Google Maps) *
                 </label>
                 <input
@@ -429,7 +435,7 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                   }`}
                 />
                 {errors.location && (
-                  <p className="text-red-500 text-sm mt-1">{errors.location}</p>
+                  <p className="mt-1 text-sm text-red-500">{errors.location}</p>
                 )}
               </div>
             </div>
@@ -437,10 +443,10 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
 
           {/* Services */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">
+            <h3 className="mb-4 text-lg font-semibold text-gray-800">
               Services & Amenities
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
               {allServices.map((service) => (
                 <label
                   key={service.id}
@@ -456,7 +462,7 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                     onChange={() => handleServiceToggle(service.id)}
                     className="w-5 h-5 text-green-600 border-gray-300 rounded focus:ring-green-500 focus:ring-2 accent-green-600"
                   />
-                  <span className="text-sm text-gray-900 font-medium">
+                  <span className="text-sm font-medium text-gray-900">
                     {service.name_en}
                   </span>
                 </label>
@@ -472,42 +478,42 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                 <button
                   type="button"
                   onClick={() => addGallery("image")}
-                  className="px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+                  className="px-3 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600"
                 >
                   Add Images
                 </button>
                 <button
                   type="button"
                   onClick={() => addGallery("video")}
-                  className="px-3 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600"
+                  className="px-3 py-2 text-white bg-purple-500 rounded-lg hover:bg-purple-600"
                 >
                   Add Videos
                 </button>
               </div>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
               {galleries.map((gallery) => (
                 <div key={gallery.id} className="relative group">
                   {gallery.type === "image" ? (
                     <img
                       src={gallery.url}
                       alt="Gallery"
-                      className="w-full h-32 object-cover rounded-lg"
+                      className="object-cover w-full h-32 rounded-lg"
                     />
                   ) : (
                     <video
                       src={gallery.url}
-                      className="w-full h-32 object-cover rounded-lg"
+                      className="object-cover w-full h-32 rounded-lg"
                     />
                   )}
                   <button
                     type="button"
                     onClick={() => removeGallery(gallery.id)}
-                    className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="absolute p-2 text-white transition-opacity bg-red-500 rounded-full opacity-0 top-2 right-2 group-hover:opacity-100"
                   >
                     <FaTrash size={12} />
                   </button>
-                  <span className="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">
+                  <span className="absolute px-2 py-1 text-xs text-white bg-black bg-opacity-50 rounded bottom-2 left-2">
                     {gallery.type}
                   </span>
                 </div>
@@ -516,7 +522,7 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
           </div>
 
           {/* Footer Actions */}
-          <div className="flex gap-3 justify-center mt-6 pt-6 border-t border-gray-200">
+          <div className="flex justify-center gap-3 pt-6 mt-6 border-t border-gray-200">
             <AdminButton
               type="button"
               variant="outline"
