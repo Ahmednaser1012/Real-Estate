@@ -7,6 +7,7 @@ import { useGetAllServicesQuery } from "../../../../../features/servicesApi";
 const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
   const { data: cities = [] } = useGetAllCitiesQuery(undefined, { skip: !isOpen });
   const { data: allServices = [] } = useGetAllServicesQuery(undefined, { skip: !isOpen });
+  const [deletedGalleryIds, setDeletedGalleryIds] = useState([]);
   
   const [formData, setFormData] = useState({
     title: "",
@@ -49,6 +50,7 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
         });
         setSelectedServices(project.services?.map((s) => s.id) || []);
         setGalleries(project.galleries || []);
+        setDeletedGalleryIds([]);
         if (project.city?.id) {
           setSelectedCityId(project.city.id);
         }
@@ -73,6 +75,7 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
     });
     setSelectedCityId("");
     setSelectedServices([]);
+    setDeletedGalleryIds([]);
     setGalleries([]);
     setErrors({});
   };
@@ -114,7 +117,19 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
     input.click();
   };
 
-  const removeGallery = (id) => setGalleries((prev) => prev.filter((g) => g.id !== id));
+  // const removeGallery = (id) => setGalleries((prev) => prev.filter((g) => g.id !== id));
+  const removeGallery = (id) => {
+  setGalleries((prev) => {
+    const galleryToRemove = prev.find((g) => g.id === id);
+    
+    // ✅ If this gallery exists in the backend (has numeric ID), track it for deletion
+    if (galleryToRemove && !galleryToRemove.file && Number.isInteger(galleryToRemove.id)) {
+      setDeletedGalleryIds((prevDeleted) => [...prevDeleted, galleryToRemove.id]);
+    }
+
+    return prev.filter((g) => g.id !== id);
+  });
+};
 
   const validate = () => {
     const newErrors = {};
@@ -159,11 +174,16 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
       selectedServices.forEach((id) => submitData.append("services[]", id));
 
       // Append galleries - send files and types separately
-      galleries.forEach((g) => {
+     galleries.forEach((g, index) => {
         if (g.file) {
-          submitData.append(`galleries[]`, g.file);
-          submitData.append(`galleryTypes[]`, g.type);
+          submitData.append(`galleries[${index}][file]`, g.file);
+          submitData.append(`galleries[${index}][type]`, g.type);
         }
+      });
+
+      // ✅ Append deleted gallery IDs
+      deletedGalleryIds.forEach((id) => {
+        submitData.append('deleted_gallery_ids[]', id);
       });
 
       await onSave(submitData);
