@@ -3,11 +3,10 @@ import { api } from "../app/api";
 export const propertiesApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getAllProperties: builder.query({
-      query: (params) => {
-        console.log('Fetching properties with params:', params);
+      query: ({ limit = 20, offset = 0, sort = "ASC", sortBy = "id" } = {}) => {
         return { 
           url: "/api/v1/properties", 
-          params 
+          params: { limit, offset, sort, sortBy },
         };
       },
       transformResponse: (response) => {

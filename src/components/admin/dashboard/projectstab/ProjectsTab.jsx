@@ -133,9 +133,9 @@ const ProjectsTab = () => {
 
         {/* Projects Grid */}
         {isLoading ? (
-          <div className="text-center py-8">Loading projects...</div>
+          <div className="py-8 text-center">Loading projects...</div>
         ) : error ? (
-          <div className="text-center py-8 text-red-500">
+          <div className="py-8 text-center text-red-500">
             Error loading projects: {error.message}
           </div>
         ) : (
