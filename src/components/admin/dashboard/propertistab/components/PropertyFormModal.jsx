@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTimes } from "react-icons/fa";
 import AdminButton from "../../../ui/AdminButton";
+import { useGetAllProjectsQuery } from "../../../../../features/projectsApi";
 
 const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
+  const { data: projects = [] } = useGetAllProjectsQuery(undefined, { skip: !isOpen });
+
   const [formData, setFormData] = useState({
     type: "apartments",
+    projectId: "",
     image: null,
     area_min: "",
     area_max: "",
@@ -15,7 +19,6 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
     no_of_bedrooms_max: "",
     no_of_bathrooms_min: "",
     no_of_bathrooms_max: "",
-    status: "available",
     deliveryDate: "",
   });
 
@@ -26,21 +29,22 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
     if (property) {
       setFormData({
         type: property.type || "apartments",
+        projectId: property.projectId || "",
         image: null,
-        area_min: property.area_min || "",
-        area_max: property.area_max || "",
-        price_min: property.price_min || "",
-        price_max: property.price_max || "",
-        no_of_bedrooms_min: property.no_of_bedrooms_min || "",
-        no_of_bedrooms_max: property.no_of_bedrooms_max || "",
-        no_of_bathrooms_min: property.no_of_bathrooms_min || "",
-        no_of_bathrooms_max: property.no_of_bathrooms_max || "",
-        status: property.status || "available",
+        area_min: property.areaMin || "",
+        area_max: property.areaMax || "",
+        price_min: property.priceMin || "",
+        price_max: property.priceMax || "",
+        no_of_bedrooms_min: property.noOfBedroomsMin || "",
+        no_of_bedrooms_max: property.noOfBedroomsMax || "",
+        no_of_bathrooms_min: property.noOfBathroomsMin || "",
+        no_of_bathrooms_max: property.noOfBathroomsMax || "",
         deliveryDate: property.deliveryDate || "",
       });
     } else {
       setFormData({
         type: "apartments",
+        projectId: "",
         image: null,
         area_min: "",
         area_max: "",
@@ -50,7 +54,6 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
         no_of_bedrooms_max: "",
         no_of_bathrooms_min: "",
         no_of_bathrooms_max: "",
-        status: "available",
         deliveryDate: "",
       });
     }
@@ -82,12 +85,12 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
     const newErrors = {};
     
     if (!formData.type) newErrors.type = "Property type is required";
+    if (!formData.projectId) newErrors.projectId = "Project is required";
     if (!property && !formData.image) newErrors.image = "Image is required";
     if (!formData.area_min) newErrors.area_min = "Minimum area is required";
     if (!formData.area_max) newErrors.area_max = "Maximum area is required";
     if (!formData.price_min) newErrors.price_min = "Minimum price is required";
     if (!formData.price_max) newErrors.price_max = "Maximum price is required";
-    if (!formData.deliveryDate) newErrors.deliveryDate = "Delivery date is required";
     
     // Validate min/max ranges
     if (formData.area_min && formData.area_max && parseFloat(formData.area_min) > parseFloat(formData.area_max)) {
@@ -118,6 +121,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
       const submitData = new FormData();
       
       submitData.append('type', formData.type);
+      submitData.append('projectId', formData.projectId);
       if (formData.image) {
         submitData.append('image', formData.image);
       }
@@ -125,19 +129,10 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
       submitData.append('areaMax', formData.area_max);
       submitData.append('priceMin', formData.price_min);
       submitData.append('priceMax', formData.price_max);
-      if (formData.no_of_bedrooms_min) {
-        submitData.append('noOfBedroomsMin', formData.no_of_bedrooms_min);
-      }
-      if (formData.no_of_bedrooms_max) {
-        submitData.append('noOfBedroomsMax', formData.no_of_bedrooms_max);
-      }
-      if (formData.no_of_bathrooms_min) {
-        submitData.append('noOfBathroomsMin', formData.no_of_bathrooms_min);
-      }
-      if (formData.no_of_bathrooms_max) {
-        submitData.append('noOfBathroomsMax', formData.no_of_bathrooms_max);
-      }
-      submitData.append('status', formData.status);
+      submitData.append('noOfBedroomsMin', formData.no_of_bedrooms_min || 0);
+      submitData.append('noOfBedroomsMax', formData.no_of_bedrooms_max || 0);
+      submitData.append('noOfBathroomsMin', formData.no_of_bathrooms_min || 0);
+      submitData.append('noOfBathroomsMax', formData.no_of_bathrooms_max || 0);
       submitData.append('deliveryDate', formData.deliveryDate);
 
       await onSave(submitData);
@@ -188,6 +183,31 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
               )}
 
               <div className="space-y-4">
+                {/* Project Selection */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Project *
+                  </label>
+                  <select
+                    name="projectId"
+                    value={formData.projectId}
+                    onChange={handleChange}
+                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black ${
+                      errors.projectId ? "border-red-500" : "border-gray-300"
+                    }`}
+                  >
+                    <option value="">Select Project</option>
+                    {projects.map((project) => (
+                      <option key={project.id} value={project.id}>
+                        {project.title}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.projectId && (
+                    <p className="text-red-500 text-sm mt-1">{errors.projectId}</p>
+                  )}
+                </div>
+
                 {/* Property Type */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -218,6 +238,16 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Property Image {!property && "*"}
                   </label>
+                  {property && property.image && (
+                    <div className="mb-2">
+                      <img 
+                        src={property.image} 
+                        alt="Current Property" 
+                        className="object-cover w-32 h-32 border border-gray-300 rounded-lg"
+                      />
+                      <p className="mt-1 text-xs text-gray-600">Current Image</p>
+                    </div>
+                  )}
                   <input
                     type="file"
                     accept="image/*"
@@ -398,41 +428,23 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                   </div>
                 </div>
 
-                {/* Status and Delivery Date */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Status *
-                    </label>
-                    <select
-                      name="status"
-                      value={formData.status}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-black"
-                    >
-                      <option value="available">Available</option>
-                      <option value="reserved">Reserved</option>
-                      <option value="sold">Sold</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Delivery Date *
-                    </label>
-                    <input
-                      type="date"
-                      name="deliveryDate"
-                      value={formData.deliveryDate}
-                      onChange={handleChange}
-                      className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black ${
-                        errors.deliveryDate ? "border-red-500" : "border-gray-300"
-                      }`}
-                    />
-                    {errors.deliveryDate && (
-                      <p className="text-red-500 text-sm mt-1">{errors.deliveryDate}</p>
-                    )}
-                  </div>
+                {/* Delivery Date */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Delivery Date
+                  </label>
+                  <input
+                    type="date"
+                    name="deliveryDate"
+                    value={formData.deliveryDate}
+                    onChange={handleChange}
+                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black ${
+                      errors.deliveryDate ? "border-red-500" : "border-gray-300"
+                    }`}
+                  />
+                  {errors.deliveryDate && (
+                    <p className="text-red-500 text-sm mt-1">{errors.deliveryDate}</p>
+                  )}
                 </div>
               </div>
 

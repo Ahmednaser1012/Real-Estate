@@ -21,6 +21,7 @@ export const projectsApi = api.injectEndpoints({
     // Get project by ID
     getProjectById: builder.query({
       query: (id) => `/api/v1/projects/${id}`,
+      transformResponse: (response) => response.data || response,
       providesTags: (result, error, id) => [{ type: "Project", id }],
     }),
 

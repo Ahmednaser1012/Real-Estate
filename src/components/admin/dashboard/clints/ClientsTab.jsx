@@ -1,4 +1,4 @@
-import { BiUser, BiEnvelope, BiPhone, BiMap, BiMessage } from "react-icons/bi";
+import { BiUser, BiEnvelope, BiPhone } from "react-icons/bi";
 import AdminCard from "../../ui/AdminCard";
 import { useGetAllClientsQuery } from "../../../../features/clientsApi";
 

@@ -1,6 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { FaBed, FaBath, FaRulerCombined, FaCalendarAlt, FaMoneyBillWave } from "react-icons/fa";
+import {
+  FaBed,
+  FaBath,
+  FaRulerCombined,
+  FaCalendarAlt,
+  FaMoneyBillWave,
+} from "react-icons/fa";
 import { MdEdit, MdDelete } from "react-icons/md";
 
 const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
@@ -81,7 +87,7 @@ const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
         <div className="flex items-center gap-2 text-sm mb-3 bg-green-50 p-2 rounded-lg">
           <FaMoneyBillWave className="text-green-600" />
           <span className="font-semibold text-green-700">
-            {property.price_min?.toLocaleString()} - {property.price_max?.toLocaleString()} EGP
+            {property.priceMin?.toLocaleString()} - {property.priceMax?.toLocaleString()} EGP
           </span>
         </div>
 
@@ -89,23 +95,23 @@ const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
         <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
           <FaRulerCombined className="text-blue-600" />
           <span>
-            {property.area_min} - {property.area_max} m²
+            {property.areaMin} - {property.areaMax} m²
           </span>
         </div>
 
         {/* Bedrooms & Bathrooms */}
-        {(property.no_of_bedrooms_min > 0 || property.no_of_bedrooms_max > 0) && (
+        {(property.noOfBedroomsMin > 0 || property.noOfBedroomsMax > 0) && (
           <div className="flex items-center gap-4 mb-2">
             <div className="flex items-center gap-2 text-sm text-gray-600">
               <FaBed className="text-purple-600" />
               <span>
-                {property.no_of_bedrooms_min} - {property.no_of_bedrooms_max} Beds
+                {property.noOfBedroomsMin} - {property.noOfBedroomsMax} Beds
               </span>
             </div>
             <div className="flex items-center gap-2 text-sm text-gray-600">
               <FaBath className="text-cyan-600" />
               <span>
-                {property.no_of_bathrooms_min} - {property.no_of_bathrooms_max} Baths
+                {property.noOfBathroomsMin} - {property.noOfBathroomsMax} Baths
               </span>
             </div>
           </div>
@@ -115,7 +121,13 @@ const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
         {property.deliveryDate && (
           <div className="flex items-center gap-2 text-sm text-gray-600 mb-4">
             <FaCalendarAlt className="text-orange-600" />
-            <span>{new Date(property.deliveryDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            <span>
+              {new Date(property.deliveryDate).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </span>
           </div>
         )}
 

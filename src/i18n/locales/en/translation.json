@@ -60,25 +60,35 @@
     "ourVision": "Our Vision",
     "ourValues": "Our Values",
     "stats": {
-      "heading": "We specialize in quality home renovations - you've just found it - we can realize any projects",
-      "description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum animi aut enim unde illum magni asperiores quidem sint autem, dolor labore voluptas ipsum blanditiis voluptate adipisci ducimus voluptatibus. Magnam, suscipit.",
-      "paragraph1": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum ab distinctio suscipit magni? Sapiente veniam distinctio iure neque! Harum necessitatibus voluptate excepturi asperiores neque ex modi deserunt. Praesentium, cupiditate voluptatem!",
-      "paragraph2": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Alias rerum architecto fugit sed hic porro at vero voluptatibus ipsa accusantium.",
-      "investmentPlan": "Investment Plan",
-      "consultingExperience": "Consulting Experience",
-      "planning": "Planning",
-      "growBusiness": "Grow Business"
+      "heading": "Levels Real Estate Development - Building Integrated Residential Communities",
+      "description": "We specialize in developing and building luxury residential compounds that combine modern design with integrated services to provide an exceptional living experience for our clients.",
+      "paragraph1": "Levels Real Estate Development is a leading company in the field of real estate development, with extensive experience in designing and building integrated residential compounds. We are committed to providing the highest quality standards in construction and finishing, with a focus on providing all services and facilities that meet the needs of modern families.",
+      "paragraph2": "Our projects are characterized by strategic locations, modern architectural designs, and integrated infrastructure that ensures comfort and luxury for residents. We believe that every project we build is not just a residential compound, but an integrated community that provides a distinctive lifestyle.",
+      "investmentPlan": "Project Completion Rate",
+      "consultingExperience": "Customer Satisfaction",
+      "planning": "Design & Planning Excellence",
+      "growBusiness": "Quality Standards"
     },
     "overview": {
       "heading": "What We Do",
-      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus earum, laboriosam soluta, sit natus corporis ab ullam vel voluptates inventore ipsa repudiandae minus? Non, deleniti! Quos reiciendis saepe voluptatem accusantium nemo praesentium reprehenderit nostrum veritatis.",
+      "description": "We provide comprehensive real estate services including sales, purchases, rentals, and consultations. Our professional team works to achieve your real estate goals with the highest levels of quality and professionalism.",
       "readMore": "Read More",
-      "watchOverview": "Watch the Overview"
+      "watchOverview": "Watch the Overview",
+      "vision": {
+        "title": "VISION",
+        "description": "To redefine modern living in West Cairo by creating innovative, sustainable, and high-quality communities that build trust and enhance everyday life"
+      },
+      "mission": {
+        "title": "MISSION",
+        "point1": "To Develop well-planned, future-ready projects that meet the evolving needs of our clients",
+        "point2": "To expand from our proven commercial success into the residential sector with a commitment to quality, transparency, and innovation",
+        "point3": "To leverage our strategic land assets and experienced leadership to become a trusted name in Egypt's real estate market"
+      }
     },
     "brands": {
       "subHeading": "Brands",
       "heading": "Our Brands",
-      "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus quia eius quaerat, quas deleniti sed. Sapiente illo architecto!"
+      "description": "We are proud of our partnerships with the best brands in real estate and construction to provide the best services to our clients."
     },
     "whatWeDo": {
       "subHeading": "What We Do",
