@@ -21,8 +21,8 @@ const BlogThree = () => {
             className="border outline-none bg-transparent dark:border-dark px-3 py-[0.35rem] w-full"
             placeholder="Enter Keywords.."
           />
-          <Type />
-          <TopRated />
+          {/* <Type /> */}
+          {/* <TopRated /> */}
           {/* <PopularTags /> */}
           <SocialIcons />
           <CTA />

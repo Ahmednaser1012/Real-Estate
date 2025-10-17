@@ -56,7 +56,6 @@ const Speciality = () => {
     },
   };
 
-  
   return (
     <motion.div
       ref={ref}
@@ -66,42 +65,33 @@ const Speciality = () => {
       animate={inView ? "visible" : "hidden"}
     >
       <div className="flex flex-wrap gap-10">
-        <motion.div 
+        <motion.div
           className="flex-1 basis-[20rem]"
           variants={leftSideVariants}
         >
-          <motion.h1 
-            className="sub-heading"
-            variants={checkItemVariants}
-          >
+          <motion.h1 className="sub-heading" variants={checkItemVariants}>
             about us
           </motion.h1>
-          <motion.h1 
-            className="heading"
-            variants={checkItemVariants}
-          >
-            we specialize in quality home renovations
+          <motion.h1 className="heading" variants={checkItemVariants}>
+            We develop quality projects that blend style, comfort, and
+            durability
           </motion.h1>
-          <motion.p 
-            className="mt-3"
-            variants={checkItemVariants}
-          >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo laborum
-            earum saepe quibusdam, temporibus aut sapiente, ea alias libero,
-            ipsam perferendis. Consectetur maiores, dicta, earum eaque facilis
-            adipisci dignissimos optio fuga officia itaque quo impedit.
+          <motion.p className="mt-3" variants={checkItemVariants}>
+            Established under the umbrella of Kayan Real Estate Development,
+            Levels Developments leverages decades of experience to deliver
+            high-quality residential and commercial projects. The company was
+            founded through a strategic alliance between two of the most
+            prominent developers in 6th of October City, bringing together deep
+            expertise in both sectors to deliver lasting and sustainable value.
           </motion.p>
-          <motion.div 
-            className="mt-4"
-            variants={checkItemVariants}
-          >
-            <motion.div 
+          <motion.div className="mt-4" variants={checkItemVariants}>
+            <motion.div
               className="flex-align-center gap-x-2"
               variants={checkItemVariants}
               whileHover={{ x: 5 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <motion.div 
+              <motion.div
                 className="icon-box text-primary bg-gray-200/60 "
                 whileHover={{ scale: 1.1, rotate: 360 }}
                 transition={{ duration: 0.3 }}
@@ -110,13 +100,13 @@ const Speciality = () => {
               </motion.div>
               <p>Outstanding Property</p>
             </motion.div>
-            <motion.div 
+            <motion.div
               className="mt-2 flex-align-center gap-x-2"
               variants={checkItemVariants}
               whileHover={{ x: 5 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <motion.div 
+              <motion.div
                 className="icon-box text-primary bg-gray-200/60 "
                 whileHover={{ scale: 1.1, rotate: 360 }}
                 transition={{ duration: 0.3 }}
@@ -125,13 +115,13 @@ const Speciality = () => {
               </motion.div>
               <p>Professional and experienced human resource</p>
             </motion.div>
-            <motion.div 
+            <motion.div
               className="mt-2 flex-align-center gap-x-2"
               variants={checkItemVariants}
               whileHover={{ x: 5 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <motion.div 
+              <motion.div
                 className="icon-box text-primary bg-gray-200/60 "
                 whileHover={{ scale: 1.1, rotate: 360 }}
                 transition={{ duration: 0.3 }}
@@ -140,13 +130,13 @@ const Speciality = () => {
               </motion.div>
               <p>Provide the best services for users</p>
             </motion.div>
-            <motion.div 
+            <motion.div
               className="mt-2 flex-align-center gap-x-2"
               variants={checkItemVariants}
               whileHover={{ x: 5 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <motion.div 
+              <motion.div
                 className="icon-box text-primary bg-gray-200/60"
                 whileHover={{ scale: 1.1, rotate: 360 }}
                 transition={{ duration: 0.3 }}
@@ -155,7 +145,7 @@ const Speciality = () => {
               </motion.div>
               <p>Modern city locations and exceptional lifestyle</p>
             </motion.div>
-            <motion.button 
+            <motion.button
               className="mt-4 btn btn-primary"
               variants={checkItemVariants}
               whileHover={{ scale: 1.05, y: -2 }}
@@ -166,7 +156,7 @@ const Speciality = () => {
             </motion.button>
           </motion.div>
         </motion.div>
-        <motion.div 
+        <motion.div
           className="flex-1 basis-[20rem]"
           variants={rightSideVariants}
         >
@@ -179,28 +169,31 @@ const Speciality = () => {
               playsInline
               controls
               className="rounded-lg w-full sm:h-[400px] object-fill"
-              initial={{ 
-                scale: 1.2, 
+              initial={{
+                scale: 1.2,
                 opacity: 0,
-                clipPath: "inset(0 100% 0 0)"
+                clipPath: "inset(0 100% 0 0)",
               }}
-              animate={inView ? { 
-                scale: 1, 
-                opacity: 1,
-                clipPath: "inset(0 0% 0 0)"
-              } : { 
-                scale: 1.2, 
-                opacity: 0,
-                clipPath: "inset(0 100% 0 0)"
-              }}
-              transition={{ 
-                duration: 1.2, 
+              animate={
+                inView
+                  ? {
+                      scale: 1,
+                      opacity: 1,
+                      clipPath: "inset(0 0% 0 0)",
+                    }
+                  : {
+                      scale: 1.2,
+                      opacity: 0,
+                      clipPath: "inset(0 100% 0 0)",
+                    }
+              }
+              transition={{
+                duration: 1.2,
                 ease: "easeOut",
-                clipPath: { duration: 1.5, ease: "easeInOut" }
+                clipPath: { duration: 1.5, ease: "easeInOut" },
               }}
               whileHover={{ scale: 1.02 }}
             />
-           
           </div>
         </motion.div>
       </div>

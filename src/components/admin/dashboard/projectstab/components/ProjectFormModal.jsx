@@ -158,17 +158,11 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
       // Append services
       selectedServices.forEach((id) => submitData.append("services[]", id));
 
-      // Append galleries
-      // galleries.forEach((g) => {
-      //   if (g.file) {
-      //     submitData.append(`galleries[]`, g.file);
-      //     submitData.append(`galleryTypes[]`, g.type);
-      //   }
-      // });
-      galleries.forEach((g, index) => {
+      // Append galleries - send files and types separately
+      galleries.forEach((g) => {
         if (g.file) {
-          submitData.append(`galleries[${index}][file]`, g.file);
-          submitData.append(`galleries[${index}][type]`, g.type);
+          submitData.append(`galleries[]`, g.file);
+          submitData.append(`galleryTypes[]`, g.type);
         }
       });
 

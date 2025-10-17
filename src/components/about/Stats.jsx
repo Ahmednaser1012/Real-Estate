@@ -6,12 +6,8 @@ const Stats = () => {
   return (
     <div className="pt-10 pb-16">
       <div className="text-center">
-        <h1 className="heading">
-          {t("about.stats.heading")}
-        </h1>
-        <p className="mt-4">
-          {t("about.stats.description")}
-        </p>
+        <h1 className="heading">{t("about.stats.heading")}</h1>
+        <p className="mt-4">{t("about.stats.description")}</p>
       </div>
       <div className="flex flex-wrap gap-24 mt-8">
         <div className="relative flex-1 basis-[18rem]">
@@ -35,16 +31,14 @@ const Stats = () => {
         </div>
 
         <div className="relative flex-1 basis-[22rem]">
-          <p>
-            {t("about.stats.paragraph1")}
-          </p>
-          <p className="mt-3">
-            {t("about.stats.paragraph2")}
-          </p>
+          <p>{t("about.stats.paragraph1")}</p>
+          <p className="mt-3">{t("about.stats.paragraph2")}</p>
           <div className="mt-3">
             <div className="mt-2">
               <div className="flex-center-between">
-                <h1 className="font-semibold capitalize">{t("about.stats.investmentPlan")}</h1>
+                <h1 className="font-semibold capitalize">
+                  {t("about.stats.investmentPlan")}
+                </h1>
                 <h1 className="font-semibold capitalize">80%</h1>
               </div>
               <div className="w-full h-2 mt-2 overflow-hidden rounded-full bg-slate-100 dark:bg-dark-light">
@@ -57,16 +51,18 @@ const Stats = () => {
                 <h1 className="font-semibold capitalize">
                   {t("about.stats.consultingExperience")}
                 </h1>
-                <h1 className="font-semibold capitalize">70%</h1>
+                <h1 className="font-semibold capitalize">90%</h1>
               </div>
               <div className="w-full h-2 mt-2 overflow-hidden rounded-full bg-slate-100 dark:bg-dark-light">
-                <div className="w-[70%] h-full bg-gray-700 rounded-full"></div>
+                <div className="w-[70%] h-full bg-green-700 rounded-full"></div>
               </div>
             </div>
 
             <div className="mt-2">
               <div className="flex-center-between">
-                <h1 className="font-semibold capitalize">{t("about.stats.planning")}</h1>
+                <h1 className="font-semibold capitalize">
+                  {t("about.stats.planning")}
+                </h1>
                 <h1 className="font-semibold capitalize">90%</h1>
               </div>
               <div className="w-full h-2 mt-2 overflow-hidden rounded-full bg-slate-100 dark:bg-dark-light">
@@ -76,7 +72,9 @@ const Stats = () => {
 
             <div className="mt-2">
               <div className="flex-center-between">
-                <h1 className="font-semibold capitalize">{t("about.stats.growBusiness")}</h1>
+                <h1 className="font-semibold capitalize">
+                  {t("about.stats.growBusiness")}
+                </h1>
                 <h1 className="font-semibold capitalize">85%</h1>
               </div>
               <div className="w-full h-2 mt-2 overflow-hidden rounded-full bg-slate-100 dark:bg-dark-light">

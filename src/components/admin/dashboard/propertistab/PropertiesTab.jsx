@@ -10,103 +10,24 @@ import {
   PropertyFormModal,
   DeleteConfirmModal,
 } from "./components";
-
-// Dummy data for demonstration - Replace with API call
-const initialProperties = [
-  {
-    id: 1,
-    type: "apartments",
-    image: "/images/property (1).jpg",
-    area_min: 100,
-    area_max: 150,
-    price_min: 2000000,
-    price_max: 2500000,
-    no_of_bedrooms_min: 2,
-    no_of_bedrooms_max: 3,
-    no_of_bathrooms_min: 1,
-    no_of_bathrooms_max: 2,
-    status: "available",
-    deliveryDate: "2024-12-31",
-  },
-  {
-    id: 2,
-    type: "offices",
-    image: "/images/property (2).jpg",
-    area_min: 80,
-    area_max: 120,
-    price_min: 1500000,
-    price_max: 2000000,
-    no_of_bedrooms_min: 0,
-    no_of_bedrooms_max: 0,
-    no_of_bathrooms_min: 1,
-    no_of_bathrooms_max: 2,
-    status: "available",
-    deliveryDate: "2024-12-15",
-  },
-  {
-    id: 3,
-    type: "retails",
-    image: "/images/property (3).jpg",
-    area_min: 50,
-    area_max: 100,
-    price_min: 2500000,
-    price_max: 3500000,
-    no_of_bedrooms_min: 0,
-    no_of_bedrooms_max: 0,
-    no_of_bathrooms_min: 1,
-    no_of_bathrooms_max: 1,
-    status: "available",
-    deliveryDate: "2025-01-20",
-  },
-  {
-    id: 4,
-    type: "duplexes",
-    image: "/images/property (4).jpg",
-    area_min: 200,
-    area_max: 300,
-    price_min: 3500000,
-    price_max: 5000000,
-    no_of_bedrooms_min: 3,
-    no_of_bedrooms_max: 5,
-    no_of_bathrooms_min: 2,
-    no_of_bathrooms_max: 4,
-    status: "reserved",
-    deliveryDate: "2025-03-10",
-  },
-  {
-    id: 5,
-    type: "studios",
-    image: "/images/property (5).jpg",
-    area_min: 40,
-    area_max: 70,
-    price_min: 1000000,
-    price_max: 1500000,
-    no_of_bedrooms_min: 0,
-    no_of_bedrooms_max: 1,
-    no_of_bathrooms_min: 1,
-    no_of_bathrooms_max: 1,
-    status: "available",
-    deliveryDate: "2024-11-30",
-  },
-  {
-    id: 6,
-    type: "clinics",
-    image: "/images/property (6).jpg",
-    area_min: 60,
-    area_max: 100,
-    price_min: 1800000,
-    price_max: 2500000,
-    no_of_bedrooms_min: 0,
-    no_of_bedrooms_max: 0,
-    no_of_bathrooms_min: 1,
-    no_of_bathrooms_max: 2,
-    status: "sold",
-    deliveryDate: "2025-02-28",
-  },
-];
+import {
+  useGetAllPropertiesQuery,
+  useCreatePropertyMutation,
+  useUpdatePropertyMutation,
+  useDeletePropertyMutation,
+} from "../../../../features/propertiesApi";
 
 const PropertiesTab = () => {
-  const [properties, setProperties] = useState(initialProperties);
+  // API hooks
+  const {
+    data: apiProperties = [],
+    isLoading,
+    error,
+  } = useGetAllPropertiesQuery();
+  const [createProperty] = useCreatePropertyMutation();
+  const [updateProperty] = useUpdatePropertyMutation();
+  const [deleteProperty] = useDeletePropertyMutation();
+
   const [activeFilter, setActiveFilter] = useState("all");
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
@@ -114,6 +35,15 @@ const PropertiesTab = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [propertyToEdit, setPropertyToEdit] = useState(null);
   const [propertyToDelete, setPropertyToDelete] = useState(null);
+
+  // Use API data or fallback to empty array
+  const properties = apiProperties || [];
+
+  // Debug: Log the data
+  console.log("API Properties:", apiProperties);
+  console.log("Properties:", properties);
+  console.log("Is Loading:", isLoading);
+  console.log("Error:", error);
 
   // Filter properties based on active filter
   const filteredProperties = useMemo(() => {
@@ -148,29 +78,31 @@ const PropertiesTab = () => {
   };
 
   // Handle save property (add or edit)
-  const handleSaveProperty = (propertyData) => {
-    if (propertyToEdit) {
-      // Update existing property
-      setProperties((prev) =>
-        prev.map((p) =>
-          p.id === propertyToEdit.id ? { ...propertyData, id: p.id } : p
-        )
-      );
-    } else {
-      // Add new property
-      const newProperty = {
-        ...propertyData,
-        id: Math.max(...properties.map((p) => p.id), 0) + 1,
-      };
-      setProperties((prev) => [...prev, newProperty]);
+  const handleSaveProperty = async (propertyData) => {
+    try {
+      if (propertyToEdit) {
+        // Update existing property - append id to FormData
+        const payload = { id: propertyToEdit.id, formData: propertyData };
+        await updateProperty(payload).unwrap();
+      } else {
+        // Add new property
+        await createProperty(propertyData).unwrap();
+      }
+    } catch (error) {
+      console.error("Failed to save property:", error);
+      throw error;
     }
   };
 
   // Confirm delete property
-  const confirmDeleteProperty = () => {
-    setProperties((prev) => prev.filter((p) => p.id !== propertyToDelete.id));
-    setIsDeleteModalOpen(false);
-    setPropertyToDelete(null);
+  const confirmDeleteProperty = async () => {
+    try {
+      await deleteProperty(propertyToDelete.id).unwrap();
+      setIsDeleteModalOpen(false);
+      setPropertyToDelete(null);
+    } catch (error) {
+      console.error("Failed to delete property:", error);
+    }
   };
 
   return (
@@ -233,9 +165,12 @@ const PropertiesTab = () => {
           setPropertyToDelete(null);
         }}
         onConfirm={confirmDeleteProperty}
-        propertyTitle={propertyToDelete?.type ? 
-          propertyToDelete.type.charAt(0).toUpperCase() + propertyToDelete.type.slice(1) : 
-          "this property"}
+        propertyTitle={
+          propertyToDelete?.type
+            ? propertyToDelete.type.charAt(0).toUpperCase() +
+              propertyToDelete.type.slice(1)
+            : "this property"
+        }
       />
     </>
   );

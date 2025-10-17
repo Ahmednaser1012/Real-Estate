@@ -186,9 +186,9 @@ const LocationsTab = () => {
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Name (Arabic)
                       </th>
-                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      {/* <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Actions
-                      </th>
+                      </th> */}
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -203,7 +203,7 @@ const LocationsTab = () => {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                           {city.name_ar}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        {/* <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <button
                             onClick={() => handleEditCity(city)}
                             className="text-blue-600 hover:text-blue-900 mr-4"
@@ -216,7 +216,7 @@ const LocationsTab = () => {
                           >
                             <FaTrash size={18} />
                           </button>
-                        </td>
+                        </td> */}
                       </tr>
                     ))}
                   </tbody>
@@ -262,9 +262,9 @@ const LocationsTab = () => {
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Name (Arabic)
                       </th>
-                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      {/* <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Actions
-                      </th>
+                      </th> */}
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -282,7 +282,7 @@ const LocationsTab = () => {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                           {area.name_ar}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        {/* <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <button
                             onClick={() => handleEditArea(area)}
                             className="text-blue-600 hover:text-blue-900 mr-4"
@@ -295,7 +295,7 @@ const LocationsTab = () => {
                           >
                             <FaTrash size={18} />
                           </button>
-                        </td>
+                        </td> */}
                       </tr>
                     ))}
                   </tbody>

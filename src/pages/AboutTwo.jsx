@@ -7,7 +7,7 @@ const AboutTwo = () => {
       <Stats />
       <OverView />
       <Brands />
-      <WhatWeDo />
+      {/* <WhatWeDo /> */}
       <Feeds />
     </div>
   );

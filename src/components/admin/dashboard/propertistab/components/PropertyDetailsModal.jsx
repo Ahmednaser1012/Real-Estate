@@ -5,6 +5,10 @@ import { FaTimes, FaEdit, FaTrash, FaBed, FaBath, FaRulerCombined, FaCalendarAlt
 const PropertyDetailsModal = ({ property, isOpen, onClose, onEdit, onDelete }) => {
   if (!property) return null;
 
+  // Debug: Check delivery date
+  console.log('Property in Details Modal:', property);
+  console.log('Delivery Date:', property.deliveryDate);
+
   const getStatusColor = (status) => {
     switch (status) {
       case "available":
@@ -110,7 +114,7 @@ const PropertyDetailsModal = ({ property, isOpen, onClose, onEdit, onDelete }) =
                     <h4 className="font-semibold text-gray-700">Price Range</h4>
                   </div>
                   <p className="text-lg font-bold text-green-700">
-                    {property.price_min?.toLocaleString()} - {property.price_max?.toLocaleString()} EGP
+                    {property.priceMin?.toLocaleString()} - {property.priceMax?.toLocaleString()} EGP
                   </p>
                 </div>
 
@@ -121,32 +125,32 @@ const PropertyDetailsModal = ({ property, isOpen, onClose, onEdit, onDelete }) =
                     <h4 className="font-semibold text-gray-700">Area Range</h4>
                   </div>
                   <p className="text-lg font-bold text-blue-700">
-                    {property.area_min} - {property.area_max} m²
+                    {property.areaMin} - {property.areaMax} m²
                   </p>
                 </div>
 
                 {/* Bedrooms */}
-                {(property.no_of_bedrooms_min > 0 || property.no_of_bedrooms_max > 0) && (
+                {(property.noOfBedroomsMin > 0 || property.noOfBedroomsMax > 0) && (
                   <div className="bg-purple-50 p-4 rounded-lg">
                     <div className="flex items-center gap-2 mb-2">
                       <FaBed className="text-purple-600 text-xl" />
                       <h4 className="font-semibold text-gray-700">Bedrooms</h4>
                     </div>
                     <p className="text-lg font-bold text-purple-700">
-                      {property.no_of_bedrooms_min} - {property.no_of_bedrooms_max}
+                      {property.noOfBedroomsMin} - {property.noOfBedroomsMax}
                     </p>
                   </div>
                 )}
 
                 {/* Bathrooms */}
-                {(property.no_of_bathrooms_min > 0 || property.no_of_bathrooms_max > 0) && (
+                {(property.noOfBathroomsMin > 0 || property.noOfBathroomsMax > 0) && (
                   <div className="bg-cyan-50 p-4 rounded-lg">
                     <div className="flex items-center gap-2 mb-2">
                       <FaBath className="text-cyan-600 text-xl" />
                       <h4 className="font-semibold text-gray-700">Bathrooms</h4>
                     </div>
                     <p className="text-lg font-bold text-cyan-700">
-                      {property.no_of_bathrooms_min} - {property.no_of_bathrooms_max}
+                      {property.noOfBathroomsMin} - {property.noOfBathroomsMax}
                     </p>
                   </div>
                 )}
