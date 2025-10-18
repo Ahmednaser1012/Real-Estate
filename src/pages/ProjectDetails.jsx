@@ -248,15 +248,17 @@ const ProjectDetails = () => {
                               key={service.id}
                               className="flex items-center gap-2 p-3 bg-gray-50 dark:bg-dark rounded-lg"
                             >
-                              {service.icon && (
+                              {service.image && (
                                 <img
-                                  src={service.icon}
-                                  alt={service.name}
-                                  className="w-5 h-5"
+                                  src={service.image}
+                                  alt={service.name_en}
+                                  className="w-5 h-5 object-contain"
                                 />
                               )}
                               <span className="text-sm font-medium">
-                                {service.name}
+                                {service.name_en ||
+                                  service.name_ar
+                      }
                               </span>
                             </div>
                           ))}
@@ -324,7 +326,7 @@ const ProjectDetails = () => {
                           <span className="text-gray-600 dark:text-gray-400">
                             Location
                           </span>
-                          <a 
+                          <a
                             href={project.location}
                             target="_blank"
                             rel="noopener noreferrer"
