@@ -10,31 +10,31 @@ import {
 import { MdEdit, MdDelete } from "react-icons/md";
 
 const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
-  const getStatusColor = (status) => {
-    switch (status) {
-      case "available":
-        return "bg-green-100 text-green-800";
-      case "reserved":
-        return "bg-yellow-100 text-yellow-800";
-      case "sold":
-        return "bg-red-100 text-red-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
-  };
+  // const getStatusColor = (status) => {
+  //   switch (status) {
+  //     case "available":
+  //       return "bg-green-100 text-green-800";
+  //     case "reserved":
+  //       return "bg-yellow-100 text-yellow-800";
+  //     case "sold":
+  //       return "bg-red-100 text-red-800";
+  //     default:
+  //       return "bg-gray-100 text-gray-800";
+  //   }
+  // };
 
-  const getStatusText = (status) => {
-    switch (status) {
-      case "available":
-        return "Available";
-      case "reserved":
-        return "Reserved";
-      case "sold":
-        return "Sold";
-      default:
-        return status;
-    }
-  };
+  // const getStatusText = (status) => {
+  //   switch (status) {
+  //     case "available":
+  //       return "Available";
+  //     case "reserved":
+  //       return "Reserved";
+  //     case "sold":
+  //       return "Sold";
+  //     default:
+  //       return status;
+  //   }
+  // };
 
   const getTypeLabel = (type) => {
     const labels = {

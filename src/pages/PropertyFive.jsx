@@ -12,12 +12,7 @@ import {
 import { PropertyList } from "../components/property";
 import { closeFilterMenu, uiStore } from "../features/uiSlice";
 import { useGetAllProjectsQuery } from "../features/projectsApi";
-import {
-  setIsLoading,
-  setTotalCount,
-  getCurrentItems,
-  dataStore,
-} from "../features/dataSlice";
+import { setIsLoading, setTotalCount, dataStore } from "../features/dataSlice";
 
 const PropertyFive = () => {
   const { isFilterMenuOpen } = useSelector(uiStore);

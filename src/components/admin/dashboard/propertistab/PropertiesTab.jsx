@@ -19,11 +19,7 @@ import {
 
 const PropertiesTab = () => {
   // API hooks
-  const {
-    data: apiResponse = [],
-    isLoading,
-    error,
-  } = useGetAllPropertiesQuery();
+  const { data: apiResponse = [] } = useGetAllPropertiesQuery();
   const [createProperty] = useCreatePropertyMutation();
   const [updateProperty] = useUpdatePropertyMutation();
   const [deleteProperty] = useDeletePropertyMutation();
@@ -37,7 +33,9 @@ const PropertiesTab = () => {
   const [propertyToDelete, setPropertyToDelete] = useState(null);
 
   // Handle both array and object responses
-  const properties = Array.isArray(apiResponse) ? apiResponse : (apiResponse?.data || []);
+  const properties = Array.isArray(apiResponse)
+    ? apiResponse
+    : apiResponse?.data || [];
 
   // Filter properties based on active filter
   const filteredProperties = useMemo(() => {

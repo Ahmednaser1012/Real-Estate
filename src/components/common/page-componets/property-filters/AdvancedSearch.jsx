@@ -24,25 +24,24 @@ const AdvancedSearch = () => {
     useGetAllCitiesQuery();
 
   // Fetch areas only when a city is selected
-  const {
-    data: areasResponse,
-    isLoading: areasLoading,
-    error: areasError,
-  } = useGetAreasByCityQuery(
-    { cityId: selectedCityId },
-    { skip: !selectedCityId } // Skip query if no city selected
-  );
+  const { data: areasResponse, isLoading: areasLoading } =
+    useGetAreasByCityQuery(
+      { cityId: selectedCityId },
+      { skip: !selectedCityId } // Skip query if no city selected
+    );
 
   // Extract data from response - handle both array and object responses
   const cities = Array.isArray(citiesResponse)
     ? citiesResponse
     : citiesResponse?.data || [];
-  
+
   // Filter areas by selected city ID (local filtering as backup)
   const allAreas = Array.isArray(areasResponse)
     ? areasResponse
     : areasResponse?.data || [];
-  const areas = allAreas.filter(area => area.city_id === parseInt(selectedCityId));
+  const areas = allAreas.filter(
+    (area) => area.city_id === parseInt(selectedCityId)
+  );
 
   // Update local filters when Redux filters change
   useEffect(() => {
@@ -162,7 +161,9 @@ const AdvancedSearch = () => {
         onClick={() => setShowPropertyFilters(!showPropertyFilters)}
         className="mt-4 w-full px-3 py-2 bg-slate-100 dark:bg-dark-light text-slate-700 dark:text-slate-300 rounded text-sm hover:bg-slate-200 dark:hover:bg-card-dark transition-a"
       >
-        {showPropertyFilters ? "Hide Property Filters ▲" : "Show Property Filters ▼"}
+        {showPropertyFilters
+          ? "Hide Property Filters ▲"
+          : "Show Property Filters ▼"}
       </button>
 
       {/* Property Filters */}
