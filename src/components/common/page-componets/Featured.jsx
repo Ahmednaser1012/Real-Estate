@@ -2,7 +2,12 @@ import { useGetAllProjectsQuery } from "../../../features/projectsApi";
 import SingleProductCard from "./SingleProductCard";
 
 const Featured = () => {
-  const { data: projects = [], isLoading, error } = useGetAllProjectsQuery();
+  const { data: projectsResponse = {}, isLoading, error } = useGetAllProjectsQuery();
+
+  // Extract projects array from response (handle both array and object responses)
+  const projects = Array.isArray(projectsResponse) 
+    ? projectsResponse 
+    : (projectsResponse?.data || []);
 
   // Get first 3 projects for featured section
   const featuredProjects = projects.slice(0, 3);

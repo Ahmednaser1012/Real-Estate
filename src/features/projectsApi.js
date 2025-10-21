@@ -4,15 +4,52 @@ export const projectsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     // Get all projects with pagination and filters
     getAllProjects: builder.query({
-      query: ({ limit = 20, offset = 0, sort = "ASC", sortBy = "id" } = {}) => ({
-        url: "/api/v1/projects",
-        params: { limit, offset, sort, sortBy },
-      }),
-      transformResponse: (response) => response.data || response,
+      query: ({
+        limit = 20,
+        offset = 0,
+        sort = "ASC",
+        sortBy = "id",
+        city = "",
+        area = "",
+        projectType = "",
+        propertyType = "",
+        priceMin = "",
+        priceMax = "",
+        areaMin = "",
+        areaMax = "",
+        noOfRooms = "",
+      } = {}) => {
+        const params = { limit, offset, sort, sortBy };
+
+        // Send filter parameters directly as query parameters
+        // Backend's BaseGetRequestValidator.validated() will automatically
+        // extract all non-base parameters into a 'filters' array
+        if (city) params.city = city;
+        if (area) params.area = area;
+        if (projectType) params.projectType = projectType;
+        if (propertyType) params.propertyType = propertyType;
+        if (priceMin) params.priceMin = priceMin;
+        if (priceMax) params.priceMax = priceMax;
+        if (areaMin) params.areaMin = areaMin;
+        if (areaMax) params.areaMax = areaMax;
+        if (noOfRooms) params.noOfRooms = noOfRooms;
+
+        return {
+          url: "/api/v1/projects",
+          params,
+        };
+      },
+      transformResponse: (response) => {
+        // Return both data and count
+        return {
+          data: response.data || response,
+          count: response.count || 0,
+        };
+      },
       providesTags: (result) =>
-        result  
+        result?.data
           ? [
-              ...result.map((item) => ({ type: "Project", id: item.id })),
+              ...result.data.map((item) => ({ type: "Project", id: item.id })),
               { type: "Project", id: "LIST" },
             ]
           : [{ type: "Project", id: "LIST" }],

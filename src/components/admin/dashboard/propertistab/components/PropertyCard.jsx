@@ -63,7 +63,7 @@ const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
           alt={getTypeLabel(property.type)}
           className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
         />
-        <div className="absolute top-3 right-3">
+        {/* <div className="absolute top-3 right-3">
           <span
             className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(
               property.status
@@ -71,7 +71,7 @@ const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
           >
             {getStatusText(property.status)}
           </span>
-        </div>
+        </div> */}
         <div className="absolute top-3 left-3 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
           {getTypeLabel(property.type)}
         </div>
@@ -87,7 +87,8 @@ const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
         <div className="flex items-center gap-2 text-sm mb-3 bg-green-50 p-2 rounded-lg">
           <FaMoneyBillWave className="text-green-600" />
           <span className="font-semibold text-green-700">
-            {property.priceMin?.toLocaleString()} - {property.priceMax?.toLocaleString()} EGP
+            {property.priceMin?.toLocaleString()} -{" "}
+            {property.priceMax?.toLocaleString()} EGP
           </span>
         </div>
 

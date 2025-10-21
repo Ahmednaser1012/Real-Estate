@@ -3,21 +3,46 @@ import { api } from "../app/api";
 export const propertiesApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getAllProperties: builder.query({
-      query: ({ limit = 20, offset = 0, sort = "ASC", sortBy = "id" } = {}) => {
-        return { 
-          url: "/api/v1/properties", 
-          params: { limit, offset, sort, sortBy },
+      query: ({
+        limit = 20,
+        offset = 0,
+        sort = "ASC",
+        sortBy = "id",
+        areaMin = "",
+        areaMax = "",
+        priceMin = "",
+        priceMax = "",
+        noOfRooms = "",
+        noOfBathroomsMin = "",
+        noOfBathroomsMax = "",
+      } = {}) => {
+        const params = { limit, offset, sort, sortBy };
+
+        // Add property filters if provided
+        if (areaMin) params.areaMin = areaMin;
+        if (areaMax) params.areaMax = areaMax;
+        if (priceMin) params.priceMin = priceMin;
+        if (priceMax) params.priceMax = priceMax;
+        if (noOfRooms) params.noOfRooms = noOfRooms;
+        if (noOfBathroomsMin) params.noOfBathroomsMin = noOfBathroomsMin;
+        if (noOfBathroomsMax) params.noOfBathroomsMax = noOfBathroomsMax;
+
+        return {
+          url: "/api/v1/properties",
+          params,
         };
       },
       transformResponse: (response) => {
-        console.log('Raw API Response:', response);
-        console.log('Transformed data:', response.data);
-        return response.data || [];
+        // Return both data and count
+        return {
+          data: response.data || response,
+          count: response.count || 0,
+        };
       },
       providesTags: (result) =>
-        result
+        result?.data
           ? [
-              ...result.map((item) => ({ type: "Property", id: item.id })),
+              ...result.data.map((item) => ({ type: "Property", id: item.id })),
               { type: "Property", id: "LIST" },
             ]
           : [{ type: "Property", id: "LIST" }],

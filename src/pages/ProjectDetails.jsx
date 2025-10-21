@@ -15,16 +15,23 @@ import { motion, AnimatePresence } from "framer-motion";
 const ProjectDetails = () => {
   const { id } = useParams();
   const { data: project, isLoading, error } = useGetProjectByIdQuery(id);
-  const { data: allProperties = [] } = useGetAllPropertiesQuery();
+  const { data: propertiesResponse = {} } = useGetAllPropertiesQuery();
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState("overview");
 
+  // Extract properties array from response (handle both array and object responses)
+  const allProperties = Array.isArray(propertiesResponse) 
+    ? propertiesResponse 
+    : (propertiesResponse?.data || []);
+
   // Filter properties for this project
-  const projectProperties = allProperties.filter(
-    (property) => property.projectId === parseInt(id)
-  );
+  // Try both project_id and projectId since API might use either
+  const projectProperties = allProperties.filter((property) => {
+    const propertyProjectId = property.project_id || property.projectId;
+    return propertyProjectId === parseInt(id);
+  });
 
   // Get all media (images and videos)
   const allMedia = project?.galleries || [];
@@ -37,10 +44,9 @@ const ProjectDetails = () => {
   }
 
   // Debug: Log project data
+  console.log("Project ID:", id);
+  console.log("All Properties:", allProperties);
   console.log("Project Data:", project);
-  console.log("All Media:", allMedia);
-  console.log("Images:", images);
-  console.log("Videos:", videos);
   console.log("Project Properties:", projectProperties);
 
   const openLightbox = (index) => {

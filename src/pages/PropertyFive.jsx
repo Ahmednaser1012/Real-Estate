@@ -6,17 +6,22 @@ import {
   CTA,
   HeadeFilters,
   Pagination,
-  PriceRange,
   PropertyFullWidth,
   SocialIcons,
 } from "../components/common/page-componets";
 import { PropertyList } from "../components/property";
 import { closeFilterMenu, uiStore } from "../features/uiSlice";
 import { useGetAllProjectsQuery } from "../features/projectsApi";
-import { getCurrentItems, setIsLoading } from "../features/dataSlice";
+import {
+  setIsLoading,
+  setTotalCount,
+  getCurrentItems,
+  dataStore,
+} from "../features/dataSlice";
 
 const PropertyFive = () => {
   const { isFilterMenuOpen } = useSelector(uiStore);
+  const { totalCount, currentPage, searchFilters } = useSelector(dataStore);
   const dispatch = useDispatch();
   const handleCloseFiltermenu = (e) => {
     if (e.target.classList.contains("filter-modal"))
@@ -24,22 +29,55 @@ const PropertyFive = () => {
   };
 
   const [layout, setLayout] = useState("grid");
-  
-  // Fetch projects from API
-  const { data: projects = [], isLoading, error } = useGetAllProjectsQuery();
+  const itemsPerPage = 8;
 
-  // Update Redux store with projects data
+  // Build query parameters with filters
+  const queryParams = {
+    limit: 100,
+    offset: 0,
+    ...(searchFilters.city && { city: searchFilters.city }),
+    ...(searchFilters.area && { area: searchFilters.area }),
+    ...(searchFilters.projectType && {
+      projectType: searchFilters.projectType,
+    }),
+    ...(searchFilters.propertyType && {
+      propertyType: searchFilters.propertyType,
+    }),
+    ...(searchFilters.priceMin && { priceMin: searchFilters.priceMin }),
+    ...(searchFilters.priceMax && { priceMax: searchFilters.priceMax }),
+    ...(searchFilters.areaMin && { areaMin: searchFilters.areaMin }),
+    ...(searchFilters.areaMax && { areaMax: searchFilters.areaMax }),
+    ...(searchFilters.noOfRooms && { noOfRooms: searchFilters.noOfRooms }),
+  };
+
+  // Fetch projects from API with search filters
+  // RTK Query will automatically refetch when queryParams changes
+  const {
+    data: response = {},
+    isLoading,
+    error,
+  } = useGetAllProjectsQuery(queryParams);
+
+  // Update Redux store with total count
   useEffect(() => {
     dispatch(setIsLoading(isLoading));
-    if (projects && projects.length > 0) {
-      dispatch(getCurrentItems(projects));
+    if (response?.data && response.data.length > 0) {
+      dispatch(setTotalCount(response.count || 0));
+    } else if (response?.data && response.data.length === 0) {
+      dispatch(setTotalCount(0));
     }
-  }, [projects, isLoading, dispatch]);
+  }, [response?.count, response?.data, isLoading, dispatch]);
 
   return (
-    <div className="pt-20 max-w-7xl mx-auto px-4">
-      <HeadeFilters layout={layout} setLayout={setLayout} />
-      
+    <div className="pt-36 max-w-7xl mx-auto px-4">
+      <HeadeFilters
+        layout={layout}
+        setLayout={setLayout}
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        totalItems={totalCount}
+      />
+
       {isLoading && (
         <div className="flex justify-center items-center py-20">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
@@ -48,7 +86,9 @@ const PropertyFive = () => {
 
       {error && (
         <div className="text-center py-20">
-          <p className="text-red-500">Error loading projects. Please try again later.</p>
+          <p className="text-red-500">
+            Error loading projects. Please try again later.
+          </p>
         </div>
       )}
 
@@ -56,7 +96,10 @@ const PropertyFive = () => {
         <div className="grid md:grid-cols-4 gap-x-14 mt-5">
           <div className="md:col-span-3 mt-5 md:mt-0 h-fit md:sticky top-0 ">
             {layout === "grid" ? <PropertyList /> : <PropertyFullWidth />}
-            <Pagination itemsPerPage={8} pageData={projects} />
+            <Pagination
+              itemsPerPage={itemsPerPage}
+              pageData={response?.data || []}
+            />
           </div>
           <div className=" md:col-span-1 row-start-3 md:row-start-auto h-fit md:sticky top-0">
             <div
@@ -74,7 +117,7 @@ const PropertyFive = () => {
                   <p className="uppercase">Filters</p>
                 </div>
                 <AdvancedSearch />
-                <PriceRange />
+                {/* <PriceRange />ا*/}
                 <SocialIcons />
                 <CTA />
               </div>

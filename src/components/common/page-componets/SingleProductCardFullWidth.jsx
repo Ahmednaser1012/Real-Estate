@@ -10,7 +10,7 @@ const SingleProductCardFullWidth = ({
   name,
   location,
   price,
-  distance,
+ 
   purpose,
   number_of_beds,
   number_of_bathrooms,
@@ -18,9 +18,9 @@ const SingleProductCardFullWidth = ({
   description,
   textLength,
   showLabels,
-  // New project fields
+ 
   title,
-  ProjectArea,
+ 
   type,
   city,
   area,

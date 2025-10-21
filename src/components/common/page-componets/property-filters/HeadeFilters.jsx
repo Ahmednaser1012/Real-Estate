@@ -4,8 +4,13 @@ import { FiFilter, FiGrid } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { openFilterMenu } from "../../../../features/uiSlice";
 
-const HeadeFilters = ({ layout, setLayout }) => {
+const HeadeFilters = ({ layout, setLayout, currentPage = 1, itemsPerPage = 8, totalItems = 0 }) => {
   const dispatch = useDispatch();
+  
+  // Calculate the range of items being shown
+  const startItem = (currentPage - 1) * itemsPerPage + 1;
+  const endItem = Math.min(currentPage * itemsPerPage, totalItems);
+  
   return (
     <div className="flex-col gap-4 flex-center-between md:flex-row">
       <div className="w-full flex-center-between">
@@ -33,10 +38,10 @@ const HeadeFilters = ({ layout, setLayout }) => {
             <FiFilter />
           </div>
         </div>
-        <p>Showing 01 - 08 of 28 resuts</p>
+        <p>Showing {String(startItem).padStart(2, '0')} - {String(endItem).padStart(2, '0')} of {totalItems} results</p>
       </div>
       <div className="w-full gap-4 flex-center-between">
-        <select
+        {/* <select
           name=""
           id=""
           className="w-[290px] px-3 py-2 bg-white border outline-none dark:border-dark dark:bg-main-dark"
@@ -45,7 +50,7 @@ const HeadeFilters = ({ layout, setLayout }) => {
           <option value="latest">Latest</option>
           <option value="cheapest">Cheapest</option>
           <option value="expensive">Expensive</option>
-        </select>
+        </select> */}
         {/* <input
           type="text"
           className="border outline-none bg-transparent dark:border-dark px-3 py-[0.35rem] w-full"
