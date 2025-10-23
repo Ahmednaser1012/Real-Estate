@@ -19,10 +19,13 @@ import {
 
 const ProjectsTab = () => {
   // API hooks
-  const { data: projects = [], isLoading, error } = useGetAllProjectsQuery();
+  const { data: response = {}, isLoading, error } = useGetAllProjectsQuery();
   const [createProject] = useCreateProjectMutation();
   const [updateProject] = useUpdateProjectMutation();
   const [deleteProject] = useDeleteProjectMutation();
+
+  // Extract projects array from response
+  const projects = response?.data || [];
 
   // State
   const [activeFilter, setActiveFilter] = useState("all");

@@ -19,11 +19,7 @@ import {
 
 const PropertiesTab = () => {
   // API hooks
-  const {
-    data: apiProperties = [],
-    isLoading,
-    error,
-  } = useGetAllPropertiesQuery();
+  const { data: apiResponse = [] } = useGetAllPropertiesQuery();
   const [createProperty] = useCreatePropertyMutation();
   const [updateProperty] = useUpdatePropertyMutation();
   const [deleteProperty] = useDeletePropertyMutation();
@@ -36,14 +32,10 @@ const PropertiesTab = () => {
   const [propertyToEdit, setPropertyToEdit] = useState(null);
   const [propertyToDelete, setPropertyToDelete] = useState(null);
 
-  // Use API data or fallback to empty array
-  const properties = apiProperties || [];
-
-  // Debug: Log the data
-  console.log("API Properties:", apiProperties);
-  console.log("Properties:", properties);
-  console.log("Is Loading:", isLoading);
-  console.log("Error:", error);
+  // Handle both array and object responses
+  const properties = Array.isArray(apiResponse)
+    ? apiResponse
+    : apiResponse?.data || [];
 
   // Filter properties based on active filter
   const filteredProperties = useMemo(() => {

@@ -10,31 +10,31 @@ import {
 import { MdEdit, MdDelete } from "react-icons/md";
 
 const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
-  const getStatusColor = (status) => {
-    switch (status) {
-      case "available":
-        return "bg-green-100 text-green-800";
-      case "reserved":
-        return "bg-yellow-100 text-yellow-800";
-      case "sold":
-        return "bg-red-100 text-red-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
-  };
+  // const getStatusColor = (status) => {
+  //   switch (status) {
+  //     case "available":
+  //       return "bg-green-100 text-green-800";
+  //     case "reserved":
+  //       return "bg-yellow-100 text-yellow-800";
+  //     case "sold":
+  //       return "bg-red-100 text-red-800";
+  //     default:
+  //       return "bg-gray-100 text-gray-800";
+  //   }
+  // };
 
-  const getStatusText = (status) => {
-    switch (status) {
-      case "available":
-        return "Available";
-      case "reserved":
-        return "Reserved";
-      case "sold":
-        return "Sold";
-      default:
-        return status;
-    }
-  };
+  // const getStatusText = (status) => {
+  //   switch (status) {
+  //     case "available":
+  //       return "Available";
+  //     case "reserved":
+  //       return "Reserved";
+  //     case "sold":
+  //       return "Sold";
+  //     default:
+  //       return status;
+  //   }
+  // };
 
   const getTypeLabel = (type) => {
     const labels = {
@@ -63,7 +63,7 @@ const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
           alt={getTypeLabel(property.type)}
           className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
         />
-        <div className="absolute top-3 right-3">
+        {/* <div className="absolute top-3 right-3">
           <span
             className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(
               property.status
@@ -71,7 +71,7 @@ const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
           >
             {getStatusText(property.status)}
           </span>
-        </div>
+        </div> */}
         <div className="absolute top-3 left-3 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
           {getTypeLabel(property.type)}
         </div>
@@ -87,7 +87,8 @@ const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
         <div className="flex items-center gap-2 text-sm mb-3 bg-green-50 p-2 rounded-lg">
           <FaMoneyBillWave className="text-green-600" />
           <span className="font-semibold text-green-700">
-            {property.priceMin?.toLocaleString()} - {property.priceMax?.toLocaleString()} EGP
+            {property.priceMin?.toLocaleString()} -{" "}
+            {property.priceMax?.toLocaleString()} EGP
           </span>
         </div>
 

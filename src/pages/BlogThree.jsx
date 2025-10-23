@@ -3,13 +3,11 @@ import {
   CTA,
   Pagination,
   SocialIcons,
-  TopRated,
-  Type,
 } from "../components/common/page-componets";
 import { feeds } from "../data/dummyData";
 const BlogThree = () => {
   return (
-    <div className="pt-20 max-w-7xl mx-auto px-4">
+    <div className="pt-32 max-w-7xl mx-auto px-4">
       <div className="grid grid-cols-1 mt-5 md:grid-cols-3 gap-x-14">
         <div className="top-0 mt-5 md:col-span-2 md:mt-0 h-fit md:sticky">
           <BlogList />

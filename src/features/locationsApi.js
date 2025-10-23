@@ -7,7 +7,7 @@ export const locationsApi = api.injectEndpoints({
     // Get all cities with pagination and filters
     getAllCities: builder.query({
       query: ({
-        limit = 20,
+        limit = 100,
         offset = 0,
         sort = "ASC",
         sortBy = "id",
@@ -15,14 +15,22 @@ export const locationsApi = api.injectEndpoints({
         url: "/api/v1/locations/cities",
         params: { limit, offset, sort, sortBy },
       }),
-      transformResponse: (response) => response.data || response,
-      providesTags: (result) =>
-        result
+      transformResponse: (response) => {
+        // Handle both direct array and object with data property
+        if (Array.isArray(response)) {
+          return response;
+        }
+        return response.data || response;
+      },
+      providesTags: (result) => {
+        const data = Array.isArray(result) ? result : (result?.data || []);
+        return data && data.length > 0
           ? [
-              ...result.map((item) => ({ type: "City", id: item.id })),
+              ...data.map((item) => ({ type: "City", id: item.id })),
               { type: "City", id: "LIST" },
             ]
-          : [{ type: "City", id: "LIST" }],
+          : [{ type: "City", id: "LIST" }];
+      },
     }),
 
     // Get city by ID
@@ -83,14 +91,22 @@ export const locationsApi = api.injectEndpoints({
           sortBy,
         },
       }),
-      transformResponse: (response) => response.data || response,
-      providesTags: (result) =>
-        result
+      transformResponse: (response) => {
+        // Handle both direct array and object with data property
+        if (Array.isArray(response)) {
+          return response;
+        }
+        return response.data || response;
+      },
+      providesTags: (result) => {
+        const data = Array.isArray(result) ? result : (result?.data || []);
+        return data && data.length > 0
           ? [
-              ...result.map((item) => ({ type: "Area", id: item.id })),
+              ...data.map((item) => ({ type: "Area", id: item.id })),
               { type: "Area", id: "LIST" },
             ]
-          : [{ type: "Area", id: "LIST" }],
+          : [{ type: "Area", id: "LIST" }];
+      },
     }),
 
     // Get areas by city ID
@@ -101,11 +117,24 @@ export const locationsApi = api.injectEndpoints({
         offset = 0,
         sort = "ASC",
         sortBy = "id",
-      }) => ({
-        url: "/api/v1/locations/areas",
-        params: { city_id: cityId, limit, offset, sort, sortBy },
-      }),
-      transformResponse: (response) => response.data || response,
+      }) => {
+        const params = { limit, offset, sort, sortBy };
+        if (cityId) {
+          // Send filters as JSON string - backend will parse it
+          params.filters = JSON.stringify({ cityId: parseInt(cityId) });
+        }
+        return {
+          url: "/api/v1/locations/areas",
+          params,
+        };
+      },
+      transformResponse: (response) => {
+        // Handle both direct array and object with data property
+        if (Array.isArray(response)) {
+          return response;
+        }
+        return response.data || response;
+      },
       providesTags: (result, error, { cityId }) => [
         { type: "Area", id: `CITY-${cityId}` },
       ],

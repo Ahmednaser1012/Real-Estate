@@ -5,7 +5,12 @@ import AdminButton from "../../../ui/AdminButton";
 import { useGetAllProjectsQuery } from "../../../../../features/projectsApi";
 
 const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
-  const { data: projects = [] } = useGetAllProjectsQuery(undefined, { skip: !isOpen });
+  const { data: projectsResponse = {} } = useGetAllProjectsQuery(undefined, { skip: !isOpen });
+
+  // Extract projects array from response (handle both array and object responses)
+  const projects = Array.isArray(projectsResponse) 
+    ? projectsResponse 
+    : (projectsResponse?.data || []);
 
   const [formData, setFormData] = useState({
     type: "apartments",

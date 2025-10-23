@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
 import ReactPaginate from "react-paginate";
 import { useDispatch } from "react-redux";
-import { getCurrentItems } from "../../../features/dataSlice";
+import { getCurrentItems, setCurrentPage } from "../../../features/dataSlice";
 
 const Pagination = ({ itemsPerPage, pageData }) => {
   const [offset, setOffset] = useState(0);
@@ -16,11 +16,12 @@ const Pagination = ({ itemsPerPage, pageData }) => {
 
   useEffect(() => {
     dispatch(getCurrentItems(currentItems));
-  }, [currentItems]);
+  }, [offset, pageData, dispatch]);
 
   const handlePageClick = (e) => {
     const newOffset = (e.selected * itemsPerPage) % pageData.length;
     setOffset(newOffset);
+    dispatch(setCurrentPage(e.selected + 1));
   };
 
   return (
