@@ -21,7 +21,7 @@ i18n
   .init({
     resources,
     fallbackLng: 'en', // Fallback language
-    lng: localStorage.getItem('language') || 'en', // Default language
+    lng: 'en', // Default language
     debug: false,
     
     interpolation: {
