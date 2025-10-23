@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useGetProjectByIdQuery } from "../features/projectsApi";
 import { useGetAllPropertiesQuery } from "../features/propertiesApi";
@@ -20,11 +20,23 @@ const ProjectDetails = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState("overview");
+  const [currentServiceIndex, setCurrentServiceIndex] = useState(0);
+
+  // Auto-rotate services every 3 seconds
+  useEffect(() => {
+    if (!project?.services || project.services.length === 0) return;
+
+    const interval = setInterval(() => {
+      setCurrentServiceIndex((prev) => (prev + 1) % project.services.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [project?.services]);
 
   // Extract properties array from response (handle both array and object responses)
-  const allProperties = Array.isArray(propertiesResponse) 
-    ? propertiesResponse 
-    : (propertiesResponse?.data || []);
+  const allProperties = Array.isArray(propertiesResponse)
+    ? propertiesResponse
+    : propertiesResponse?.data || [];
 
   // Filter properties for this project
   // Try both project_id and projectId since API might use either
@@ -242,32 +254,101 @@ const ProjectDetails = () => {
                       </p>
                     </div>
 
-                    {/* Amenities & Services */}
+                    {/* Amenities & Services Carousel */}
                     {project.services && project.services.length > 0 && (
                       <div>
-                        <h4 className="text-lg font-semibold mb-3">
+                        <h4 className="text-lg font-semibold mb-4">
                           Amenities & Services
                         </h4>
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                          {project.services.map((service) => (
-                            <div
-                              key={service.id}
-                              className="flex items-center gap-2 p-3 bg-gray-50 dark:bg-dark rounded-lg"
+                        <div className="relative">
+                          <AnimatePresence mode="wait">
+                            <motion.div
+                              key={currentServiceIndex}
+                              initial={{ opacity: 0, x: 100 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              exit={{ opacity: 0, x: -100 }}
+                              transition={{ duration: 0.5 }}
+                              className="flex items-center justify-between gap-4 bg-gradient-to-r rounded-lg border overflow-hidden p-5"
                             >
-                              {service.image && (
-                                <img
-                                  src={service.image}
-                                  alt={service.name_en}
-                                  className="w-5 h-5 object-contain"
-                                />
-                              )}
-                              <span className="text-sm font-medium">
-                                {service.name_en ||
-                                  service.name_ar
-                      }
-                              </span>
-                            </div>
-                          ))}
+                              {/* Navigation Button - Left */}
+                              <button
+                                onClick={() =>
+                                  setCurrentServiceIndex(
+                                    (prev) =>
+                                      (prev - 1 + project.services.length) %
+                                      project.services.length
+                                  )
+                                }
+                                className="p-3   transition-colors flex-shrink-0"
+                              >
+                                <BiChevronLeft className="text-2xl " />
+                              </button>
+
+                              {/* Service Image - Full Square Box */}
+                              <div className="w-48 h-48 flex-shrink-0 flex items-center justify-center bg-white dark:bg-dark rounded-lg overflow-hidden">
+                                {project.services[currentServiceIndex]
+                                  ?.image ? (
+                                  <img
+                                    src={
+                                      project.services[currentServiceIndex]
+                                        .image
+                                    }
+                                    alt={
+                                      project.services[currentServiceIndex]
+                                        .name_en
+                                    }
+                                    className="w-full h-full object-cover"
+                                    onError={(e) => {
+                                      e.target.style.display = "none";
+                                    }}
+                                  />
+                                ) : (
+                                  <div className="w-full h-full bg-primary/20 flex items-center justify-center text-primary text-6xl font-bold">
+                                    ✓
+                                  </div>
+                                )}
+                              </div>
+
+                              {/* Service Name */}
+                              <div className="flex-1 px-4">
+                                <p className="text-xl font-bold text-gray-900 dark:text-white text-center">
+                                  {project.services[currentServiceIndex]
+                                    ?.name_en ||
+                                    project.services[currentServiceIndex]
+                                      ?.name_ar ||
+                                    "Service"}
+                                </p>
+                              </div>
+
+                              {/* Navigation Button - Right */}
+                              <button
+                                onClick={() =>
+                                  setCurrentServiceIndex(
+                                    (prev) =>
+                                      (prev + 1) % project.services.length
+                                  )
+                                }
+                                className="p-3   transition-colors flex-shrink-0"
+                              >
+                                <BiChevronRight className="text-2xl  " />
+                              </button>
+                            </motion.div>
+                          </AnimatePresence>
+
+                          {/* Dots Indicator */}
+                          <div className="flex justify-center gap-2 mt-4">
+                            {project.services.map((_, index) => (
+                              <button
+                                key={index}
+                                onClick={() => setCurrentServiceIndex(index)}
+                                className={`w-2 h-2 rounded-full transition-all ${
+                                  index === currentServiceIndex
+                                    ? "bg-primary w-6"
+                                    : "bg-gray-300 dark:bg-gray-600"
+                                }`}
+                              />
+                            ))}
+                          </div>
                         </div>
                       </div>
                     )}

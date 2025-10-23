@@ -1,5 +1,5 @@
 import { OverView, Stats } from "../components/about";
-import { Brands, Feeds, WhatWeDo } from "../components/common/page-componets";
+import { Brands, Feeds } from "../components/common/page-componets";
 
 const AboutTwo = () => {
   return (
