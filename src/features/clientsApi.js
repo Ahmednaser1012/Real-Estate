@@ -2,8 +2,7 @@ import { api } from "../app/api";
 
 export const clientsApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    // Get all blogs
-    getAllClients: builder.query({
+     getAllClients: builder.query({
       query: ({ limit = 20, offset = 0, sort = "ASC", sortBy = "id" } = {}) => ({
         url: "/api/v1/clients",
         params: { limit, offset, sort, sortBy },
@@ -18,14 +17,12 @@ export const clientsApi = api.injectEndpoints({
           : [{ type: "Client", id: "LIST" }],
     }),
 
-    // Get blog by ID
-    getClientById: builder.query({
+     getClientById: builder.query({
       query: (id) => `/api/v1/clients/${id}`,
       providesTags: (result, error, id) => [{ type: "Client", id }],
     }),
 
-    // Create new blog
-    createClient: builder.mutation({
+     createClient: builder.mutation({
       query: (clientData) => ({
         url: "/api/v1/clients",
         method: "POST",
@@ -34,8 +31,7 @@ export const clientsApi = api.injectEndpoints({
       invalidatesTags: [{ type: "Client", id: "LIST" }],
     }),
 
-    // Update blog
-    updateClient: builder.mutation({
+     updateClient: builder.mutation({
       query: ({ id, formData }) => ({
         url: `/api/v1/clients/${id}`,
         method: "POST",
@@ -47,8 +43,7 @@ export const clientsApi = api.injectEndpoints({
       ],
     }),
 
-    // Delete blog
-    deleteClient: builder.mutation({
+     deleteClient: builder.mutation({
       query: (id) => ({
         url: `/api/v1/clients/${id}`,
         method: "DELETE",

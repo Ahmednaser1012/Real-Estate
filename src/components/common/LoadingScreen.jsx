@@ -45,7 +45,7 @@ export default function LoadingScreen({ onComplete }) {
         </div>
 
         <div className="text-center relative z-10">
-          <div className="text-9xl font-light text-gray-800 tracking-wider" style={{ fontFamily: 'thenightwatch, sans-serif' }}>
+          <div className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-light text-gray-800 tracking-wider" style={{ fontFamily: 'thenightwatch, sans-serif' }}>
             <span
               className={`inline-block transition-all duration-700 ${
                 animationPhase === "falling" ? "animate-fall-letter-1" : ""
@@ -89,7 +89,7 @@ export default function LoadingScreen({ onComplete }) {
               s
             </span>
           </div>
-          <div className="text-4xl font-light text-red-500 tracking-wider mt-2" style={{ fontFamily: 'thenightwatch, sans-serif' }}>
+          <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-red-500 tracking-wider mt-2" style={{ fontFamily: 'thenightwatch, sans-serif' }}>
             <span
               className={`inline-block transition-all duration-700 ${
                 animationPhase === "falling" ? "animate-fade-up-1" : ""

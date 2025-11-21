@@ -37,10 +37,10 @@ const ProjectDetailsModal = ({
         <div className="p-6">
           {/* Master Plan Image */}
           <div className="mb-6">
-            {project.masterPlan ? (
+            {project.master_plan ? (
               <img
-                src={project.masterPlan}
-                alt={project.title}
+                src={project.master_plan}
+                alt={project.title_en || project.title_ar}
                 className="w-full h-64 object-cover rounded-lg"
               />
             ) : (
@@ -53,13 +53,13 @@ const ProjectDetailsModal = ({
           {/* Basic Info */}
           <div className="mb-6">
             <h3 className="text-xl font-bold text-gray-800 mb-2">
-              {project.title}
+              {project.title_en || project.title || "N/A"}
             </h3>
             <div className="flex items-center text-gray-600 mb-4">
               <FaMapMarkerAlt className="mr-2" />
               <span>
-                {project.area?.name_en || "N/A"},{" "}
-                {project.city?.name_en || "N/A"}
+                {typeof project.area === 'object' ? project.area?.name_en : project.area || "N/A"},{" "}
+                {typeof project.city === 'object' ? project.city?.name_en : project.city || "N/A"}
               </span>
             </div>
             <span
@@ -78,7 +78,18 @@ const ProjectDetailsModal = ({
             <h4 className="text-lg font-semibold text-gray-800 mb-2">
               Description
             </h4>
-            <p className="text-gray-600">{project.description}</p>
+            {project.description_en && (
+              <div className="mb-2">
+                <p className="text-xs text-gray-500 mb-1">English:</p>
+                <p className="text-gray-600">{project.description_en}</p>
+              </div>
+            )}
+            {project.description_ar && (
+              <div>
+                <p className="text-xs text-gray-500 mb-1">Arabic:</p>
+                <p className="text-gray-600" dir="rtl">{project.description_ar}</p>
+              </div>
+            )}
           </div>
 
           {/* Meta Information */}
@@ -87,15 +98,35 @@ const ProjectDetailsModal = ({
               <h4 className="text-lg font-semibold text-gray-800 mb-2">
                 Meta Title
               </h4>
-              <p className="text-gray-600">{project.metaTitle || "N/A"}</p>
+              {project.meta_title_en && (
+                <div className="mb-2">
+                  <p className="text-xs text-gray-500 mb-1">English:</p>
+                  <p className="text-gray-600">{project.meta_title_en}</p>
+                </div>
+              )}
+              {project.meta_title_ar && (
+                <div>
+                  <p className="text-xs text-gray-500 mb-1">Arabic:</p>
+                  <p className="text-gray-600" dir="rtl">{project.meta_title_ar}</p>
+                </div>
+              )}
             </div>
             <div>
               <h4 className="text-lg font-semibold text-gray-800 mb-2">
                 Meta Description
               </h4>
-              <p className="text-gray-600">
-                {project.metaDescription || "N/A"}
-              </p>
+              {project.meta_description_en && (
+                <div className="mb-2">
+                  <p className="text-xs text-gray-500 mb-1">English:</p>
+                  <p className="text-gray-600">{project.meta_description_en}</p>
+                </div>
+              )}
+              {project.meta_description_ar && (
+                <div>
+                  <p className="text-xs text-gray-500 mb-1">Arabic:</p>
+                  <p className="text-gray-600" dir="rtl">{project.meta_description_ar}</p>
+                </div>
+              )}
             </div>
           </div>
 
@@ -104,8 +135,40 @@ const ProjectDetailsModal = ({
             <h4 className="text-lg font-semibold text-gray-800 mb-2">
               Project Area
             </h4>
-            <p className="text-gray-600">{project.ProjectArea || "N/A"} m²</p>
+            <p className="text-gray-600">
+              {project.project_area || "N/A"} m²
+            </p>
           </div>
+
+          {/* Delivery Date */}
+          {project.delivery_date && (
+            <div className="mb-6">
+              <h4 className="text-lg font-semibold text-gray-800 mb-2">
+                Delivery Date
+              </h4>
+              <p className="text-gray-600">
+                {new Date(project.delivery_date).toLocaleDateString()}
+              </p>
+            </div>
+          )}
+
+          {/* Video Link */}
+          {project.video_link && (
+            <div className="mb-6">
+              <h4 className="text-lg font-semibold text-gray-800 mb-2">
+                Video Link
+              </h4>
+              <a
+                href={project.video_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800 flex items-center gap-2"
+              >
+                <FaLink />
+                Watch Video
+              </a>
+            </div>
+          )}
 
           {/* Location URL */}
           {project.location && (
@@ -122,6 +185,55 @@ const ProjectDetailsModal = ({
                 <FaLink />
                 View on Map
               </a>
+            </div>
+          )}
+
+          {/* Short Description */}
+          {(project.short_description_en || project.short_description_ar) && (
+            <div className="mb-6">
+              <h4 className="text-lg font-semibold text-gray-800 mb-2">
+                Short Description
+              </h4>
+              {project.short_description_en && (
+                <div className="mb-2">
+                  <p className="text-xs text-gray-500 mb-1">English:</p>
+                  <p className="text-gray-600">{project.short_description_en}</p>
+                </div>
+              )}
+              {project.short_description_ar && (
+                <div>
+                  <p className="text-xs text-gray-500 mb-1">Arabic:</p>
+                  <p className="text-gray-600" dir="rtl">{project.short_description_ar}</p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Logo */}
+          {project.logo && (
+            <div className="mb-6">
+              <h4 className="text-lg font-semibold text-gray-800 mb-2">
+                Project Logo
+              </h4>
+              <img
+                src={project.logo}
+                alt="Project Logo"
+                className="w-32 h-32 object-cover rounded-lg border border-gray-300"
+              />
+            </div>
+          )}
+
+          {/* Google Map Image */}
+          {project.google_map_image && (
+            <div className="mb-6">
+              <h4 className="text-lg font-semibold text-gray-800 mb-2">
+                Location Map
+              </h4>
+              <img
+                src={project.google_map_image}
+                alt="Google Map"
+                className="w-full h-64 object-cover rounded-lg border border-gray-300"
+              />
             </div>
           )}
 

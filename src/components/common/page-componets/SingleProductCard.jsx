@@ -42,7 +42,7 @@ const SingleProductCard = ({
       } shadow-light dark:border-card-dark border rounded-lg overflow-hidden relative group`}
     >
       <div className="group !opacity-100 overflow-hidden relative">
-        <Link to={isProject ? `/projects/${itemId}` : `/property/${itemId}`} className="!opacity-100">
+        <Link to={`/projects/${itemId}`} className="!opacity-100">
           <img
             src={displayImage}
             alt={displayTitle}
@@ -59,7 +59,7 @@ const SingleProductCard = ({
       </div>
       <CardLabels purpose={displayType} distance={displayArea} />
       <div className="p-3">
-        <Link to={isProject ? `/projects/${itemId}` : `/property/${itemId}`} className="group-hover:text-primary transition-a">
+        <Link to={`/projects/${itemId}`} className="group-hover:text-primary transition-a">
           <h1 className="text-lg font-bold capitalize line-clamp-2">{displayTitle}</h1>
         </Link>
         
@@ -92,7 +92,7 @@ const SingleProductCard = ({
 
         <div className="mt-4 flex-center-between">
           {price && <h1 className="text-lg font-semibold text-primary">{price}</h1>}
-          <Link to={isProject ? `/projects/${itemId}` : `/property/${itemId}`}>
+          <Link to={ `/projects/${itemId}`}>
             <button className="btn btn-secondary">details</button>
           </Link>
         </div>

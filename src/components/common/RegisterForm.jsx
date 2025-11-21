@@ -5,12 +5,14 @@ import {
   useGetAllCitiesQuery,
   useGetAreasByCityQuery,
 } from "../../features/locationsApi";
+import { useGetAllProjectsQuery } from "../../features/projectsApi";
 
 const RegisterForm = ({ onClose }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
+    project_id: "",
     city_id: "",
     area_id: "",
     unit_type: "",
@@ -20,6 +22,10 @@ const RegisterForm = ({ onClose }) => {
   const [selectedCityId, setSelectedCityId] = useState("");
   const [submitError, setSubmitError] = useState("");
   const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  // Fetch projects
+  const { data: projectsResponse, isLoading: projectsLoading } =
+    useGetAllProjectsQuery();
 
   // Fetch cities
   const { data: citiesResponse, isLoading: citiesLoading } =
@@ -33,6 +39,10 @@ const RegisterForm = ({ onClose }) => {
     );
 
   // Extract data from response
+  const projects = Array.isArray(projectsResponse)
+    ? projectsResponse
+    : projectsResponse?.data || [];
+
   const cities = Array.isArray(citiesResponse)
     ? citiesResponse
     : citiesResponse?.data || [];
@@ -48,6 +58,7 @@ const RegisterForm = ({ onClose }) => {
   console.log("Cities from backend:", cities);
   console.log("Areas from backend:", allAreas);
   console.log("Filtered areas for city:", selectedCityId, areas);
+  console.log("Projects from backend:", projects);
 
   // Create client mutation
   const [createClient, { isLoading: isSubmitting }] = useCreateClientMutation();
@@ -87,8 +98,9 @@ const RegisterForm = ({ onClose }) => {
         phone: formData.phone,
         message: formData.message,
         unitType: formData.unit_type,
-        cityId: parseInt(formData.city_id),
-        areaId: parseInt(formData.area_id),
+        projectId: formData.project_id ? parseInt(formData.project_id) : null,
+        cityId: formData.city_id ? parseInt(formData.city_id) : null,
+        areaId: formData.area_id ? parseInt(formData.area_id) : null,
       };
 
       console.log("Sending payload:", payload);
@@ -200,6 +212,31 @@ const RegisterForm = ({ onClose }) => {
             placeholder="Your phone number"
             required
           />
+        </div>
+
+        <div>
+          <label htmlFor="project_id" className="block text-sm font-medium mb-1">
+            Project
+          </label>
+          <select
+            id="project_id"
+            name="project_id"
+            value={formData.project_id}
+            onChange={handleChange}
+            disabled={projectsLoading}
+            className="w-full px-3 py-2 border rounded-md outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+          >
+            <option value="">
+              {projectsLoading ? "Loading..." : "Select Project"}
+            </option>
+            {projects &&
+              projects.length > 0 &&
+              projects.map((project) => (
+                <option key={project.id} value={project.id}>
+                  {project.title_en || project.title_ar || `Project ${project.id}`}
+                </option>
+              ))}
+          </select>
         </div>
 
         <div>

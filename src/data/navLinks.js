@@ -26,11 +26,21 @@ export const navLinks = [
   },
   {
     id: 6,
+    linkTextKey: "nav.career",
+    url: "/career",
+  },
+  {
+    id: 7,
+    linkTextKey: "nav.events",
+    url: "/events",
+  },
+  {
+    id: 8,
     linkTextKey: "nav.contact",
     url: "/contact",
   },
   {
-    id: 7,
+    id: 9,
     linkTextKey: "nav.pages",
     url: "/portifolio",
     subLinks: [

@@ -24,7 +24,6 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
     no_of_bedrooms_max: "",
     no_of_bathrooms_min: "",
     no_of_bathrooms_max: "",
-    deliveryDate: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -44,7 +43,6 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
         no_of_bedrooms_max: property.noOfBedroomsMax || "",
         no_of_bathrooms_min: property.noOfBathroomsMin || "",
         no_of_bathrooms_max: property.noOfBathroomsMax || "",
-        deliveryDate: property.deliveryDate || "",
       });
     } else {
       setFormData({
@@ -59,7 +57,6 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
         no_of_bedrooms_max: "",
         no_of_bathrooms_min: "",
         no_of_bathrooms_max: "",
-        deliveryDate: "",
       });
     }
     setErrors({});
@@ -138,7 +135,6 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
       submitData.append('noOfBedroomsMax', formData.no_of_bedrooms_max || 0);
       submitData.append('noOfBathroomsMin', formData.no_of_bathrooms_min || 0);
       submitData.append('noOfBathroomsMax', formData.no_of_bathrooms_max || 0);
-      submitData.append('deliveryDate', formData.deliveryDate);
 
       await onSave(submitData);
       onClose();
@@ -204,7 +200,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                     <option value="">Select Project</option>
                     {projects.map((project) => (
                       <option key={project.id} value={project.id}>
-                        {project.title}
+                        {project.title_en || project.title_ar || `Project ${project.id}`}
                       </option>
                     ))}
                   </select>
@@ -226,12 +222,12 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                       errors.type ? "border-red-500" : "border-gray-300"
                     }`}
                   >
-                    <option value="apartments">Apartments</option>
-                    <option value="duplexes">Duplexes</option>
-                    <option value="studios">Studios</option>
-                    <option value="offices">Offices</option>
-                    <option value="clinics">Clinics</option>
-                    <option value="retails">Retails</option>
+                        <option value="apartments">Apartments</option>
+                        <option value="duplexes">Duplexes</option>
+                        <option value="studios">Studios</option>
+                        <option value="offices">Offices</option>
+                        <option value="clinics">Clinics</option>
+                        <option value="retails">Retails</option>
                   </select>
                   {errors.type && (
                     <p className="text-red-500 text-sm mt-1">{errors.type}</p>
@@ -433,34 +429,16 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                   </div>
                 </div>
 
-                {/* Delivery Date */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Delivery Date
-                  </label>
-                  <input
-                    type="date"
-                    name="deliveryDate"
-                    value={formData.deliveryDate}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black ${
-                      errors.deliveryDate ? "border-red-500" : "border-gray-300"
-                    }`}
-                  />
-                  {errors.deliveryDate && (
-                    <p className="text-red-500 text-sm mt-1">{errors.deliveryDate}</p>
-                  )}
-                </div>
-              </div>
+                              </div>
 
               {/* Action Buttons */}
-              <div className="flex gap-3 mt-6 pt-6 border-t border-gray-200">
+              <div className="flex flex-col gap-3 mt-6 pt-6 border-t border-gray-200 sm:flex-row">
                 <AdminButton
                   type="button"
                   variant="outline"
                   size="lg"
                   onClick={onClose}
-                  className="flex-1"
+                  className="flex-1 w-full sm:w-auto"
                 >
                   Cancel
                 </AdminButton>
@@ -469,7 +447,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                   variant="primary"
                   size="lg"
                   loading={loading}
-                  className="flex-1"
+                  className="flex-1 w-full sm:w-auto"
                 >
                   {property ? "Save Changes" : "Add Property Type"}
                 </AdminButton>

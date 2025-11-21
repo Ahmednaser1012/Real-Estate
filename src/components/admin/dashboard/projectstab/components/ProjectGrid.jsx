@@ -30,11 +30,11 @@ const ProjectGrid = ({ projects, onView, onEdit, onDelete }) => {
           onClick={() => onView(project)}
         >
           {/* Project Image */}
-          <div className="relative h-48 bg-gray-200">
-            {project.masterPlan ? (
+          <div className="relative h-96 bg-gray-200">
+            {project.master_plan ? (
               <img
-                src={project.masterPlan}
-                alt={project.title}
+                src={project.master_plan}
+                alt={project.title_en || project.title_ar}
                 className="object-cover w-full h-full"
               />
             ) : (
@@ -58,30 +58,40 @@ const ProjectGrid = ({ projects, onView, onEdit, onDelete }) => {
           {/* Project Info */}
           <div className="p-4">
             <h3 className="mb-2 text-lg font-bold text-gray-800 truncate">
-              {project.title}
+              {project.title_en || project.title_ar || "N/A"}
             </h3>
             <p className="mb-3 text-sm text-gray-600 line-clamp-2">
-              {project.description}
+              {project.description_en || project.description_ar || "N/A"}
             </p>
 
             <div className="flex items-center mb-3 text-sm">
               <FaMapMarkerAlt className="mr-2 text-red-500" />
               <span className="font-medium text-gray-700 truncate">
-                {project.area?.name_en || "N/A"},{" "}
-                {project.city?.name_en || "N/A"}
+                {typeof project.area === 'object' ? project.area?.name_en : project.area || "N/A"},{" "}
+                {typeof project.city === 'object' ? project.city?.name_en : project.city || "N/A"}
               </span>
             </div>
 
-            <div className="grid grid-cols-2 mb-4 text-sm">
-              <div className=" p-2.5 rounded-lg border border-blue-200">
+            <div className="grid grid-cols-2 gap-2 mb-4 text-sm">
+              <div className="p-2.5 rounded-lg border border-blue-200">
                 <div className="flex items-center gap-1.5">
                   <BiArea className="text-lg text-blue-600" />
                   <span className="text-xs text-gray-600">Area:</span>
                   <span className="block mt-1 font-bold text-blue-700">
-                    {project.project_area || project.ProjectArea || "N/A"} m²
+                    {typeof project.area === 'object' ? (project.area?.area || "N/A") : (project.area || project.project_area || project.ProjectArea || "N/A")} m²
                   </span>
                 </div>
               </div>
+              {project.delivery_date && (
+                <div className="p-2.5 rounded-lg border border-green-200">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-xs text-gray-600">Delivery:</span>
+                    <span className="block mt-1 font-bold text-green-700">
+                      {new Date(project.delivery_date).toLocaleDateString()}
+                    </span>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Action Buttons */}

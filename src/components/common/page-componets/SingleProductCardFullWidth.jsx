@@ -45,7 +45,7 @@ const SingleProductCardFullWidth = ({
       <div className="sm:col-span-1">
         <div className="group !opacity-100 overflow-hidden relative h-full">
           <Link
-            to={isProject ? `/projects/${id}` : `/property/${id}`}
+            to={`/projects/${id}`}
             className="!opacity-100"
           >
             <img
@@ -105,7 +105,7 @@ const SingleProductCardFullWidth = ({
             {price && (
               <h1 className="text-lg font-semibold text-primary">{price}</h1>
             )}
-            <Link to={isProject ? `/projects/${id}` : `/property/${id}`}>
+            <Link to={`/projects/${id}`}>
               <button className="btn btn-secondary">details</button>
             </Link>
           </div>

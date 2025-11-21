@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleDarkMode, uiStore } from "../../../features/uiSlice";
 import { adminStore } from "../../../features/adminSlice";
 import { FiSun, FiMoon, FiLogOut, FiSettings, FiUser } from "react-icons/fi";
-import { BiUser, BiChevronDown } from "react-icons/bi";
+import { BiUser, BiChevronDown, BiMenu, BiX } from "react-icons/bi";
 import { motion, AnimatePresence } from "framer-motion";
 
-const AdminHeader = ({ onLogout }) => {
+const AdminHeader = ({ onLogout, isMobileMenuOpen, onToggleMobileMenu }) => {
   const dispatch = useDispatch();
   const { darkMode } = useSelector(uiStore);
   const { adminEmail } = useSelector(adminStore);
@@ -41,21 +41,34 @@ const AdminHeader = ({ onLogout }) => {
   };
 
   return (
-    <header className="bg-white dark:bg-card-dark shadow-light border-b border-light">
-      <div className="px-4 sm:px-6 py-4">
-        <div className="flex items-center justify-between">
+    <header className="bg-white dark:bg-card-dark shadow-light border-b border-light w-full">
+      <div className="px-4 sm:px-6 py-4 w-full">
+        <div className="flex items-center justify-between w-full">
           {/* Left side - Title with space for mobile menu button */}
-          <div className="flex-1 min-w-0 lg:ml-0 ml-16">
-            <h1 className="text-xl sm:text-2xl font-bold text-secondary dark:text-slate-300 truncate">
+          <div className="flex-1 min-w-0">
+            <h1 className="text-lg sm:text-2xl font-bold text-secondary dark:text-slate-300 truncate">
               Admin Dashboard
             </h1>
-            <p className="text-sm text-muted truncate">
+            <p className="text-xs sm:text-sm text-muted truncate">
               Welcome back, {adminEmail}
             </p>
           </div>
 
           {/* Right side - Actions */}
           <div className="flex items-center gap-2 sm:gap-4 ml-4">
+            {/* Mobile Menu Button */}
+            <button
+              onClick={onToggleMobileMenu}
+              className="lg:hidden icon-box"
+              title="Toggle Menu"
+            >
+              {isMobileMenuOpen ? (
+                <BiX className="w-5 h-5" />
+              ) : (
+                <BiMenu className="w-5 h-5" />
+              )}
+            </button>
+
             {/* Dark Mode Toggle */}
             <button
               onClick={handleToggleDarkMode}

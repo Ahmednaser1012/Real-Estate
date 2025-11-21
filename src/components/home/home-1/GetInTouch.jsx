@@ -1,7 +1,15 @@
 import { useState } from "react";
 import video2 from "../../../assets/HomePage/video2.mp4";
+import RegisterForm from "../../common/RegisterForm";
+import { FiMail, FiArrowRight } from "react-icons/fi";
+
 const GetInTouch = () => {
   const [videoReady, setVideoReady] = useState(false);
+  const [showRegisterForm, setShowRegisterForm] = useState(false);
+
+  const toggleRegisterForm = () => {
+    setShowRegisterForm(!showRegisterForm);
+  };
   return (
     <div className="pt-10 pb-16">
       <div className="grid grid-cols-1 md:grid-cols-2">
@@ -21,44 +29,49 @@ const GetInTouch = () => {
           />
         </div>
 
-        {/* Form side with animated card */}
-        <div className="flex-1 basis-[18rem] bg-[#1d1d304c]  py-6 !text-slate-200 flex items-center">
-          <div className="max-w-[350px] w-full mx-auto bg-[#27282e55] p-4 rounded-lg shadow-xl transition-all duration-300 hover:-translate-y-0.5 focus-within:-translate-y-0.5 hover:shadow-2xl">
-            <h1 className="text-lg font-semibold">Write To Us</h1>
-            <p className="mt-1 text-sm text-slate-200/90">
-              For more inquiries or deals, just conatct us using the form below,
-              we will contact you back!
+        {/* Form side with header and button */}
+        <div className="flex-1 basis-[18rem] bg-main-bg dark:bg-gray-900 py-6 flex items-center px-4">
+          <div className="max-w-[350px] w-full mx-auto bg-white dark:bg-card-dark p-6 rounded-lg shadow-lg transition-all duration-300 hover:-translate-y-1 focus-within:-translate-y-1 hover:shadow-xl border border-light dark:border-dark group">
+            {/* Icon and heading side by side */}
+            <div className="flex items-center gap-3 mb-4">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-primary/20 text-primary group-hover:bg-primary/30 transition-all duration-300 flex-shrink-0">
+                <FiMail className="text-2xl text-white" />
+              </div>
+              <h1 className="text-lg font-bold text-secondary dark:text-slate-200">Write To Us</h1>
+            </div>
+            <p className="mt-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+              For more inquiries or deals, just contact us using the form below.
+              We will contact you back as soon as possible!
             </p>
 
-            <div className="mt-4 space-y-3">
-              <input
-                type="text"
-                className="w-full px-3 py-2 rounded-md outline-none bg-gray-600/90 text-slate-100 placeholder:text-slate-300/70 transition-all duration-300 focus:bg-secondary focus:ring-2 focus:ring-blue-400 focus:-translate-y-0.5"
-                placeholder="Your name.."
-              />
-              <input
-                type="text"
-                className="w-full px-3 py-2 rounded-md outline-none bg-gray-600/90 text-slate-100 placeholder:text-slate-300/70 transition-all duration-300 focus:bg-secondary focus:ring-2 focus:ring-blue-400 focus:-translate-y-0.5"
-                placeholder="Your email.."
-              />
-              <input
-                type="phone"
-                className="w-full px-3 py-2 rounded-md outline-none bg-gray-600/90 text-slate-100 placeholder:text-slate-300/70 transition-all duration-300 focus:bg-secondary focus:ring-2 focus:ring-blue-400 focus:-translate-y-0.5"
-                placeholder="Your phone number.."
-              />
-              <textarea
-                type="text"
-                className="w-full p-3 rounded-md outline-none bg-gray-600/90 text-slate-100 placeholder:text-slate-300/70 transition-all duration-300 focus:bg-secondary focus:ring-2 focus:ring-blue-400 focus:-translate-y-0.5"
-                rows={3}
-                placeholder="Your message.."
-              ></textarea>
-              <button className="w-full mt-2 btn btn-primary transform transition-all duration-300 hover:scale-[1.02] active:scale-95 hover:shadow-lg">
-                submit
-              </button>
+            {/* Decorative line */}
+            <div className="mt-5 h-1 w-12 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
+
+            <button
+              onClick={toggleRegisterForm}
+              className="w-full mt-6 btn btn-primary flex items-center justify-center gap-2 group/btn"
+            >
+              Get In Touch
+              <FiArrowRight className="text-lg group-hover/btn:translate-x-1 transition-transform duration-300" />
+            </button>
+
+            {/* Bottom accent */}
+            <div className="mt-4 text-xs text-slate-500 dark:text-slate-400 text-center">
+
+              ✓ Quick Response • ✓ Professional Team
             </div>
           </div>
         </div>
       </div>
+
+      {/* Register Form Modal */}
+      {showRegisterForm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-main-dark rounded-lg shadow-xl p-6 w-full max-w-md mx-4 relative">
+            <RegisterForm onClose={toggleRegisterForm} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
