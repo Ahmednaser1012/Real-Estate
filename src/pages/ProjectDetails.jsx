@@ -50,9 +50,15 @@ const ProjectDetails = () => {
   let images = allMedia.filter((item) => item.type === "image");
   const videos = allMedia.filter((item) => item.type === "video");
 
-  // If no images in galleries, use masterPlan as fallback
-  if (images.length === 0 && project?.masterPlan) {
-    images = [{ id: "master-plan", url: project.masterPlan, type: "image" }];
+  // Add master_plan, logo, and google_map_image to images if they exist
+  if (project?.master_plan) {
+    images.unshift({ id: "master-plan", url: project.master_plan, type: "image" });
+  }
+  if (project?.logo) {
+    images.push({ id: "logo", url: project.logo, type: "image" });
+  }
+  if (project?.google_map_image) {
+    images.push({ id: "google-map", url: project.google_map_image, type: "image" });
   }
 
   // Debug: Log project data
@@ -244,13 +250,25 @@ const ProjectDetails = () => {
                       </div>
                     )}
 
+                    {/* Short Description */}
+                    {(project.short_description_en || project.short_description_ar) && (
+                      <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                        <h4 className="text-lg font-semibold mb-2 text-blue-900 dark:text-blue-100">
+                          Quick Overview
+                        </h4>
+                        <p className="text-blue-800 dark:text-blue-200 leading-relaxed">
+                          {project.short_description_en || project.short_description_ar}
+                        </p>
+                      </div>
+                    )}
+
                     {/* Description */}
                     <div className="mb-6">
                       <h4 className="text-lg font-semibold mb-3">
                         Description
                       </h4>
                       <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line">
-                        {project.description || "No description available."}
+                        {project.description_en || project.description_ar || "No description available."}
                       </p>
                     </div>
 
@@ -409,7 +427,7 @@ const ProjectDetails = () => {
                         </span>
                       </div>
                       {project.location && (
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center pb-3 border-b border-gray-200 dark:border-gray-700">
                           <span className="text-gray-600 dark:text-gray-400">
                             Location
                           </span>
@@ -424,9 +442,44 @@ const ProjectDetails = () => {
                           </a>
                         </div>
                       )}
+                      {project.project_area && (
+                        <div className="flex justify-between items-center pb-3 border-b border-gray-200 dark:border-gray-700">
+                          <span className="text-gray-600 dark:text-gray-400">
+                            Total Area
+                          </span>
+                          <span className="font-semibold">
+                            {project.project_area} m²
+                          </span>
+                        </div>
+                      )}
+                      {project.delivery_date && (
+                        <div className="flex justify-between items-center pb-3 border-b border-gray-200 dark:border-gray-700">
+                          <span className="text-gray-600 dark:text-gray-400">
+                            Delivery Date
+                          </span>
+                          <span className="font-semibold">
+                            {new Date(project.delivery_date).toLocaleDateString()}
+                          </span>
+                        </div>
+                      )}
+                      {project.video_link && (
+                        <div className="flex justify-between items-center">
+                          <span className="text-gray-600 dark:text-gray-400">
+                            Video
+                          </span>
+                          <a
+                            href={project.video_link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-semibold text-primary hover:underline"
+                          >
+                            Watch Video
+                          </a>
+                        </div>
+                      )}
                     </div>
 
-                    {project.masterPlan && (
+                    {project.master_plan && (
                       <div className="mt-6">
                         <h4 className="font-semibold mb-2">Master Plan</h4>
                         <div
@@ -434,13 +487,13 @@ const ProjectDetails = () => {
                           onClick={() => {
                             setSelectedImage({
                               id: "master-plan",
-                              url: project.masterPlan,
+                              url: project.master_plan,
                             });
                             setCurrentImageIndex(0);
                           }}
                         >
                           <img
-                            src={project.masterPlan}
+                            src={project.master_plan}
                             alt="Master Plan"
                             className="w-full rounded-lg group-hover:scale-110 transition-transform duration-300"
                           />

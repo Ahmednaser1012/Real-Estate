@@ -12,10 +12,11 @@ export const api = createApi({
     prepareHeaders: (headers, { endpoint }) => {
       const token = localStorage.getItem("token");
       if (token) headers.set("authorization", `Bearer ${token}`);
+      headers.set("Accept", "application/json");
       return headers;
     },
   }),
 
-  tagTypes: ["Property", "Feed", "User", "Project", "Admin", "Service", "City", "Area", "Blog"],
+  tagTypes: ["Property", "Feed", "User", "Project", "Admin", "Service", "City", "Area", "Blog", "Event"],
   endpoints: () => ({}),
 });

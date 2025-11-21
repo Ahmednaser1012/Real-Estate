@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { FaTimes, FaTrash } from "react-icons/fa";
 import AdminButton from "../../../ui/AdminButton";
 import { useGetAllCitiesQuery, useGetAreasByCityQuery } from "../../../../../features/locationsApi";
@@ -7,96 +8,96 @@ import { useGetAllServicesQuery } from "../../../../../features/servicesApi";
 const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
   const { data: cities = [] } = useGetAllCitiesQuery(undefined, { skip: !isOpen });
   const { data: allServices = [] } = useGetAllServicesQuery(undefined, { skip: !isOpen });
-  const [deletedGalleryIds, setDeletedGalleryIds] = useState([]);
   
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    metaTitle: "",
-    metaDescription: "",
-    area: "",
-    type: "residential",
-    cityId: "",
-    areaId: "",
-    location: "",
-    masterPlan: null,
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      title_en: "",
+      title_ar: "",
+      description_en: "",
+      description_ar: "",
+      short_description_en: "",
+      short_description_ar: "",
+      meta_title_en: "",
+      meta_title_ar: "",
+      meta_description_en: "",
+      meta_description_ar: "",
+      area: "",
+      type: "residential",
+      city_id: "",
+      area_id: "",
+      location: "",
+      delivery_date: "",
+      video_link: "",
+    },
   });
 
   const [selectedCityId, setSelectedCityId] = useState("");
-  const { data: allAreas = [] } = useGetAreasByCityQuery({ cityId: selectedCityId }, { skip: !selectedCityId });
-  const areas = allAreas.filter(area => area.city_id === selectedCityId);
-
+  const [deletedGalleryIds, setDeletedGalleryIds] = useState([]);
   const [selectedServices, setSelectedServices] = useState([]);
   const [galleries, setGalleries] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [submitError, setSubmitError] = useState("");
+
+  const { data: allAreas = [] } = useGetAreasByCityQuery({ cityId: selectedCityId }, { skip: !selectedCityId });
+  const areas = allAreas.filter(area => area.city_id === selectedCityId);
+
+  const cityIdValue = watch("city_id");
+
+  useEffect(() => {
+    if (cityIdValue) {
+      setSelectedCityId(parseInt(cityIdValue));
+    }
+  }, [cityIdValue]);
 
   useEffect(() => {
     if (isOpen) {
       if (project) {
-        console.log("Editing project:", project);
-        console.log("Project ID:", project.id);
-        setFormData({
-          title: project.title || "",
-          description: project.description || "",
-          metaTitle: project.metaTitle || "",
-          metaDescription: project.metaDescription || "",
-          area: project.ProjectArea || "",
+        reset({
+          title_en: project.title_en || "",
+          title_ar: project.title_ar || "",
+          description_en: project.description_en || "",
+          description_ar: project.description_ar || "",
+          short_description_en: project.short_description_en || "",
+          short_description_ar: project.short_description_ar || "",
+          meta_title_en: project.meta_title_en || "",
+          meta_title_ar: project.meta_title_ar || "",
+          meta_description_en: project.meta_description_en || "",
+          meta_description_ar: project.meta_description_ar || "",
+          area: project.project_area || "",
           type: project.type || "residential",
-          cityId: project.city?.id || "",
-          areaId: project.area?.id || "",
+          city_id: project.city_id || "",
+          area_id: project.area_id || "",
           location: project.location || "",
-          masterPlan: null,
+          delivery_date: project.delivery_date || "",
+          video_link: project.video_link || "",
         });
         setSelectedServices(project.services?.map((s) => s.id) || []);
         setGalleries(project.galleries || []);
         setDeletedGalleryIds([]);
-        if (project.city?.id) {
-          setSelectedCityId(project.city.id);
+        if (project.city_id) {
+          setSelectedCityId(project.city_id);
         }
       } else {
-        resetForm();
+        reset();
+        setSelectedServices([]);
+        setGalleries([]);
+        setDeletedGalleryIds([]);
+        setSelectedCityId("");
       }
+      setSubmitError("");
     }
-  }, [isOpen, project]);
-
-  const resetForm = () => {
-    setFormData({
-      title: "",
-      description: "",
-      metaTitle: "",
-      metaDescription: "",
-      area: "",
-      type: "residential",
-      cityId: "",
-      areaId: "",
-      location: "",
-      masterPlan: null,
-    });
-    setSelectedCityId("");
-    setSelectedServices([]);
-    setDeletedGalleryIds([]);
-    setGalleries([]);
-    setErrors({});
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
-    if (name === "cityId") {
-      setSelectedCityId(value ? parseInt(value) : "");
-      setFormData((prev) => ({ ...prev, areaId: "" }));
-    }
-  };
-
-  const handleFileChange = (e) => {
-    const { name, files } = e.target;
-    if (files?.[0]) setFormData((prev) => ({ ...prev, [name]: files[0] }));
-  };
+  }, [isOpen, project, reset]);
 
   const handleServiceToggle = (id) => {
-    setSelectedServices((prev) => prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]);
+    setSelectedServices((prev) =>
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+    );
   };
 
   const addGallery = (type) => {
@@ -117,94 +118,79 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
     input.click();
   };
 
-  // const removeGallery = (id) => setGalleries((prev) => prev.filter((g) => g.id !== id));
   const removeGallery = (id) => {
-  setGalleries((prev) => {
-    const galleryToRemove = prev.find((g) => g.id === id);
-    
-    // ✅ If this gallery exists in the backend (has numeric ID), track it for deletion
-    if (galleryToRemove && !galleryToRemove.file && Number.isInteger(galleryToRemove.id)) {
-      setDeletedGalleryIds((prevDeleted) => [...prevDeleted, galleryToRemove.id]);
-    }
+    setGalleries((prev) => {
+      const galleryToRemove = prev.find((g) => g.id === id);
 
-    return prev.filter((g) => g.id !== id);
-  });
-};
-
-  const validate = () => {
-    const newErrors = {};
-    if (!formData.title.trim()) newErrors.title = "Title is required";
-    if (!formData.description.trim()) newErrors.description = "Description is required";
-    if (!formData.metaTitle.trim()) newErrors.metaTitle = "Meta Title is required";
-    if (!formData.metaDescription.trim()) newErrors.metaDescription = "Meta Description is required";
-    if (!formData.area) newErrors.area = "Project Area is required";
-    if (!formData.location.trim()) newErrors.location = "Location is required";
-    if (!project && !formData.masterPlan) newErrors.masterPlan = "Master Plan image is required";
-    if (!formData.cityId) newErrors.cityId = "City is required";
-    if (!formData.areaId) newErrors.areaId = "Area is required";
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!validate()) return;
-
-    setLoading(true);
-    try {
-      const submitData = new FormData();
-      
-      // Use exact backend field names
-      submitData.append('title', formData.title);
-      submitData.append('description', formData.description);
-      submitData.append('metaTitle', formData.metaTitle);
-      submitData.append('metaDescription', formData.metaDescription);
-      submitData.append('area', formData.area);
-      submitData.append('type', formData.type);
-      submitData.append('cityId', formData.cityId);
-      submitData.append('areaId', formData.areaId);
-      submitData.append('location', formData.location);
-      
-      // Only append masterPlan if a new file is selected
-      if (formData.masterPlan) {
-        submitData.append('masterPlan', formData.masterPlan);
+      if (galleryToRemove && !galleryToRemove.file && Number.isInteger(galleryToRemove.id)) {
+        setDeletedGalleryIds((prevDeleted) => [...prevDeleted, galleryToRemove.id]);
       }
 
-      // Append services
+      return prev.filter((g) => g.id !== id);
+    });
+  };
+
+  const onSubmit = async (data) => {
+    setLoading(true);
+    setSubmitError("");
+
+    try {
+      const submitData = new FormData();
+
+      submitData.append("title_en", data.title_en);
+      submitData.append("title_ar", data.title_ar);
+      submitData.append("description_en", data.description_en);
+      submitData.append("description_ar", data.description_ar);
+      submitData.append("short_description_en", data.short_description_en);
+      submitData.append("short_description_ar", data.short_description_ar);
+      submitData.append("meta_title_en", data.meta_title_en);
+      submitData.append("meta_title_ar", data.meta_title_ar);
+      submitData.append("meta_description_en", data.meta_description_en);
+      submitData.append("meta_description_ar", data.meta_description_ar);
+      submitData.append("area", data.area);
+      submitData.append("type", data.type);
+      submitData.append("city_id", data.city_id);
+      submitData.append("area_id", data.area_id);
+      submitData.append("location", data.location);
+      submitData.append("delivery_date", data.delivery_date);
+      submitData.append("video_link", data.video_link);
+
+      // Handle file inputs
+      const masterPlanInput = document.querySelector('input[name="master_plan"]');
+      if (masterPlanInput?.files?.[0]) {
+        submitData.append("master_plan", masterPlanInput.files[0]);
+      }
+
+      const logoInput = document.querySelector('input[name="logo"]');
+      if (logoInput?.files?.[0]) {
+        submitData.append("logo", logoInput.files[0]);
+      }
+
+      const googleMapInput = document.querySelector('input[name="google_map_image"]');
+      if (googleMapInput?.files?.[0]) {
+        submitData.append("google_map_image", googleMapInput.files[0]);
+      }
+
       selectedServices.forEach((id) => submitData.append("services[]", id));
 
-      // Append galleries - send files and types separately
-     galleries.forEach((g, index) => {
+      galleries.forEach((g, index) => {
         if (g.file) {
           submitData.append(`galleries[${index}][file]`, g.file);
           submitData.append(`galleries[${index}][type]`, g.type);
         }
       });
 
-      // ✅ Append deleted gallery IDs
       deletedGalleryIds.forEach((id) => {
-        submitData.append('deleted_gallery_ids[]', id);
+        submitData.append("deleted_gallery_ids[]", id);
       });
 
       await onSave(submitData);
       onClose();
     } catch (error) {
-      setErrors({ submit: "Failed to save project. Please try again." });
+      setSubmitError("Failed to save project. Please try again.");
     } finally {
       setLoading(false);
     }
-  };
-  
-  const isFormValid = () => {
-    return formData.title.trim() && 
-           formData.description.trim() && 
-           formData.metaTitle.trim() && 
-           formData.metaDescription.trim() && 
-           formData.area && 
-           formData.location.trim() && 
-           (project || formData.masterPlan) && 
-           formData.cityId && 
-           formData.areaId;
   };
 
   if (!isOpen) return null;
@@ -226,10 +212,10 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6">
-          {errors.submit && (
+        <form onSubmit={handleSubmit(onSubmit)} className="p-6">
+          {submitError && (
             <div className="p-3 mb-4 text-red-700 bg-red-100 rounded-lg">
-              {errors.submit}
+              {submitError}
             </div>
           )}
 
@@ -241,19 +227,34 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Title *
+                  Title (English) *
                 </label>
                 <input
                   type="text"
-                  name="title"
-                  value={formData.title}
-                  onChange={handleChange}
+                  {...register("title_en", { required: "Title is required" })}
                   className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 ${
-                    errors.title ? "border-red-500" : "border-gray-300"
+                    errors.title_en ? "border-red-500" : "border-gray-300"
                   }`}
                 />
-                {errors.title && (
-                  <p className="mt-1 text-sm text-red-500">{errors.title}</p>
+                {errors.title_en && (
+                  <p className="mt-1 text-sm text-red-500">{errors.title_en.message}</p>
+                )}
+              </div>
+
+              <div>
+                <label className="block mb-2 text-sm font-medium text-gray-700">
+                  Title (Arabic) *
+                </label>
+                <input
+                  type="text"
+                  {...register("title_ar", { required: "Arabic Title is required" })}
+                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 ${
+                    errors.title_ar ? "border-red-500" : "border-gray-300"
+                  }`}
+                  dir="rtl"
+                />
+                {errors.title_ar && (
+                  <p className="mt-1 text-sm text-red-500">{errors.title_ar.message}</p>
                 )}
               </div>
 
@@ -262,9 +263,7 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                   Project Type *
                 </label>
                 <select
-                  name="type"
-                  value={formData.type}
-                  onChange={handleChange}
+                  {...register("type")}
                   className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="residential">Residential</option>
@@ -274,22 +273,60 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
 
               <div className="md:col-span-2">
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Description *
+                  Description (English) *
                 </label>
                 <textarea
-                  name="description"
-                  value={formData.description}
-                  onChange={handleChange}
-                  rows="4"
+                  {...register("description_en", { required: "Description is required" })}
+                  rows="3"
                   className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 ${
-                    errors.description ? "border-red-500" : "border-gray-300"
+                    errors.description_en ? "border-red-500" : "border-gray-300"
                   }`}
                 />
-                {errors.description && (
-                  <p className="mt-1 text-sm text-red-500">
-                    {errors.description}
-                  </p>
+                {errors.description_en && (
+                  <p className="mt-1 text-sm text-red-500">{errors.description_en.message}</p>
                 )}
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block mb-2 text-sm font-medium text-gray-700">
+                  Description (Arabic) *
+                </label>
+                <textarea
+                  {...register("description_ar", { required: "Arabic Description is required" })}
+                  rows="3"
+                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 ${
+                    errors.description_ar ? "border-red-500" : "border-gray-300"
+                  }`}
+                  dir="rtl"
+                />
+                {errors.description_ar && (
+                  <p className="mt-1 text-sm text-red-500">{errors.description_ar.message}</p>
+                )}
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block mb-2 text-sm font-medium text-gray-700">
+                  Short Description (English)
+                </label>
+                <textarea
+                  {...register("short_description_en")}
+                  rows="2"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900"
+                  placeholder="Brief summary of the project"
+                />
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block mb-2 text-sm font-medium text-gray-700">
+                  Short Description (Arabic)
+                </label>
+                <textarea
+                  {...register("short_description_ar")}
+                  rows="2"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900"
+                  placeholder="ملخص للمشروع"
+                  dir="rtl"
+                />
               </div>
 
               <div>
@@ -298,15 +335,13 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                 </label>
                 <input
                   type="text"
-                  name="metaTitle"
-                  value={formData.metaTitle}
-                  onChange={handleChange}
+                  {...register("meta_title_en", { required: "Meta Title is required" })}
                   className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 ${
-                    errors.metaTitle ? "border-red-500" : "border-gray-300"
+                    errors.meta_title_en ? "border-red-500" : "border-gray-300"
                   }`}
                 />
-                {errors.metaTitle && (
-                  <p className="mt-1 text-sm text-red-500">{errors.metaTitle}</p>
+                {errors.meta_title_en && (
+                  <p className="mt-1 text-sm text-red-500">{errors.meta_title_en.message}</p>
                 )}
               </div>
 
@@ -316,15 +351,13 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                 </label>
                 <input
                   type="text"
-                  name="metaDescription"
-                  value={formData.metaDescription}
-                  onChange={handleChange}
+                  {...register("meta_description_en", { required: "Meta Description is required" })}
                   className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 ${
-                    errors.metaDescription ? "border-red-500" : "border-gray-300"
+                    errors.meta_description_en ? "border-red-500" : "border-gray-300"
                   }`}
                 />
-                {errors.metaDescription && (
-                  <p className="mt-1 text-sm text-red-500">{errors.metaDescription}</p>
+                {errors.meta_description_en && (
+                  <p className="mt-1 text-sm text-red-500">{errors.meta_description_en.message}</p>
                 )}
               </div>
 
@@ -334,15 +367,13 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                 </label>
                 <input
                   type="number"
-                  name="area"
-                  value={formData.area}
-                  onChange={handleChange}
+                  {...register("area", { required: "Project Area is required" })}
                   className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 ${
                     errors.area ? "border-red-500" : "border-gray-300"
                   }`}
                 />
                 {errors.area && (
-                  <p className="mt-1 text-sm text-red-500">{errors.area}</p>
+                  <p className="mt-1 text-sm text-red-500">{errors.area.message}</p>
                 )}
               </div>
 
@@ -350,11 +381,11 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                 <label className="block mb-2 text-sm font-medium text-gray-700">
                   Master Plan Image {!project && "*"}
                 </label>
-                {project && project.masterPlan && (
+                {project && project.master_plan && (
                   <div className="mb-2">
-                    <img 
-                      src={project.masterPlan} 
-                      alt="Current Master Plan" 
+                    <img
+                      src={project.master_plan}
+                      alt="Current Master Plan"
                       className="object-cover w-32 h-32 border border-gray-300 rounded-lg"
                     />
                     <p className="mt-1 text-xs text-gray-600">Current Image</p>
@@ -362,19 +393,64 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                 )}
                 <input
                   type="file"
-                  name="masterPlan"
+                  name="master_plan"
                   accept="image/*"
-                  onChange={handleFileChange}
-                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
-                    errors.masterPlan ? "border-red-500" : "border-gray-300"
-                  }`}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 />
-                {errors.masterPlan && (
-                  <p className="mt-1 text-sm text-red-500">{errors.masterPlan}</p>
-                )}
                 {project && (
                   <p className="mt-1 text-xs text-gray-500">Leave empty to keep current image</p>
                 )}
+              </div>
+
+              <div>
+                <label className="block mb-2 text-sm font-medium text-gray-700">
+                  Project Logo
+                </label>
+                {project && project.logo && (
+                  <div className="mb-2">
+                    <img
+                      src={project.logo}
+                      alt="Current Logo"
+                      className="object-cover w-32 h-32 border border-gray-300 rounded-lg"
+                    />
+                    <p className="mt-1 text-xs text-gray-600">Current Logo</p>
+                  </div>
+                )}
+                <input
+                  type="file"
+                  name="logo"
+                  accept="image/*"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                />
+                {project && (
+                  <p className="mt-1 text-xs text-gray-500">Leave empty to keep current logo</p>
+                )}
+              </div>
+
+              <div>
+                <label className="block mb-2 text-sm font-medium text-gray-700">
+                  Google Map Image
+                </label>
+                {project && project.google_map_image && (
+                  <div className="mb-2">
+                    <img
+                      src={project.google_map_image}
+                      alt="Current Google Map"
+                      className="object-cover w-32 h-32 border border-gray-300 rounded-lg"
+                    />
+                    <p className="mt-1 text-xs text-gray-600">Current Map Image</p>
+                  </div>
+                )}
+                <input
+                  type="file"
+                  name="google_map_image"
+                  accept="image/*"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                />
+                {project && (
+                  <p className="mt-1 text-xs text-gray-500">Leave empty to keep current map image</p>
+                )}
+                <p className="mt-1 text-xs text-gray-500">Screenshot or image of the project location from Google Maps</p>
               </div>
             </div>
           </div>
@@ -384,17 +460,15 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
             <h3 className="mb-4 text-lg font-semibold text-gray-800">
               Location
             </h3>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
                   City *
                 </label>
                 <select
-                  name="cityId"
-                  value={formData.cityId}
-                  onChange={handleChange}
+                  {...register("city_id", { required: "City is required" })}
                   className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 ${
-                    errors.cityId ? "border-red-500" : "border-gray-300"
+                    errors.city_id ? "border-red-500" : "border-gray-300"
                   }`}
                 >
                   <option value="">Select City</option>
@@ -404,8 +478,8 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                     </option>
                   ))}
                 </select>
-                {errors.cityId && (
-                  <p className="mt-1 text-sm text-red-500">{errors.cityId}</p>
+                {errors.city_id && (
+                  <p className="mt-1 text-sm text-red-500">{errors.city_id.message}</p>
                 )}
               </div>
 
@@ -414,12 +488,10 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                   Area *
                 </label>
                 <select
-                  name="areaId"
-                  value={formData.areaId}
-                  onChange={handleChange}
-                  disabled={!formData.cityId}
+                  {...register("area_id", { required: "Area is required" })}
+                  disabled={!selectedCityId}
                   className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 ${
-                    errors.areaId ? "border-red-500" : "border-gray-300"
+                    errors.area_id ? "border-red-500" : "border-gray-300"
                   }`}
                 >
                   <option value="">Select Area</option>
@@ -429,8 +501,8 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                     </option>
                   ))}
                 </select>
-                {errors.areaId && (
-                  <p className="mt-1 text-sm text-red-500">{errors.areaId}</p>
+                {errors.area_id && (
+                  <p className="mt-1 text-sm text-red-500">{errors.area_id.message}</p>
                 )}
               </div>
 
@@ -440,17 +512,38 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                 </label>
                 <input
                   type="url"
-                  name="location"
-                  value={formData.location}
-                  onChange={handleChange}
+                  {...register("location", { required: "Location is required" })}
                   placeholder="https://maps.google.com/..."
                   className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 ${
                     errors.location ? "border-red-500" : "border-gray-300"
                   }`}
                 />
                 {errors.location && (
-                  <p className="mt-1 text-sm text-red-500">{errors.location}</p>
+                  <p className="mt-1 text-sm text-red-500">{errors.location.message}</p>
                 )}
+              </div>
+
+              <div>
+                <label className="block mb-2 text-sm font-medium text-gray-700">
+                  Delivery Date
+                </label>
+                <input
+                  type="date"
+                  {...register("delivery_date")}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900"
+                />
+              </div>
+
+              <div>
+                <label className="block mb-2 text-sm font-medium text-gray-700">
+                  Video Link (YouTube)
+                </label>
+                <input
+                  type="url"
+                  {...register("video_link")}
+                  placeholder="https://www.youtube.com/watch?v=..."
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900"
+                />
               </div>
             </div>
           </div>
@@ -486,20 +579,20 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
 
           {/* Gallery */}
           <div className="mb-6">
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex flex-col gap-3 items-start md:items-center md:justify-between mb-4 md:flex-row">
               <h3 className="text-lg font-semibold text-gray-800">Gallery</h3>
-              <div className="flex gap-2">
+              <div className="flex flex-col gap-2 w-full md:w-auto md:flex-row">
                 <button
                   type="button"
                   onClick={() => addGallery("image")}
-                  className="px-3 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600"
+                  className="w-full md:w-auto px-3 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 transition-colors text-sm md:text-base"
                 >
                   Add Images
                 </button>
                 <button
                   type="button"
                   onClick={() => addGallery("video")}
-                  className="px-3 py-2 text-white bg-purple-500 rounded-lg hover:bg-purple-600"
+                  className="w-full md:w-auto px-3 py-2 text-white bg-purple-500 rounded-lg hover:bg-purple-600 transition-colors text-sm md:text-base"
                 >
                   Add Videos
                 </button>
@@ -550,7 +643,7 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
               variant="primary"
               size="md"
               loading={loading}
-              disabled={!isFormValid() || loading}
+              disabled={loading}
             >
               {project ? "Save Changes" : "Add Project"}
             </AdminButton>

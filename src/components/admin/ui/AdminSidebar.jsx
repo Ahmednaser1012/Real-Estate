@@ -10,6 +10,8 @@ import {
   BiLogOut,
   BiMenu,
   BiX,
+  BiBookmark,
+  BiCalendar,
 } from "react-icons/bi";
 import { MdApartment, MdMiscellaneousServices } from "react-icons/md";
 import { FaMapMarkerAlt } from "react-icons/fa";
@@ -26,6 +28,8 @@ const AdminSidebar = ({ onLogout }) => {
     { id: "locations", name: "Locations", icon: FaMapMarkerAlt },
     { id: "clients", name: "Clients", icon: BiUser },
     { id: "blogs", name: "Blogs", icon: BiBookOpen },
+    { id: "careers", name: "Careers", icon: BiBookmark },
+    { id: "events", name: "Events", icon: BiCalendar },
     { id: "settings", name: "Settings", icon: BiCog },
   ];
 
@@ -37,20 +41,6 @@ const AdminSidebar = ({ onLogout }) => {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
-
-  // Mobile Menu Button (visible only on small screens)
-  const MobileMenuButton = () => (
-    <button
-      onClick={toggleMobileMenu}
-      className="lg:hidden fixed top-4 left-4 z-50 p-3 bg-white dark:bg-card-dark rounded-lg shadow-lg border border-light"
-    >
-      {isMobileMenuOpen ? (
-        <BiX className="w-6 h-6 text-secondary dark:text-slate-300" />
-      ) : (
-        <BiMenu className="w-6 h-6 text-secondary dark:text-slate-300" />
-      )}
-    </button>
-  );
 
   // Desktop Sidebar
   const DesktopSidebar = () => (
@@ -102,7 +92,7 @@ const AdminSidebar = ({ onLogout }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsMobileMenuOpen(false)}
-            className="lg:hidden fixed inset-0 bg-black/50 z-40"
+            className="lg:hidden fixed inset-0 bg-black z-40"
           />
 
           {/* Sidebar */}
@@ -169,13 +159,12 @@ const AdminSidebar = ({ onLogout }) => {
     </AnimatePresence>
   );
 
-  return (
-    <>
-      <MobileMenuButton />
-      <DesktopSidebar />
-      <MobileSidebar />
-    </>
-  );
+  return {
+    isMobileMenuOpen,
+    toggleMobileMenu,
+    DesktopSidebar,
+    MobileSidebar,
+  };
 };
 
 export default AdminSidebar;

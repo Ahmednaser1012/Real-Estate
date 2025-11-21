@@ -57,7 +57,7 @@ const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
       onClick={() => onView(property)}
     >
       {/* Image */}
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative h-96 overflow-hidden">
         <img
           src={property.image || "/images/property (1).jpg"}
           alt={getTypeLabel(property.type)}

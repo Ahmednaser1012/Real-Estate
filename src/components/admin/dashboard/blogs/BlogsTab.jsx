@@ -199,7 +199,7 @@ const BlogsTab = () => {
                 className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden"
               >
                 {/* Blog Image */}
-                <div className="relative h-48 bg-gray-200">
+                <div className="relative h-96 bg-gray-200">
                   <img
                     src={blog.image}
                     alt={blog.title}

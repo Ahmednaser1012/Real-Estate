@@ -24,6 +24,8 @@ const BlogThree = lazy(() => import("./pages/BlogThree"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Portifolio = lazy(() => import("./pages/Portifolio"));
 const Faqs = lazy(() => import("./pages/Faqs"));
+const Career = lazy(() => import("./pages/Career"));
+const Events = lazy(() => import("./pages/Events"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
@@ -99,6 +101,8 @@ function App() {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/portifolio" element={<Portifolio />} />
                 <Route path="/faqs" element={<Faqs />} />
+                <Route path="/career" element={<Career />} />
+                <Route path="/events" element={<Events />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="*" element={<PageNotFound />} />
               </Routes>
