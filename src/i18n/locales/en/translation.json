@@ -152,5 +152,73 @@
     "delete": "Delete",
     "save": "Save",
     "cancel": "Cancel"
+  },
+  "events": {
+    "title": "Events",
+    "subtitle": "Discover our upcoming events and activities",
+    "noEvents": "No events available",
+    "loadingEvents": "Loading events..."
+  },
+  "career": {
+    "title": "Join Our Team",
+    "subtitle": "Explore exciting career opportunities",
+    "noOpportunities": "No career opportunities available",
+    "loadingOpportunities": "Loading career opportunities...",
+    "applyNow": "Apply Now"
+  },
+  "contactInfo": {
+    "hotLine": "Hot Line",
+    "followUs": "Follow Us",
+    "officeAddress": "Office Address",
+    "phone": "17375",
+    "address1": "Plaza Espana Mall, B4-Ground Floor, Office 10",
+    "address2": "Zayed City"
+  },
+  "footer": {
+    "services": "Services",
+    "orderTracking": "Order Tracking",
+    "wishlist": "Wishlist",
+    "termsOfUse": "Terms of Use",
+    "contactSupport": "Contact Support",
+    "twoYearGuarantee": "2-Year Guarantee",
+    "quickLinks": "Quick Links",
+    "aboutUs": "About Us",
+    "blog": "Blog",
+    "portfolio": "Portfolio",
+    "business": "Business",
+    "success": "Success",
+    "guide": "Guide",
+    "mission": "Mission",
+    "termsConditions": "Terms & Conditions",
+    "privacyPolicy": "Privacy Policy",
+    "newsletter": "Subscribe to our Newsletter",
+    "newsletterDesc": "Subscribe to be the first one to know about updates. Enter your email.",
+    "emailPlaceholder": "Email Address...",
+    "subscribe": "Subscribe",
+    "createdBy": "Created By",
+    "allRightsReserved": "All Rights Reserved",
+    "company": "Levels Development"
+  },
+  "blog": {
+    "socialMedia": "Social Media",
+    "findYourDreamHouse": "Find Your Dream House",
+    "enterKeywords": "Enter Keywords...",
+    "blogPost": "Blog Post",
+    "latestNewsfeeds": "Latest Newsfeeds",
+    "failedToLoad": "Failed to load blogs. Please try again later.",
+    "noBlogsAvailable": "No blogs available at the moment."
+  },
+  "categories": {
+    "title": "Categories",
+    "heading": "Find Your Dream House by Searching Our Popular Categories",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus veniam, odio suscipit minima accusamus ipsum.",
+    "allCategories": "All Categories",
+    "buildings": "buildings"
+  },
+  "counter": {
+    "renovationProjects": "Renovation Projects",
+    "teamMembers": "Team Members",
+    "projectsCompleted": "Projects Completed",
+    "satisfiedClients": "Satisfied Clients"
   }
 }

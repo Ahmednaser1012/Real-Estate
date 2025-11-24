@@ -78,7 +78,7 @@ const ProjectGrid = ({ projects, onView, onEdit, onDelete }) => {
                   <BiArea className="text-lg text-blue-600" />
                   <span className="text-xs text-gray-600">Area:</span>
                   <span className="block mt-1 font-bold text-blue-700">
-                    {typeof project.area === 'object' ? (project.area?.area || "N/A") : (project.area || project.project_area || project.ProjectArea || "N/A")} m²
+                    {project.project_area || "N/A"} m²
                   </span>
                 </div>
               </div>

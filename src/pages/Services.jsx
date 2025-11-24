@@ -12,7 +12,7 @@ const Services = () => {
       <ServicesList />
       <Categories />
       <Counter />
-      <Team />
+      {/* <Team /> */}
       <Feeds />
     </div>
   );

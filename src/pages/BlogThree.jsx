@@ -14,11 +14,11 @@ const BlogThree = () => {
           <Pagination itemsPerPage={6} pageData={feeds} />
         </div>
         <div className="top-0 row-start-3 md:col-span-1 md:row-start-auto h-fit md:sticky">
-          <input
+          {/* <input
             type="text"
             className="border outline-none bg-transparent dark:border-dark px-3 py-[0.35rem] w-full"
             placeholder="Enter Keywords.."
-          />
+          /> */}
           {/* <Type /> */}
           {/* <TopRated /> */}
           {/* <PopularTags /> */}

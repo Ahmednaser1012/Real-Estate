@@ -1,14 +1,16 @@
+import { useTranslation } from "react-i18next";
 import { useGetAllBlogsQuery } from "../../../features/blogsApi";
 import SingleFeedCard from "./SingleFeedCard";
 
 const Feeds = () => {
+  const { t } = useTranslation();
   const { data: blogs = [], isLoading, isError } = useGetAllBlogsQuery({ limit: 3 });
 
   return (
-    <div className="pt-10 pb-16">
+    <div className="pt-10 ">
       <div className="text-center">
-        <h1 className="mx-auto sub-heading">blog post</h1>
-        <h1 className="heading">latest newsfeeds</h1>
+        <h1 className="mx-auto sub-heading">{t('blog.blogPost')}</h1>
+        <h1 className="heading">{t('blog.latestNewsfeeds')}</h1>
       </div>
       
       {isLoading ? (
@@ -28,11 +30,11 @@ const Feeds = () => {
         </div>
       ) : isError ? (
         <div className="text-center py-8 mt-8">
-          <p className="text-red-500">Failed to load blogs. Please try again later.</p>
+          <p className="text-red-500">{t('blog.failedToLoad')}</p>
         </div>
       ) : !blogs.length ? (
         <div className="text-center py-8 mt-8">
-          <p className="text-gray-500 dark:text-gray-400">No blogs available at the moment.</p>
+          <p className="text-gray-500 dark:text-gray-400">{t('blog.noBlogsAvailable')}</p>
         </div>
       ) : (
         <div className="flex flex-wrap gap-4 mt-8">

@@ -39,21 +39,21 @@ export const navLinks = [
     linkTextKey: "nav.contact",
     url: "/contact",
   },
-  {
-    id: 9,
-    linkTextKey: "nav.pages",
-    url: "/portifolio",
-    subLinks: [
-      {
-        id: 1,
-        linkTextKey: "nav.portfolio",
-        url: "/portifolio",
-      },
-      {
-        id: 4,
-        linkTextKey: "nav.faqs",
-        url: "/faqs",
-      },
-    ],
-  },
+  // {
+  //   id: 9,
+  //   linkTextKey: "nav.pages",
+  //   url: "/portifolio",
+  //   subLinks: [
+  //     {
+  //       id: 1,
+  //       linkTextKey: "nav.portfolio",
+  //       url: "/portifolio",
+  //     },
+  //     {
+  //       id: 4,
+  //       linkTextKey: "nav.faqs",
+  //       url: "/faqs",
+  //     },
+  //   ],
+  // },
 ];
