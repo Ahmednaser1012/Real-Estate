@@ -1,8 +1,10 @@
 import { BiMap } from "react-icons/bi";
 import { FiMail, FiPhone } from "react-icons/fi";
 import { FaTiktok, FaYoutube, FaFacebook, FaInstagram } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const ContactInfo = () => {
+  const { t } = useTranslation();
   const socials = [
     {
       name: "TikTok",
@@ -37,8 +39,8 @@ const ContactInfo = () => {
         <div className="icon-box !h-14 !w-14 !bg-primary text-white mx-auto text-2xl flex items-center justify-center rounded-full shadow-md">
           <FiPhone />
         </div>
-        <h2 className="mt-3 text-lg font-semibold">Hot Line</h2>
-        <p className="">17375</p>
+        <h2 className="mt-3 text-lg font-semibold">{t('contactInfo.hotLine')}</h2>
+        <p className="">{t('contactInfo.phone')}</p>
       </div>
 
       {/* 💌 Socials */}
@@ -46,7 +48,7 @@ const ContactInfo = () => {
         <div className="icon-box !h-14 !w-14 !bg-primary text-white mx-auto text-2xl flex items-center justify-center rounded-full shadow-md">
           <FiMail />
         </div>
-        <h2 className="mt-3 text-lg font-semibold">Follow Us</h2>
+        <h2 className="mt-3 text-lg font-semibold">{t('contactInfo.followUs')}</h2>
 
         <div className="flex justify-center gap-5 mt-3 text-2xl">
           {socials.map((social, i) => (
@@ -69,9 +71,9 @@ const ContactInfo = () => {
         <div className="icon-box !h-14 !w-14 !bg-primary text-white mx-auto text-2xl flex items-center justify-center rounded-full shadow-md">
           <BiMap />
         </div>
-        <h2 className="mt-3 text-lg font-semibold">Office Address</h2>
-        <p className="">Plaza Espana Mall, B4-Ground Floor, Office 10</p>
-        <p className="">Zayed City</p>
+        <h2 className="mt-3 text-lg font-semibold">{t('contactInfo.officeAddress')}</h2>
+        <p className="">{t('contactInfo.address1')}</p>
+        <p className="">{t('contactInfo.address2')}</p>
       </div>
     </div>
   );

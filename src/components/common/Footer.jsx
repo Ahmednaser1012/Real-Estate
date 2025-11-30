@@ -2,9 +2,11 @@
 import { FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { FiFacebook } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import logo from "../../assets/Logo.PNG";
 
 const Footer = () => {
+  const { t } = useTranslation();
   const socialLinks = [
     {
       icon: <FiFacebook />,
@@ -63,63 +65,63 @@ const Footer = () => {
 
           {/* Services */}
           <div className="flex-1 basis-[10rem]">
-            <h2 className="text-xl font-semibold">Services</h2>
+            <h2 className="text-xl font-semibold">{t('footer.services')}</h2>
             <ul>
               <li className="my-3 text-muted">
-                <a href="#">Order Tracking</a>
+                <a href="#">{t('footer.orderTracking')}</a>
               </li>
               <li className="my-3 text-muted">
-                <a href="#">Wishlist</a>
+                <a href="#">{t('footer.wishlist')}</a>
               </li>
               <li className="my-3 text-muted">
-                <a href="#">Terms of Use</a>
+                <a href="#">{t('footer.termsOfUse')}</a>
               </li>
               <li className="my-3 text-muted">
-                <a href="#">Contact Support</a>
+                <a href="#">{t('footer.contactSupport')}</a>
               </li>
               <li className="my-3 text-muted">
-                <a href="#">2-Year Guarantee</a>
+                <a href="#">{t('footer.twoYearGuarantee')}</a>
               </li>
             </ul>
           </div>
 
           {/* Quick Links */}
           <div className="flex-1 basis-[10rem]">
-            <h2 className="text-xl font-semibold">Quick Links</h2>
+            <h2 className="text-xl font-semibold">{t('footer.quickLinks')}</h2>
             <ul>
               <li className="my-3 text-muted">
-                <a href="#">About Us</a>
+                <a href="#">{t('footer.aboutUs')}</a>
               </li>
               <li className="my-3 text-muted">
-                <a href="#">Services</a>
+                <a href="#">{t('footer.services')}</a>
               </li>
               <li className="my-3 text-muted">
-                <a href="#">Blog</a>
+                <a href="#">{t('footer.blog')}</a>
               </li>
               <li className="my-3 text-muted">
-                <a href="#">Portfolio</a>
+                <a href="#">{t('footer.portfolio')}</a>
               </li>
             </ul>
           </div>
 
           {/* Business */}
           <div className="flex-1 basis-[10rem]">
-            <h2 className="text-xl font-semibold">Business</h2>
+            <h2 className="text-xl font-semibold">{t('footer.business')}</h2>
             <ul>
               <li className="my-3 text-muted">
-                <a href="#">Success</a>
+                <a href="#">{t('footer.success')}</a>
               </li>
               <li className="my-3 text-muted">
-                <a href="#">Guide</a>
+                <a href="#">{t('footer.guide')}</a>
               </li>
               <li className="my-3 text-muted">
-                <a href="#">Mission</a>
+                <a href="#">{t('footer.mission')}</a>
               </li>
               <li className="my-3 text-muted">
-                <a href="#">Terms & Conditions</a>
+                <a href="#">{t('footer.termsConditions')}</a>
               </li>
               <li className="my-3 text-muted">
-                <a href="#">Privacy Policy</a>
+                <a href="#">{t('footer.privacyPolicy')}</a>
               </li>
             </ul>
           </div>
@@ -127,19 +129,18 @@ const Footer = () => {
           {/* Newsletter */}
           <div className="flex-1 basis-[10rem] text-center md:text-left">
             <h2 className="text-xl font-semibold">
-              Subscribe to our Newsletter
+              {t('footer.newsletter')}
             </h2>
             <p className="text-sm text-muted">
-              Subscribe to be the first one to know about updates. Enter your
-              email.
+              {t('footer.newsletterDesc')}
             </p>
             <div className="flex items-center justify-center my-3">
               <input
                 type="text"
                 className="px-4 py-[0.35rem] card-bordered dark:shadow-none outline-none bg-transparent rounded-lg border-dark"
-                placeholder="Email Address..."
+                placeholder={t('footer.emailPlaceholder')}
               />
-              <button className="-ml-2 btn btn-primary">Subscribe</button>
+              <button className="-ml-2 btn btn-primary">{t('footer.subscribe')}</button>
             </div>
           </div>
         </div>
@@ -147,11 +148,11 @@ const Footer = () => {
 
       <div className="py-2 mt-3 text-center border-t text-muted border-dark">
         <p>
-          Created By{" "}
+          {t('footer.createdBy')}{" "}
           <span className="font-semibold text-primary">
-            Levels Development
+            {t('footer.company')}
           </span>{" "}
-          | All Rights Reserved
+          | {t('footer.allRightsReserved')}
         </p>
       </div>
     </div>

@@ -1,10 +1,12 @@
+import locationImg from "../../assets/loction.png";
+
 const Map = () => {
   return (
     <div>
       <img
-        src="/images/property (2).jpg"
+        src={locationImg}
         alt="img"
-        className="w-full h-[200px] object-cover"
+        className="w-full h-auto"
       />
     </div>
   );

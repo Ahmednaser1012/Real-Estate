@@ -428,7 +428,7 @@ const ClientsTab = () => {
               )}
 
               <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-1 text-black dark:text-white">
+                <label htmlFor="name" className="block text-sm font-medium mb-1 text-black ">
                   Full Name *
                 </label>
                 <input

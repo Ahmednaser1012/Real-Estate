@@ -78,7 +78,7 @@
       "watchOverview": "شاهد النظرة العامة",
       "vision": {
         "title": "الرؤية",
-        "description": "إعادة تعريف الحيا�� العصرية في غرب القاهرة من خلال إنشاء مجتمعات مبتكرة ومستدامة وعالية الجودة تبني الثقة وتعزز الحياة اليومية"
+        "description": "إعادة تعريف الحياة في العصرية في غرب القاهرة من خلال إنشاء مجتمعات مبتكرة ومستدامة وعالية الجودة تبني الثقة وتعزز الحياة اليومية"
       },
       "mission": {
         "title": "المهمة",
@@ -152,5 +152,73 @@
     "delete": "حذف",
     "save": "حفظ",
     "cancel": "إلغاء"
+  },
+  "events": {
+    "title": "الأحداث",
+    "subtitle": "اكتشف أحداثنا القادمة والأنشطة",
+    "noEvents": "لا توجد أحداث متاحة",
+    "loadingEvents": "جاري تحميل الأحداث..."
+  },
+  "career": {
+    "title": "انضم إلى فريقنا",
+    "subtitle": "استكشف فرص وظيفية مثيرة",
+    "noOpportunities": "لا توجد فرص وظيفية متاحة",
+    "loadingOpportunities": "جاري تحميل الفرص الوظيفية...",
+    "applyNow": "تقديم الطلب"
+  },
+  "contactInfo": {
+    "hotLine": "الخط الساخن",
+    "followUs": "تابعنا",
+    "officeAddress": "عنوان المكتب",
+    "phone": "17375",
+    "address1": "مول بلازا إسبانيا، الطابق الأرضي B4، المكتب 10",
+    "address2": "مدينة زايد"
+  },
+  "footer": {
+    "services": "الخدمات",
+    "orderTracking": "تتبع الطلب",
+    "wishlist": "قائمة الرغبات",
+    "termsOfUse": "شروط الاستخدام",
+    "contactSupport": "التواصل مع الدعم",
+    "twoYearGuarantee": "ضمان لمدة سنتين",
+    "quickLinks": "روابط سريعة",
+    "aboutUs": "من نحن",
+    "blog": "المدونة",
+    "portfolio": "معرض الأعمال",
+    "business": "الأعمال",
+    "success": "النجاح",
+    "guide": "الدليل",
+    "mission": "المهمة",
+    "termsConditions": "الشروط والأحكام",
+    "privacyPolicy": "سياسة الخصوصية",
+    "newsletter": "اشترك في نشرتنا الإخبارية",
+    "newsletterDesc": "اشترك لتكون أول من يعرف عن التحديثات. أدخل بريدك الإلكتروني.",
+    "emailPlaceholder": "عنوان البريد الإلكتروني...",
+    "subscribe": "اشترك",
+    "createdBy": "تم الإنشاء بواسطة",
+    "allRightsReserved": "جميع الحقوق محفوظة",
+    "company": "ليفليز للتطوير"
+  },
+  "blog": {
+    "socialMedia": "وسائل التواصل الاجتماعي",
+    "findYourDreamHouse": "اعثر على منزل أحلامك",
+    "enterKeywords": "أدخل الكلمات المفتاحية...",
+    "blogPost": "منشور المدونة",
+    "latestNewsfeeds": "أحدث الأخبار",
+    "failedToLoad": "فشل تحميل المدونات. يرجى المحاولة لاحقاً.",
+    "noBlogsAvailable": "لا توجد مدونات متاحة في الوقت الحالي."
+  },
+  "categories": {
+    "title": "الفئات",
+    "heading": "اعثر على منزل أحلامك من خلال البحث في فئاتنا الشهيرة",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus veniam, odio suscipit minima accusamus ipsum.",
+    "allCategories": "جميع الفئات",
+    "buildings": "مباني"
+  },
+  "counter": {
+    "renovationProjects": "مشاريع التجديد",
+    "teamMembers": "أعضاء الفريق",
+    "projectsCompleted": "المشاريع المكتملة",
+    "satisfiedClients": "العملاء الراضون"
   }
 }

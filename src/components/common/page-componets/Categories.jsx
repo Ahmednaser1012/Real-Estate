@@ -1,9 +1,11 @@
 import { useRef, useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { categories } from "../../../data/dummyData";
 
 const Categories = () => {
+  const { t } = useTranslation();
   const categoryContainer = useRef(null);
   const [isScroll, setIsscroll] = useState(false);
   const scrollContainer = (direction) => {
@@ -19,15 +21,14 @@ const Categories = () => {
     <div className="pt-10 pb-16">
       <div className="grid grid-cols-1 gap-16 sm:grid-cols-2 md:grid-cols-4">
         <div className="md:col-span-1">
-          <h1 className="sub-heading">categories</h1>
+          <h1 className="sub-heading">{t('categories.title')}</h1>
           <h1 className="heading">
-            find your dream house by searching our popular categories
+            {t('categories.heading')}
           </h1>
           <p className="mt-3">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus
-            veniam, odio suscipit minima accusamus ipsum.
+            {t('categories.description')}
           </p>
-          <button className="mt-4 btn btn-primary">all categories</button>
+          <button className="mt-4 btn btn-primary">{t('categories.allCategories')}</button>
         </div>
         <div className="md:col-span-3 ">
           <div className="justify-end flex-align-center gap-x-3">
@@ -67,7 +68,7 @@ const Categories = () => {
                 </div>
                 <div className="absolute bottom-0 left-0 w-full px-2 py-2 transition-transform bg-gradient-to-t from-black/80 text-slate-100 to-transparent">
                   <h1 className="text-lg font-semibold">{name}</h1>
-                  <p>{number} buildings</p>
+                  <p>{number} {t('categories.buildings')}</p>
                 </div>
               </div>
             ))}

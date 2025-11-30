@@ -191,7 +191,7 @@ const Navbar = () => {
 
                 {/*----------------------------- Language Switcher-------------------------------------------------- */}
                 <div className="hidden md:block cursor-pointer">
-                  {/* <LanguageSwitcher /> */}
+                  <LanguageSwitcher />
                 </div>
 
                 {/*----------------------------- Dark mode toggle-------------------------------------------------- */}

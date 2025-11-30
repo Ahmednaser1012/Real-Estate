@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Briefcase, MapPin, DollarSign, Clock, ArrowRight } from "lucide-react";
+import { Briefcase, Clock, ArrowRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useGetAllCareersQuery } from "../features/careersApi";
 
 export default function Career() {
+  const { i18n, t } = useTranslation();
   const { data: careers = [], isLoading, error } = useGetAllCareersQuery({ limit: 50 });
 
   if (isLoading) {
@@ -10,7 +12,7 @@ export default function Career() {
       <div className="pt-20 min-h-screen  flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-gray-700 dark:text-gray-300 text-lg">Loading career opportunities...</p>
+          <p className="text-gray-700 dark:text-gray-300 text-lg">{t('career.loadingOpportunities')}</p>
         </div>
       </div>
     );
@@ -21,7 +23,7 @@ export default function Career() {
       <div className="pt-20 min-h-screen  flex items-center justify-center">
         <div className="text-center">
           <Briefcase className="w-16 h-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
-          <p className="text-gray-700 dark:text-gray-300 text-xl">No career opportunities available</p>
+          <p className="text-gray-700 dark:text-gray-300 text-xl">{t('career.noOpportunities')}</p>
         </div>
       </div>
     );
@@ -32,8 +34,8 @@ export default function Career() {
       {/* Header */}
       <div className="bg-gradient-to-r from-primary to-secondary text-white py-16 px-4">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Join Our Team</h1>
-          <p className="text-white/80 text-lg">Explore exciting career opportunities</p>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">{t('career.title')}</h1>
+          <p className="text-white/80 text-lg">{t('career.subtitle')}</p>
         </div>
       </div>
 
@@ -50,7 +52,7 @@ export default function Career() {
                 <div className="h-48 bg-gray-200 dark:bg-gray-700 overflow-hidden">
                   <img
                     src={career.image}
-                    alt={career.title_en || career.title_ar}
+                    alt={i18n.language === 'ar' ? (career.title_ar || career.title_en) : (career.title_en || career.title_ar)}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
                 </div>
@@ -60,14 +62,9 @@ export default function Career() {
               <div className="p-6 space-y-4">
                 {/* Title */}
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary transition-colors">
-                    {career.title_en || career.title_ar}
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary transition-colors" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
+                    {i18n.language === 'ar' ? (career.title_ar || career.title_en) : (career.title_en || career.title_ar)}
                   </h3>
-                  {career.title_ar && career.title_en && (
-                    <p className="text-sm text-gray-600 dark:text-gray-400" dir="rtl">
-                      {career.title_ar}
-                    </p>
-                  )}
                 </div>
 
                 {/* Details */}
@@ -84,14 +81,14 @@ export default function Career() {
 
                 {/* Description */}
                 {(career.description_en || career.description_ar) && (
-                  <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-3">
-                    {career.description_en || career.description_ar}
+                  <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-3" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
+                    {i18n.language === 'ar' ? (career.description_ar || career.description_en) : (career.description_en || career.description_ar)}
                   </p>
                 )}
 
                 {/* Button */}
                 <button className="w-full mt-4 px-4 py-2 bg-gradient-to-r from-primary to-secondary text-white rounded-lg hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 font-semibold flex items-center justify-center gap-2 group/btn">
-                  Apply Now
+                  {t('career.applyNow')}
                   <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                 </button>
               </div>
