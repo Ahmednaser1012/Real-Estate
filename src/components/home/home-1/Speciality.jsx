@@ -1,9 +1,12 @@
 import { FiCheck } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { useTranslation } from "react-i18next";
 import video1 from "../../../assets/HomePage/video1.mp4";
 
 const Speciality = () => {
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === "ar";
   const { ref, inView } = useInView({
     threshold: 0.1,
     triggerOnce: true,
@@ -70,19 +73,13 @@ const Speciality = () => {
           variants={leftSideVariants}
         >
           <motion.h1 className="sub-heading" variants={checkItemVariants}>
-            about us
+            {t("about.title")}
           </motion.h1>
           <motion.h1 className="heading" variants={checkItemVariants}>
-            We develop quality projects that blend style, comfort, and
-            durability
+            {t("about.overview.heading")}
           </motion.h1>
-          <motion.p className="mt-3" variants={checkItemVariants}>
-            Established under the umbrella of Kayan Real Estate Development,
-            Levels Developments leverages decades of experience to deliver
-            high-quality residential and commercial projects. The company was
-            founded through a strategic alliance between two of the most
-            prominent developers in 6th of October City, bringing together deep
-            expertise in both sectors to deliver lasting and sustainable value.
+          <motion.p className="mt-3" variants={checkItemVariants} dir={isRTL ? "rtl" : "ltr"}>
+            {t("about.overview.description")}
           </motion.p>
           <motion.div className="mt-4" variants={checkItemVariants}>
             <motion.div
@@ -98,7 +95,7 @@ const Speciality = () => {
               >
                 <FiCheck />
               </motion.div>
-              <p>Outstanding Property</p>
+              <p>{t("about.overview.items.item1")}</p>
             </motion.div>
             <motion.div
               className="mt-2 flex-align-center gap-x-2"
@@ -113,7 +110,7 @@ const Speciality = () => {
               >
                 <FiCheck />
               </motion.div>
-              <p>Professional and experienced human resource</p>
+              <p>{t("about.overview.items.item2")}</p>
             </motion.div>
             <motion.div
               className="mt-2 flex-align-center gap-x-2"
@@ -128,7 +125,7 @@ const Speciality = () => {
               >
                 <FiCheck />
               </motion.div>
-              <p>Provide the best services for users</p>
+              <p>{t("about.overview.items.item3")}</p>
             </motion.div>
             <motion.div
               className="mt-2 flex-align-center gap-x-2"
@@ -143,7 +140,7 @@ const Speciality = () => {
               >
                 <FiCheck />
               </motion.div>
-              <p>Modern city locations and exceptional lifestyle</p>
+              <p>{t("about.overview.items.item4")}</p>
             </motion.div>
             <motion.button
               className="mt-4 btn btn-primary"
@@ -152,7 +149,7 @@ const Speciality = () => {
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              read more
+              {t("common.readMore")}
             </motion.button>
           </motion.div>
         </motion.div>

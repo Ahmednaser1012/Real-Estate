@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import {
   FaBed,
@@ -10,6 +11,7 @@ import {
 import { MdEdit, MdDelete } from "react-icons/md";
 
 const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
+  const { t, i18n } = useTranslation();
   // const getStatusColor = (status) => {
   //   switch (status) {
   //     case "available":
@@ -38,12 +40,12 @@ const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
 
   const getTypeLabel = (type) => {
     const labels = {
-      apartments: "Apartments",
-      duplexes: "Duplexes",
-      studios: "Studios",
-      offices: "Offices",
-      clinics: "Clinics",
-      retails: "Retails",
+      apartments: t("enums.propertyTypes.apartments"),
+      duplexes: t("enums.propertyTypes.duplexes"),
+      studios: t("enums.propertyTypes.studios"),
+      offices: t("enums.propertyTypes.offices"),
+      clinics: t("enums.propertyTypes.clinics"),
+      retails: t("enums.propertyTypes.retails"),
     };
     return labels[type] || type;
   };
@@ -88,7 +90,7 @@ const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
           <FaMoneyBillWave className="text-green-600" />
           <span className="font-semibold text-green-700">
             {property.priceMin?.toLocaleString()} -{" "}
-            {property.priceMax?.toLocaleString()} EGP
+            {property.priceMax?.toLocaleString()} {t("properties.currency")}
           </span>
         </div>
 
@@ -106,13 +108,13 @@ const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
             <div className="flex items-center gap-2 text-sm text-gray-600">
               <FaBed className="text-purple-600" />
               <span>
-                {property.noOfBedroomsMin} - {property.noOfBedroomsMax} Beds
+                {property.noOfBedroomsMin} - {property.noOfBedroomsMax} {t("property.bedrooms")}
               </span>
             </div>
             <div className="flex items-center gap-2 text-sm text-gray-600">
               <FaBath className="text-cyan-600" />
               <span>
-                {property.noOfBathroomsMin} - {property.noOfBathroomsMax} Baths
+                {property.noOfBathroomsMin} - {property.noOfBathroomsMax} {t("property.bathrooms")}
               </span>
             </div>
           </div>
@@ -123,7 +125,7 @@ const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
           <div className="flex items-center gap-2 text-sm text-gray-600 mb-4">
             <FaCalendarAlt className="text-orange-600" />
             <span>
-              {new Date(property.deliveryDate).toLocaleDateString("en-US", {
+              {new Date(property.deliveryDate).toLocaleDateString(i18n.language === "ar" ? "ar-EG" : "en-US", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
@@ -142,7 +144,7 @@ const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
             className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors"
           >
             <MdEdit />
-            <span className="text-sm font-medium">Edit</span>
+            <span className="text-sm font-medium">{t("common.edit")}</span>
           </button>
           <button
             onClick={(e) => {
@@ -152,7 +154,7 @@ const PropertyCard = ({ property, onView, onEdit, onDelete }) => {
             className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
           >
             <MdDelete />
-            <span className="text-sm font-medium">Delete</span>
+            <span className="text-sm font-medium">{t("common.delete")}</span>
           </button>
         </div>
       </div>

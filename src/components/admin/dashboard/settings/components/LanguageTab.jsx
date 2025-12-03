@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import AdminButton from "../../../ui/AdminButton";
 
 const LanguageTab = () => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [language, setLanguage] = useState(i18n.language || "en");
   const [isSaving, setIsSaving] = useState(false);
 
@@ -22,7 +22,7 @@ const LanguageTab = () => {
       
       setTimeout(() => {
         setIsSaving(false);
-        alert(`Language changed to ${language === "en" ? "English" : "العربية"}`);
+        alert(t("settings.languageChanged", { lang: language === "en" ? t("settings.english") : t("settings.arabic") }));
       }, 500);
     });
   };
@@ -32,10 +32,10 @@ const LanguageTab = () => {
       <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg border border-blue-200">
         <h3 className="text-xl font-bold text-gray-800 mb-2 flex items-center gap-2">
           <BiGlobe className="text-primary text-2xl" />
-          Select Your Preferred Language
+          {t("settings.selectLanguage")}
         </h3>
         <p className="text-gray-600">
-          Choose the language for your dashboard interface
+          {t("settings.chooseLanguageDescription")}
         </p>
       </div>
 
@@ -59,9 +59,9 @@ const LanguageTab = () => {
               <BiGlobe className="text-3xl text-white" />
             </div>
             <div className="text-left">
-              <h4 className="text-lg font-bold text-gray-800 mb-1">English</h4>
+              <h4 className="text-lg font-bold text-gray-800 mb-1">{t("settings.english")}</h4>
               <p className="text-sm text-gray-600">
-                Set interface to English
+                {t("settings.setInterfaceEnglish")}
               </p>
             </div>
           </div>
@@ -86,8 +86,8 @@ const LanguageTab = () => {
               <BiGlobe className="text-3xl text-white" />
             </div>
             <div className="text-left">
-              <h4 className="text-lg font-bold text-gray-800 mb-1">العربية</h4>
-              <p className="text-sm text-gray-600">تعيين الواجهة إلى العربية</p>
+              <h4 className="text-lg font-bold text-gray-800 mb-1">{t("settings.arabic")}</h4>
+              <p className="text-sm text-gray-600">{t("settings.setInterfaceArabic")}</p>
             </div>
           </div>
         </button>
@@ -101,11 +101,11 @@ const LanguageTab = () => {
           onClick={handleSaveLanguage}
           className="shadow-lg hover:shadow-xl"
         >
-          Save Language Settings
+          {t("settings.saveLanguageSettings")}
         </AdminButton>
         <p className="text-sm text-gray-500">
-          Current: <span className="font-semibold text-primary">
-            {language === "en" ? "English" : "العربية"}
+          {t("settings.current")}: <span className="font-semibold text-primary">
+            {language === "en" ? t("settings.english") : t("settings.arabic")}
           </span>
         </p>
       </div>

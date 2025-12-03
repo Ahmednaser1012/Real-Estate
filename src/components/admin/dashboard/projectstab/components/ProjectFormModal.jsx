@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { FaTimes, FaTrash } from "react-icons/fa";
 import AdminButton from "../../../ui/AdminButton";
 import { useGetAllCitiesQuery, useGetAreasByCityQuery } from "../../../../../features/locationsApi";
 import { useGetAllServicesQuery } from "../../../../../features/servicesApi";
 
 const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
+  const { t, i18n } = useTranslation();
   const { data: cities = [] } = useGetAllCitiesQuery(undefined, { skip: !isOpen });
   const { data: allServices = [] } = useGetAllServicesQuery(undefined, { skip: !isOpen });
   
@@ -201,7 +203,7 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
         {/* Header */}
         <div className="sticky top-0 z-10 flex items-center justify-between px-6 py-4 bg-white border-b">
           <h2 className="text-2xl font-bold text-gray-800">
-            {project ? "Edit Project" : "Add New Project"}
+            {project ? t("projects.editProject") : t("projects.addNewProject")}
           </h2>
           <button
             onClick={onClose}
@@ -222,12 +224,12 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
           {/* Basic Information */}
           <div className="mb-6">
             <h3 className="mb-4 text-lg font-semibold text-gray-800">
-              Basic Information
+              {t("projects.titleEnglish")}
             </h3>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Title (English) *
+                  {t("projects.titleEnglish")} *
                 </label>
                 <input
                   type="text"
@@ -243,7 +245,7 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Title (Arabic) *
+                  {t("projects.titleArabic")} *
                 </label>
                 <input
                   type="text"
@@ -260,20 +262,20 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Project Type *
+                  {t("projects.projectType")} *
                 </label>
                 <select
                   {...register("type")}
                   className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="residential">Residential</option>
-                  <option value="commercial">Commercial</option>
+                  <option value="residential">{t("enums.projectTypes.residential")}</option>
+                  <option value="commercial">{t("enums.projectTypes.commercial")}</option>
                 </select>
               </div>
 
               <div className="md:col-span-2">
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Description (English) *
+                  {t("projects.descriptionEnglish")} *
                 </label>
                 <textarea
                   {...register("description_en", { required: "Description is required" })}
@@ -289,7 +291,7 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
 
               <div className="md:col-span-2">
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Description (Arabic) *
+                  {t("projects.descriptionArabic")} *
                 </label>
                 <textarea
                   {...register("description_ar", { required: "Arabic Description is required" })}
@@ -306,32 +308,32 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
 
               <div className="md:col-span-2">
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Short Description (English)
+                  {t("projects.shortDescriptionEnglish")}
                 </label>
                 <textarea
                   {...register("short_description_en")}
                   rows="2"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900"
-                  placeholder="Brief summary of the project"
+                  placeholder={t("projects.example")}
                 />
               </div>
 
               <div className="md:col-span-2">
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Short Description (Arabic)
+                  {t("projects.shortDescriptionArabic")}
                 </label>
                 <textarea
                   {...register("short_description_ar")}
                   rows="2"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900"
-                  placeholder="ملخص للمشروع"
+                  placeholder={t("projects.example")}
                   dir="rtl"
                 />
               </div>
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Meta Title *
+                  {t("projects.metaTitleEnglish")} *
                 </label>
                 <input
                   type="text"
@@ -347,7 +349,7 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Meta Description *
+                  {t("projects.metaDescriptionEnglish")} *
                 </label>
                 <input
                   type="text"
@@ -363,7 +365,7 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Project Area (m²) *
+                  {t("projects.area")} (m²) *
                 </label>
                 <input
                   type="number"
@@ -379,16 +381,16 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Master Plan Image {!project && "*"}
+                  {t("projects.masterPlanImage")} {!project && "*"}
                 </label>
                 {project && project.master_plan && (
                   <div className="mb-2">
                     <img
                       src={project.master_plan}
-                      alt="Current Master Plan"
+                      alt={t("projects.currentImage")}
                       className="object-cover w-32 h-32 border border-gray-300 rounded-lg"
                     />
-                    <p className="mt-1 text-xs text-gray-600">Current Image</p>
+                    <p className="mt-1 text-xs text-gray-600">{t("projects.currentImage")}</p>
                   </div>
                 )}
                 <input
@@ -398,22 +400,22 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 />
                 {project && (
-                  <p className="mt-1 text-xs text-gray-500">Leave empty to keep current image</p>
+                  <p className="mt-1 text-xs text-gray-500">{t("projects.keepCurrentImage")}</p>
                 )}
               </div>
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Project Logo
+                  {t("projects.projectLogo")}
                 </label>
                 {project && project.logo && (
                   <div className="mb-2">
                     <img
                       src={project.logo}
-                      alt="Current Logo"
+                      alt={t("projects.currentImage")}
                       className="object-cover w-32 h-32 border border-gray-300 rounded-lg"
                     />
-                    <p className="mt-1 text-xs text-gray-600">Current Logo</p>
+                    <p className="mt-1 text-xs text-gray-600">{t("projects.currentImage")}</p>
                   </div>
                 )}
                 <input
@@ -423,22 +425,22 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 />
                 {project && (
-                  <p className="mt-1 text-xs text-gray-500">Leave empty to keep current logo</p>
+                  <p className="mt-1 text-xs text-gray-500">{t("projects.keepCurrentImage")}</p>
                 )}
               </div>
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Google Map Image
+                  {t("projects.googleMapImage")}
                 </label>
                 {project && project.google_map_image && (
                   <div className="mb-2">
                     <img
                       src={project.google_map_image}
-                      alt="Current Google Map"
+                      alt={t("projects.currentImage")}
                       className="object-cover w-32 h-32 border border-gray-300 rounded-lg"
                     />
-                    <p className="mt-1 text-xs text-gray-600">Current Map Image</p>
+                    <p className="mt-1 text-xs text-gray-600">{t("projects.currentImage")}</p>
                   </div>
                 )}
                 <input
@@ -448,9 +450,8 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 />
                 {project && (
-                  <p className="mt-1 text-xs text-gray-500">Leave empty to keep current map image</p>
+                  <p className="mt-1 text-xs text-gray-500">{t("projects.keepCurrentImage")}</p>
                 )}
-                <p className="mt-1 text-xs text-gray-500">Screenshot or image of the project location from Google Maps</p>
               </div>
             </div>
           </div>
@@ -458,12 +459,12 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
           {/* Location */}
           <div className="mb-6">
             <h3 className="mb-4 text-lg font-semibold text-gray-800">
-              Location
+              {t("locations.management")}
             </h3>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  City *
+                  {t("locations.citiesTab")} *
                 </label>
                 <select
                   {...register("city_id", { required: "City is required" })}
@@ -471,10 +472,10 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                     errors.city_id ? "border-red-500" : "border-gray-300"
                   }`}
                 >
-                  <option value="">Select City</option>
+                  <option value="">{t("locations.selectCity")}</option>
                   {cities.map((city) => (
                     <option key={city.id} value={city.id}>
-                      {city.name_en}
+                      {i18n.language === "ar" ? city.name_ar : city.name_en}
                     </option>
                   ))}
                 </select>
@@ -485,7 +486,7 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Area *
+                  {t("locations.areasTab")} *
                 </label>
                 <select
                   {...register("area_id", { required: "Area is required" })}
@@ -494,10 +495,10 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                     errors.area_id ? "border-red-500" : "border-gray-300"
                   }`}
                 >
-                  <option value="">Select Area</option>
+                  <option value="">{t("locations.areasTab")}</option>
                   {areas.map((area) => (
                     <option key={area.id} value={area.id}>
-                      {area.name_en}
+                      {i18n.language === "ar" ? area.name_ar : area.name_en}
                     </option>
                   ))}
                 </select>
@@ -508,7 +509,7 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Location URL (Google Maps) *
+                  {t("property.location")} (Google Maps) *
                 </label>
                 <input
                   type="url"
@@ -525,7 +526,7 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Delivery Date
+                  {t("events.date")}
                 </label>
                 <input
                   type="date"
@@ -536,7 +537,7 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Video Link (YouTube)
+                  {t("projects.videoUrl")} (YouTube)
                 </label>
                 <input
                   type="url"
@@ -551,7 +552,7 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
           {/* Services */}
           <div className="mb-6">
             <h3 className="mb-4 text-lg font-semibold text-gray-800">
-              Services & Amenities
+              {t("services.management")}
             </h3>
             <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
               {allServices.map((service) => (
@@ -570,7 +571,7 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
                     className="w-5 h-5 text-green-600 border-gray-300 rounded focus:ring-green-500 focus:ring-2 accent-green-600"
                   />
                   <span className="text-sm font-medium text-gray-900">
-                    {service.name_en}
+                    {i18n.language === "ar" ? service.name_ar : service.name_en}
                   </span>
                 </label>
               ))}
@@ -580,21 +581,21 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
           {/* Gallery */}
           <div className="mb-6">
             <div className="flex flex-col gap-3 items-start md:items-center md:justify-between mb-4 md:flex-row">
-              <h3 className="text-lg font-semibold text-gray-800">Gallery</h3>
+              <h3 className="text-lg font-semibold text-gray-800">{t("projects.addMoreImages")}</h3>
               <div className="flex flex-col gap-2 w-full md:w-auto md:flex-row">
                 <button
                   type="button"
                   onClick={() => addGallery("image")}
                   className="w-full md:w-auto px-3 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 transition-colors text-sm md:text-base"
                 >
-                  Add Images
+                  {t("projects.uploadImage")}
                 </button>
                 <button
                   type="button"
                   onClick={() => addGallery("video")}
                   className="w-full md:w-auto px-3 py-2 text-white bg-purple-500 rounded-lg hover:bg-purple-600 transition-colors text-sm md:text-base"
                 >
-                  Add Videos
+                  {t("projects.uploadImage")}
                 </button>
               </div>
             </div>
@@ -636,7 +637,7 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
               size="md"
               onClick={onClose}
             >
-              Cancel
+              {t("common.cancel")}
             </AdminButton>
             <AdminButton
               type="submit"
@@ -645,7 +646,7 @@ const ProjectFormModal = ({ project, isOpen, onClose, onSave }) => {
               loading={loading}
               disabled={loading}
             >
-              {project ? "Save Changes" : "Add Project"}
+              {project ? t("common.save") : t("projects.addNewProject")}
             </AdminButton>
           </div>
         </form>

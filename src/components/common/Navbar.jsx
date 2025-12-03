@@ -161,7 +161,7 @@ const Navbar = () => {
 
               <div className="space-x-2 flex-align-center">
                 {/*----------------------------- search Bar----------------------------------------------------- */}
-                <form onSubmit={handleSubmit}>
+                {/* <form onSubmit={handleSubmit}>
                   <div
                     className={`flex-align-center relative h-9 w-9 transition-a  border-slate-300 dark:border-dark rounded-full ${
                       showSearchBar &&
@@ -187,7 +187,7 @@ const Navbar = () => {
                       <BiSearch className="text-muted " />
                     </span>
                   </div>
-                </form>
+                </form> */}
 
                 {/*----------------------------- Language Switcher-------------------------------------------------- */}
                 <div className="hidden md:block cursor-pointer">
@@ -195,12 +195,12 @@ const Navbar = () => {
                 </div>
 
                 {/*----------------------------- Dark mode toggle-------------------------------------------------- */}
-                <div
+                {/* <div
                   className="bg-white shadow-md icon-box dark:bg-dark-light hover:shadow-lg hover:bg-transparent cursor-pointer"
                   onClick={handleDarkMode}
                 >
                   {darkMode ? <FiSun /> : <FiMoon />}
-                </div>
+                </div> */}
                 {/*----------------------------- Profile Icon-------------------------------------------------- */}
                 {/* <div className="bg-white shadow-md icon-box dark:bg-dark-light hover:shadow-lg hover:bg-transparent">
                   <BiUser />

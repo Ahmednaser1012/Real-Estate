@@ -2,10 +2,12 @@ import React from "react";
 import { FaList } from "react-icons/fa";
 import { FiFilter, FiGrid } from "react-icons/fi";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { openFilterMenu } from "../../../../features/uiSlice";
 
 const HeadeFilters = ({ layout, setLayout, currentPage = 1, itemsPerPage = 8, totalItems = 0 }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   
   // Calculate the range of items being shown
   const startItem = (currentPage - 1) * itemsPerPage + 1;
@@ -38,7 +40,7 @@ const HeadeFilters = ({ layout, setLayout, currentPage = 1, itemsPerPage = 8, to
             <FiFilter />
           </div>
         </div>
-        <p>Showing {String(startItem).padStart(2, '0')} - {String(endItem).padStart(2, '0')} of {totalItems} results</p>
+        <p>{t('filters.showing')} {String(startItem).padStart(2, '0')} - {String(endItem).padStart(2, '0')} {t('filters.of')} {totalItems} {t('filters.results')}</p>
       </div>
       <div className="w-full gap-4 flex-center-between">
         {/* <select

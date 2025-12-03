@@ -1,9 +1,20 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaExclamationTriangle } from "react-icons/fa";
-import AdminButton from "../../../ui/AdminButton";
+import { useTranslation } from "react-i18next";
+import AdminButton from "./AdminButton";
 
-const DeleteConfirmModal = ({ isOpen, onClose, onConfirm, propertyTitle }) => {
+const DeleteConfirmModal = ({ isOpen, onClose, onConfirm, title, itemName, itemType = "Item" }) => {
+  const { t } = useTranslation();
+
+  // Use provided title or construct from itemType
+  const displayTitle = title || t("common.confirmDelete") || "Confirm Delete";
+  
+  // Use provided message or construct from itemType and itemName
+  const displayMessage = title 
+    ? t("blog.confirmDeleteMessage") 
+    : `${t("common.areYouSure")} ${t("common.delete")} ${itemType.toLowerCase()}${itemName ? ` "${itemName}"` : ""}?`;
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -26,10 +37,10 @@ const DeleteConfirmModal = ({ isOpen, onClose, onConfirm, propertyTitle }) => {
                 <FaExclamationTriangle className="h-6 w-6 text-red-600" />
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-2">
-                Confirm Delete
+                {displayTitle}
               </h3>
               <p className="text-sm text-gray-500 mb-6">
-                Are you sure you want to delete "{propertyTitle}"? This action cannot be undone.
+                {displayMessage}
               </p>
               <div className="flex gap-3">
                 <AdminButton
@@ -38,7 +49,7 @@ const DeleteConfirmModal = ({ isOpen, onClose, onConfirm, propertyTitle }) => {
                   onClick={onClose}
                   className="flex-1"
                 >
-                  Cancel
+                  {t("common.cancel")}
                 </AdminButton>
                 <AdminButton
                   variant="danger"
@@ -46,7 +57,7 @@ const DeleteConfirmModal = ({ isOpen, onClose, onConfirm, propertyTitle }) => {
                   onClick={onConfirm}
                   className="flex-1"
                 >
-                  Delete
+                  {t("common.delete")}
                 </AdminButton>
               </div>
             </div>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { setActiveTab, adminStore } from "../../../features/adminSlice";
 import {
   BiBuildings,
@@ -17,20 +18,21 @@ import { MdApartment, MdMiscellaneousServices } from "react-icons/md";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
 const AdminSidebar = ({ onLogout }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { activeTab } = useSelector(adminStore);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const tabs = [
-    { id: "projects", name: "Projects", icon: MdApartment },
-    { id: "properties", name: "Properties", icon: BiBuildings },
-    { id: "services", name: "Services", icon: MdMiscellaneousServices },
-    { id: "locations", name: "Locations", icon: FaMapMarkerAlt },
-    { id: "clients", name: "Clients", icon: BiUser },
-    { id: "blogs", name: "Blogs", icon: BiBookOpen },
-    { id: "careers", name: "Careers", icon: BiBookmark },
-    { id: "events", name: "Events", icon: BiCalendar },
-    { id: "settings", name: "Settings", icon: BiCog },
+    { id: "projects", name: t("admin.projects"), icon: MdApartment },
+    { id: "properties", name: t("admin.properties"), icon: BiBuildings },
+    { id: "facilities", name: t("admin.facilities"), icon: MdMiscellaneousServices },
+    { id: "locations", name: t("admin.locations"), icon: FaMapMarkerAlt },
+    { id: "clients", name: t("admin.clients"), icon: BiUser },
+    { id: "blogs", name: t("admin.blogs"), icon: BiBookOpen },
+    { id: "careers", name: t("admin.careers"), icon: BiBookmark },
+    { id: "events", name: t("admin.events"), icon: BiCalendar },
+    { id: "settings", name: t("admin.settings"), icon: BiCog },
   ];
 
   const handleTabClick = (tabId) => {
@@ -74,7 +76,7 @@ const AdminSidebar = ({ onLogout }) => {
             className="w-full text-left px-4 py-3 rounded-lg transition-a flex items-center gap-3 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
           >
             <BiLogOut className="w-5 h-5 flex-shrink-0" />
-            <span className="font-medium">Log Out</span>
+            <span className="font-medium">{t("admin.logout")}</span>
           </motion.button>
         </div>
       </nav>
@@ -149,7 +151,7 @@ const AdminSidebar = ({ onLogout }) => {
                   className="w-full text-left px-4 py-4 rounded-lg transition-a flex items-center gap-4 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
                 >
                   <BiLogOut className="w-6 h-6 flex-shrink-0" />
-                  <span className="font-medium text-lg">Log Out</span>
+                  <span className="font-medium text-lg">{t("admin.logout")}</span>
                 </motion.button>
               </div>
             </nav>

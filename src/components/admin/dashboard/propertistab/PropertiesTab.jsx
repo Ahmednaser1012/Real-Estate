@@ -1,14 +1,15 @@
 import React, { useState, useMemo } from "react";
 import { BiBuildings } from "react-icons/bi";
 import { FaPlus } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 import AdminCard from "../../ui/AdminCard";
 import AdminButton from "../../ui/AdminButton";
+import DeleteConfirmModal from "../../ui/DeleteConfirmModal";
 import {
   PropertyFilter,
   PropertyGrid,
   PropertyDetailsModal,
   PropertyFormModal,
-  DeleteConfirmModal,
 } from "./components";
 import {
   useGetAllPropertiesQuery,
@@ -18,6 +19,7 @@ import {
 } from "../../../../features/propertiesApi";
 
 const PropertiesTab = () => {
+  const { t } = useTranslation();
   // API hooks
   const { data: apiResponse = [] } = useGetAllPropertiesQuery();
   const [createProperty] = useCreatePropertyMutation();
@@ -100,8 +102,8 @@ const PropertiesTab = () => {
   return (
     <>
       <AdminCard
-        title="Properties Management"
-        subtitle={`Total Properties: ${properties.length}`}
+        title={t("properties.management")}
+        subtitle={`${t("properties.totalProperties")}: ${properties.length}`}
         icon={BiBuildings}
         headerActions={
           <AdminButton
@@ -110,7 +112,7 @@ const PropertiesTab = () => {
             icon={FaPlus}
             onClick={handleAddProperty}
           >
-            Add New Property
+            {t("properties.addNewProperty")}
           </AdminButton>
         }
       >

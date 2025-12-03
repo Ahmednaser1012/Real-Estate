@@ -1,7 +1,9 @@
+import { useTranslation } from "react-i18next";
 import { useGetAllProjectsQuery } from "../../../features/projectsApi";
 import SingleProductCard from "./SingleProductCard";
 
 const Featured = () => {
+  const { t } = useTranslation();
   const { data: projectsResponse = {}, isLoading, error } = useGetAllProjectsQuery();
 
   // Extract projects array from response (handle both array and object responses)
@@ -15,8 +17,8 @@ const Featured = () => {
   return (
     <div className="pt-10 pb-16">
       <div className="text-center">
-        <h1 className="mx-auto sub-heading">Projects</h1>
-        <h1 className="heading">explore our latest projects</h1>
+        <h1 className="mx-auto sub-heading">{t("projects.management")}</h1>
+        <h1 className="heading">{t("projects.exploreLatest")}</h1>
       </div>
 
       {isLoading && (
@@ -27,7 +29,7 @@ const Featured = () => {
 
       {error && (
         <div className="text-center py-20">
-          <p className="text-red-500">Error loading projects. Please try again later.</p>
+          <p className="text-red-500">{t("projects.errorLoading")}</p>
         </div>
       )}
 
@@ -41,7 +43,7 @@ const Featured = () => {
 
       {!isLoading && !error && featuredProjects.length === 0 && (
         <div className="text-center py-20">
-          <p className="text-gray-500">No featured projects available at the moment.</p>
+          <p className="text-gray-500">{t("projects.noFeaturedAvailable")}</p>
         </div>
       )}
     </div>

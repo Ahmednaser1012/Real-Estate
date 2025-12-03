@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { BiBed, BiMap, BiTab } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import CardHoverIcons from "./CardHoverIcons";
@@ -16,10 +17,14 @@ const SingleProductCardFullWidth = ({
   number_of_bathrooms,
   image,
   description,
+  description_ar,
+  description_en,
   textLength,
   showLabels,
 
   title,
+  title_ar,
+  title_en,
 
   type,
   city,
@@ -27,17 +32,29 @@ const SingleProductCardFullWidth = ({
   galleries,
   masterPlan,
 }) => {
+  const { t, i18n } = useTranslation();
+
   // Use project data if available, otherwise use property data
-  const displayTitle = title || name;
+  // Select title based on language
+  const displayTitle = 
+    i18n.language === "ar" 
+      ? (title_ar || title || name)
+      : (title_en || title || name);
   const displayLocation =
     location ||
     (city && area
       ? `${city?.name || city}, ${area?.name || area}`
-      : "Location not specified");
+      : t("property.locationNotSpecified"));
   const displayImage =
     galleries?.[0]?.url || masterPlan || image || "/images/property (1).jpg";
   const displayType = type || purpose;
-  const displayDescription = description || "No description available";
+  
+  // Select description based on language
+  const displayDescription = 
+    i18n.language === "ar" 
+      ? (description_ar || description || t("property.noDescriptionAvailable"))
+      : (description_en || description || t("property.noDescriptionAvailable"));
+  
   const isProject = !!title;
 
   return (
@@ -87,7 +104,7 @@ const SingleProductCardFullWidth = ({
                   <div className="icon-box !w-7 !h-7 bg-primary/20 hover:!bg-primary/40 text-primary">
                     <BiBed />
                   </div>
-                  <p className="text-sm">{number_of_beds} Beds</p>
+                  <p className="text-sm">{number_of_beds} {t("property.bedrooms")}</p>
                 </div>
               )}
               {number_of_bathrooms && (
@@ -95,7 +112,7 @@ const SingleProductCardFullWidth = ({
                   <div className="icon-box !w-7 !h-7 bg-primary/20 hover:!bg-primary/40 text-primary">
                     <BiTab />
                   </div>
-                  <p className="text-sm">{number_of_bathrooms} Bathrooms</p>
+                  <p className="text-sm">{number_of_bathrooms} {t("property.bathrooms")}</p>
                 </div>
               )}
             </div>
@@ -106,7 +123,7 @@ const SingleProductCardFullWidth = ({
               <h1 className="text-lg font-semibold text-primary">{price}</h1>
             )}
             <Link to={`/projects/${id}`}>
-              <button className="btn btn-secondary">details</button>
+              <button className="btn btn-secondary">{t("property.viewDetails")}</button>
             </Link>
           </div>
         </div>

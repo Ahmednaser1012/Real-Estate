@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   FaTimes,
   FaEdit,
@@ -15,6 +16,8 @@ const ProjectDetailsModal = ({
   onEdit,
   onDelete,
 }) => {
+  const { t, i18n } = useTranslation();
+
   if (!isOpen || !project) return null;
 
   console.log("Project Details:", project);
@@ -24,7 +27,7 @@ const ProjectDetailsModal = ({
       <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-800">Project Details</h2>
+          <h2 className="text-2xl font-bold text-gray-800">{t("projects.projectDetails")}</h2>
           <button
             onClick={onClose}
             className="text-gray-500 hover:text-gray-700 transition-colors"
@@ -41,7 +44,7 @@ const ProjectDetailsModal = ({
               <img
                 src={project.master_plan}
                 alt={project.title_en || project.title_ar}
-                className="w-full h-64 object-cover rounded-lg"
+                className="w-full h-full object-cover"
               />
             ) : (
               <div className="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center">
@@ -53,13 +56,13 @@ const ProjectDetailsModal = ({
           {/* Basic Info */}
           <div className="mb-6">
             <h3 className="text-xl font-bold text-gray-800 mb-2">
-              {project.title_en || project.title || "N/A"}
+              {i18n.language === "ar" ? (project.title_ar || project.title_en || "N/A") : (project.title_en || project.title_ar || "N/A")}
             </h3>
             <div className="flex items-center text-gray-600 mb-4">
               <FaMapMarkerAlt className="mr-2" />
               <span>
-                {typeof project.area === 'object' ? project.area?.name_en : project.area || "N/A"},{" "}
-                {typeof project.city === 'object' ? project.city?.name_en : project.city || "N/A"}
+                {typeof project.area === 'object' ? (i18n.language === "ar" ? project.area?.name_ar : project.area?.name_en) : project.area || "N/A"},{" "}
+                {typeof project.city === 'object' ? (i18n.language === "ar" ? project.city?.name_ar : project.city?.name_en) : project.city || "N/A"}
               </span>
             </div>
             <span
@@ -69,71 +72,50 @@ const ProjectDetailsModal = ({
                   : "bg-blue-500 text-white"
               }`}
             >
-              {project.type}
+              {t(`enums.projectTypes.${project.type}`)}
             </span>
           </div>
 
           {/* Description */}
           <div className="mb-6">
             <h4 className="text-lg font-semibold text-gray-800 mb-2">
-              Description
+              {t("projects.projectDescription")}
             </h4>
-            {project.description_en && (
-              <div className="mb-2">
-                <p className="text-xs text-gray-500 mb-1">English:</p>
-                <p className="text-gray-600">{project.description_en}</p>
-              </div>
-            )}
-            {project.description_ar && (
-              <div>
-                <p className="text-xs text-gray-500 mb-1">Arabic:</p>
-                <p className="text-gray-600" dir="rtl">{project.description_ar}</p>
-              </div>
-            )}
+            <p className="text-gray-600" dir={i18n.language === "ar" ? "rtl" : "ltr"}>
+              {i18n.language === "ar" ? (project.description_ar || project.description_en) : (project.description_en || project.description_ar)}
+            </p>
           </div>
 
           {/* Meta Information */}
-          <div className="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <h4 className="text-lg font-semibold text-gray-800 mb-2">
-                Meta Title
-              </h4>
-              {project.meta_title_en && (
-                <div className="mb-2">
-                  <p className="text-xs text-gray-500 mb-1">English:</p>
-                  <p className="text-gray-600">{project.meta_title_en}</p>
+          {(project.meta_title_en || project.meta_title_ar || project.meta_description_en || project.meta_description_ar) && (
+            <div className="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+              {(project.meta_title_en || project.meta_title_ar) && (
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-800 mb-2">
+                    {t("projects.metaTitleEnglish")}
+                  </h4>
+                  <p className="text-gray-600" dir={i18n.language === "ar" ? "rtl" : "ltr"}>
+                    {i18n.language === "ar" ? (project.meta_title_ar || project.meta_title_en) : (project.meta_title_en || project.meta_title_ar)}
+                  </p>
                 </div>
               )}
-              {project.meta_title_ar && (
+              {(project.meta_description_en || project.meta_description_ar) && (
                 <div>
-                  <p className="text-xs text-gray-500 mb-1">Arabic:</p>
-                  <p className="text-gray-600" dir="rtl">{project.meta_title_ar}</p>
+                  <h4 className="text-lg font-semibold text-gray-800 mb-2">
+                    {t("projects.metaDescriptionEnglish")}
+                  </h4>
+                  <p className="text-gray-600" dir={i18n.language === "ar" ? "rtl" : "ltr"}>
+                    {i18n.language === "ar" ? (project.meta_description_ar || project.meta_description_en) : (project.meta_description_en || project.meta_description_ar)}
+                  </p>
                 </div>
               )}
             </div>
-            <div>
-              <h4 className="text-lg font-semibold text-gray-800 mb-2">
-                Meta Description
-              </h4>
-              {project.meta_description_en && (
-                <div className="mb-2">
-                  <p className="text-xs text-gray-500 mb-1">English:</p>
-                  <p className="text-gray-600">{project.meta_description_en}</p>
-                </div>
-              )}
-              {project.meta_description_ar && (
-                <div>
-                  <p className="text-xs text-gray-500 mb-1">Arabic:</p>
-                  <p className="text-gray-600" dir="rtl">{project.meta_description_ar}</p>
-                </div>
-              )}
-            </div>
-          </div>
+          )}
 
           {/* Project Area */}
           <div className="mb-6">
             <h4 className="text-lg font-semibold text-gray-800 mb-2">
-              Project Area
+              {t("projects.area")}
             </h4>
             <p className="text-gray-600">
               {project.project_area || "N/A"} m²
@@ -144,7 +126,7 @@ const ProjectDetailsModal = ({
           {project.delivery_date && (
             <div className="mb-6">
               <h4 className="text-lg font-semibold text-gray-800 mb-2">
-                Delivery Date
+                {t("events.date")}
               </h4>
               <p className="text-gray-600">
                 {new Date(project.delivery_date).toLocaleDateString()}
@@ -156,7 +138,7 @@ const ProjectDetailsModal = ({
           {project.video_link && (
             <div className="mb-6">
               <h4 className="text-lg font-semibold text-gray-800 mb-2">
-                Video Link
+                {t("projects.videoUrl")}
               </h4>
               <a
                 href={project.video_link}
@@ -165,7 +147,7 @@ const ProjectDetailsModal = ({
                 className="text-blue-600 hover:text-blue-800 flex items-center gap-2"
               >
                 <FaLink />
-                Watch Video
+                {t("common.viewAll")}
               </a>
             </div>
           )}
@@ -174,7 +156,7 @@ const ProjectDetailsModal = ({
           {project.location && (
             <div className="mb-6">
               <h4 className="text-lg font-semibold text-gray-800 mb-2">
-                Location
+                {t("property.location")}
               </h4>
               <a
                 href={project.location}
@@ -183,7 +165,7 @@ const ProjectDetailsModal = ({
                 className="text-blue-600 hover:text-blue-800 flex items-center gap-2"
               >
                 <FaLink />
-                View on Map
+                {t("common.viewAll")}
               </a>
             </div>
           )}
@@ -192,20 +174,11 @@ const ProjectDetailsModal = ({
           {(project.short_description_en || project.short_description_ar) && (
             <div className="mb-6">
               <h4 className="text-lg font-semibold text-gray-800 mb-2">
-                Short Description
+                {i18n.language === "ar" ? t("projects.shortDescriptionArabic") : t("projects.shortDescriptionEnglish")}
               </h4>
-              {project.short_description_en && (
-                <div className="mb-2">
-                  <p className="text-xs text-gray-500 mb-1">English:</p>
-                  <p className="text-gray-600">{project.short_description_en}</p>
-                </div>
-              )}
-              {project.short_description_ar && (
-                <div>
-                  <p className="text-xs text-gray-500 mb-1">Arabic:</p>
-                  <p className="text-gray-600" dir="rtl">{project.short_description_ar}</p>
-                </div>
-              )}
+              <p className="text-gray-600" dir={i18n.language === "ar" ? "rtl" : "ltr"}>
+                {i18n.language === "ar" ? (project.short_description_ar || project.short_description_en) : (project.short_description_en || project.short_description_ar)}
+              </p>
             </div>
           )}
 
@@ -213,11 +186,11 @@ const ProjectDetailsModal = ({
           {project.logo && (
             <div className="mb-6">
               <h4 className="text-lg font-semibold text-gray-800 mb-2">
-                Project Logo
+                {t("projects.projectLogo")}
               </h4>
               <img
                 src={project.logo}
-                alt="Project Logo"
+                alt={t("projects.currentImage")}
                 className="w-32 h-32 object-cover rounded-lg border border-gray-300"
               />
             </div>
@@ -227,11 +200,11 @@ const ProjectDetailsModal = ({
           {project.google_map_image && (
             <div className="mb-6">
               <h4 className="text-lg font-semibold text-gray-800 mb-2">
-                Location Map
+                {t("property.location")}
               </h4>
               <img
                 src={project.google_map_image}
-                alt="Google Map"
+                alt={t("property.location")}
                 className="w-full h-64 object-cover rounded-lg border border-gray-300"
               />
             </div>
@@ -241,7 +214,7 @@ const ProjectDetailsModal = ({
           {project.services && project.services.length > 0 && (
             <div className="mb-6">
               <h4 className="text-lg font-semibold text-gray-800 mb-3">
-                Services & Amenities
+                {t("services.management")}
               </h4>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {project.services.map((service) => (
@@ -252,12 +225,12 @@ const ProjectDetailsModal = ({
                     {service.image && (
                       <img
                         src={service.image}
-                        alt={service.name_en}
+                        alt={i18n.language === "ar" ? service.name_ar : service.name_en}
                         className="w-8 h-8 object-cover rounded"
                       />
                     )}
                     <span className="text-sm text-gray-700">
-                      {service.name_en}
+                      {i18n.language === "ar" ? (service.name_ar || service.name_en) : (service.name_en || service.name_ar)}
                     </span>
                   </div>
                 ))}
@@ -266,10 +239,10 @@ const ProjectDetailsModal = ({
           )}
 
           {/* Property Types */}
-          {project.property_types && project.property_types.length > 0 && (
+          {/* {project.property_types && project.property_types.length > 0 && (
             <div className="mb-6">
               <h4 className="text-lg font-semibold text-gray-800 mb-3">
-                Property Types
+                {t("properties.propertyType")}
               </h4>
               <div className="space-y-3">
                 {project.property_types.map((propertyType) => (
@@ -293,13 +266,13 @@ const ProjectDetailsModal = ({
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
                       <div>
-                        <span className="text-gray-500">Area:</span>
+                        <span className="text-gray-500">{t("filters.area")}:</span>
                         <span className="font-bold ml-1 text-blue-900">
                           {propertyType.area_min}-{propertyType.area_max} m²
                         </span>
                       </div>
                       <div>
-                        <span className="text-gray-500">Price:</span>
+                        <span className="text-gray-500">{t("property.price")}:</span>
                         <span className="font-bold ml-1 text-blue-900">
                           ${propertyType.price_min?.toLocaleString()}-$
                           {propertyType.price_max?.toLocaleString()}
@@ -307,7 +280,7 @@ const ProjectDetailsModal = ({
                       </div>
                       {propertyType.no_of_bedrooms_min && (
                         <div>
-                          <span className="text-gray-500">Bedrooms:</span>
+                          <span className="text-gray-500">{t("property.bedrooms")}:</span>
                           <span className="font-bold ml-1 text-blue-900">
                             {propertyType.no_of_bedrooms_min}-
                             {propertyType.no_of_bedrooms_max}
@@ -316,7 +289,7 @@ const ProjectDetailsModal = ({
                       )}
                       {propertyType.no_of_bathrooms_min && (
                         <div>
-                          <span className="text-gray-500">Bathrooms:</span>
+                          <span className="text-gray-500">{t("property.bathrooms")}:</span>
                           <span className="font-bold ml-1 text-blue-700">
                             {propertyType.no_of_bathrooms_min}-
                             {propertyType.no_of_bathrooms_max}
@@ -328,13 +301,13 @@ const ProjectDetailsModal = ({
                 ))}
               </div>
             </div>
-          )}
+          )} */}
 
           {/* Gallery */}
           {project.galleries && project.galleries.length > 0 && (
             <div className="mb-6">
               <h4 className="text-lg font-semibold text-gray-800 mb-3">
-                Gallery
+                {t("projects.Images")}
               </h4>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {project.galleries.map((gallery) => (
@@ -342,7 +315,7 @@ const ProjectDetailsModal = ({
                     {gallery.type === "image" ? (
                       <img
                         src={gallery.url}
-                        alt="Gallery"
+                        alt={t("blog.blogPost")}
                         className="w-full h-32 object-cover rounded-lg"
                       />
                     ) : (
@@ -372,7 +345,7 @@ const ProjectDetailsModal = ({
             className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
             <FaEdit />
-            Edit Project
+            {t("projects.editProject")}
           </button>
           <button
             onClick={() => {
@@ -382,7 +355,7 @@ const ProjectDetailsModal = ({
             className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
           >
             <FaTrash />
-            Delete Project
+            {t("projects.deleteProject")}
           </button>
         </div>
       </div>

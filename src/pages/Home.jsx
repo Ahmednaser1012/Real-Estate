@@ -14,6 +14,7 @@ import {
   Speciality,
 } from "../components/home/home-1";
 import GetInTouch from "../components/home/home-1/GetInTouch";
+import UpcomingEvents from "../components/home/home-1/UpcomingEvents";
 
 const Home = () => {
   return (
@@ -24,11 +25,14 @@ const Home = () => {
           <Filters />
           {/* <Invest /> */}
           <Speciality />
-          <Services />
-          <Featured />
+          {/* <Services /> */}
+        
+          <UpcomingEvents />
           {/* <Counter /> */}
           <Projects />
+          <Featured />
           {/* <Testimonial /> */}
+          
           <Brands />
           <GetInTouch />
           {/* <Feeds /> */}

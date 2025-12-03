@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 import AdminButton from "../../../ui/AdminButton";
 
 const ServiceFormModal = ({ service, isOpen, onClose, onSave }) => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name_en: "",
     name_ar: "",
@@ -118,7 +120,7 @@ const ServiceFormModal = ({ service, isOpen, onClose, onSave }) => {
         {/* Header */}
         <div className="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between z-10">
           <h2 className="text-2xl font-bold text-gray-800">
-            {service ? "Edit Service" : "Add New Service"}
+            {service ? t("services.editFacility") : t("services.addNewFacility")}
           </h2>
           <button
             onClick={onClose}
@@ -140,7 +142,7 @@ const ServiceFormModal = ({ service, isOpen, onClose, onSave }) => {
             {/* English Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Service Name (English) *
+                {t("services.facilityNameEnglish")} *
               </label>
               <input
                 type="text"
@@ -153,14 +155,14 @@ const ServiceFormModal = ({ service, isOpen, onClose, onSave }) => {
                 }`}
               />
               {errors.name_en && (
-                <p className="text-red-500 text-sm mt-1">{errors.name_en}</p>
+                <p className="text-red-500 text-sm mt-1">{t("services.facilityNameEnglish")} {t("common.required")}</p>
               )}
             </div>
 
             {/* Arabic Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Service Name (Arabic) *
+                {t("services.facilityNameArabic")} *
               </label>
               <input
                 type="text"
@@ -174,15 +176,15 @@ const ServiceFormModal = ({ service, isOpen, onClose, onSave }) => {
                 }`}
               />
               {errors.name_ar && (
-                <p className="text-red-500 text-sm mt-1">{errors.name_ar}</p>
+                <p className="text-red-500 text-sm mt-1">{t("services.facilityNameArabic")} {t("common.required")}</p>
               )}
             </div>
 
             {/* Image Upload */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Service Image {!service && "*"}
-                {service && <span className="text-gray-500 text-xs ml-2">(Optional - leave empty to keep current image)</span>}
+                {t("services.facilityImage")} {!service && "*"}
+                {service && <span className="text-gray-500 text-xs ml-2">({t("common.optional")} - {t("services.keepCurrentImage")})</span>}
               </label>
               <input
                 type="file"
@@ -198,7 +200,7 @@ const ServiceFormModal = ({ service, isOpen, onClose, onSave }) => {
               {imagePreview && (
                 <div className="mt-3">
                   <p className="text-sm text-gray-600 mb-2">
-                    {service ? "Current Image:" : "Preview:"}
+                    {service ? t("services.currentImage") : t("services.preview")}
                   </p>
                   <img
                     src={imagePreview}
@@ -218,7 +220,7 @@ const ServiceFormModal = ({ service, isOpen, onClose, onSave }) => {
               size="md"
               onClick={onClose}
             >
-              Cancel
+              {t("common.cancel")}
             </AdminButton>
             <AdminButton
               type="submit"
@@ -227,7 +229,7 @@ const ServiceFormModal = ({ service, isOpen, onClose, onSave }) => {
               loading={loading}
               disabled={!isFormValid() || loading}
             >
-              {service ? "Save Changes" : "Add Service"}
+              {service ? t("services.updateFacility") : t("services.createFacility")}
             </AdminButton>
           </div>
         </form>

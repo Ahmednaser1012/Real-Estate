@@ -1,8 +1,11 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTimes, FaEdit, FaTrash, FaBed, FaBath, FaRulerCombined, FaCalendarAlt, FaMoneyBillWave } from "react-icons/fa";
 
 const PropertyDetailsModal = ({ property, isOpen, onClose, onEdit, onDelete }) => {
+  const { t, i18n } = useTranslation();
+
   if (!property) return null;
 
   // Debug: Check delivery date
@@ -37,12 +40,12 @@ const PropertyDetailsModal = ({ property, isOpen, onClose, onEdit, onDelete }) =
 
   const getTypeLabel = (type) => {
     const labels = {
-      apartments: "Apartments",
-      duplexes: "Duplexes",
-      studios: "Studios",
-      offices: "Offices",
-      clinics: "Clinics",
-      retails: "Retails",
+      apartments: t("enums.propertyTypes.apartments"),
+      duplexes: t("enums.propertyTypes.duplexes"),
+      studios: t("enums.propertyTypes.studios"),
+      offices: t("enums.propertyTypes.offices"),
+      clinics: t("enums.propertyTypes.clinics"),
+      retails: t("enums.propertyTypes.retails"),
     };
     return labels[type] || type;
   };
@@ -66,7 +69,7 @@ const PropertyDetailsModal = ({ property, isOpen, onClose, onEdit, onDelete }) =
           >
             {/* Header */}
             <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex items-center justify-between z-10">
-              <h2 className="text-2xl font-bold text-gray-800">Property Details</h2>
+              <h2 className="text-2xl font-bold text-gray-800">{t("properties.propertyDetails")}</h2>
               <button
                 onClick={onClose}
                 className="p-2 hover:bg-gray-100 rounded-full transition-colors"
@@ -111,10 +114,10 @@ const PropertyDetailsModal = ({ property, isOpen, onClose, onEdit, onDelete }) =
                 <div className="bg-green-50 p-4 rounded-lg">
                   <div className="flex items-center gap-2 mb-2">
                     <FaMoneyBillWave className="text-green-600 text-xl" />
-                    <h4 className="font-semibold text-gray-700">Price Range</h4>
+                    <h4 className="font-semibold text-gray-700">{t("properties.priceRange")}</h4>
                   </div>
                   <p className="text-lg font-bold text-green-700">
-                    {property.priceMin?.toLocaleString()} - {property.priceMax?.toLocaleString()} EGP
+                    {property.priceMin?.toLocaleString()} - {property.priceMax?.toLocaleString()} {t("properties.currency")}
                   </p>
                 </div>
 
@@ -122,7 +125,7 @@ const PropertyDetailsModal = ({ property, isOpen, onClose, onEdit, onDelete }) =
                 <div className="bg-blue-50 p-4 rounded-lg">
                   <div className="flex items-center gap-2 mb-2">
                     <FaRulerCombined className="text-blue-600 text-xl" />
-                    <h4 className="font-semibold text-gray-700">Area Range</h4>
+                    <h4 className="font-semibold text-gray-700">{t("properties.areaRange")}</h4>
                   </div>
                   <p className="text-lg font-bold text-blue-700">
                     {property.areaMin} - {property.areaMax} m²
@@ -134,7 +137,7 @@ const PropertyDetailsModal = ({ property, isOpen, onClose, onEdit, onDelete }) =
                   <div className="bg-purple-50 p-4 rounded-lg">
                     <div className="flex items-center gap-2 mb-2">
                       <FaBed className="text-purple-600 text-xl" />
-                      <h4 className="font-semibold text-gray-700">Bedrooms</h4>
+                      <h4 className="font-semibold text-gray-700">{t("property.bedrooms")}</h4>
                     </div>
                     <p className="text-lg font-bold text-purple-700">
                       {property.noOfBedroomsMin} - {property.noOfBedroomsMax}
@@ -147,7 +150,7 @@ const PropertyDetailsModal = ({ property, isOpen, onClose, onEdit, onDelete }) =
                   <div className="bg-cyan-50 p-4 rounded-lg">
                     <div className="flex items-center gap-2 mb-2">
                       <FaBath className="text-cyan-600 text-xl" />
-                      <h4 className="font-semibold text-gray-700">Bathrooms</h4>
+                      <h4 className="font-semibold text-gray-700">{t("property.bathrooms")}</h4>
                     </div>
                     <p className="text-lg font-bold text-cyan-700">
                       {property.noOfBathroomsMin} - {property.noOfBathroomsMax}
@@ -160,10 +163,10 @@ const PropertyDetailsModal = ({ property, isOpen, onClose, onEdit, onDelete }) =
                   <div className="bg-orange-50 p-4 rounded-lg">
                     <div className="flex items-center gap-2 mb-2">
                       <FaCalendarAlt className="text-orange-600 text-xl" />
-                      <h4 className="font-semibold text-gray-700">Delivery Date</h4>
+                      <h4 className="font-semibold text-gray-700">{t("properties.deliveryDate")}</h4>
                     </div>
                     <p className="text-lg font-bold text-orange-700">
-                      {new Date(property.deliveryDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                      {new Date(property.deliveryDate).toLocaleDateString(i18n.language === "ar" ? "ar-EG" : "en-US", { year: 'numeric', month: 'long', day: 'numeric' })}
                     </p>
                   </div>
                 )}
@@ -180,7 +183,7 @@ const PropertyDetailsModal = ({ property, isOpen, onClose, onEdit, onDelete }) =
                 className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
               >
                 <FaEdit />
-                Edit Property
+                {t("properties.editProperty")}
               </button>
               <button
                 onClick={() => {
@@ -190,7 +193,7 @@ const PropertyDetailsModal = ({ property, isOpen, onClose, onEdit, onDelete }) =
                 className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-medium"
               >
                 <FaTrash />
-                Delete Property
+                {t("properties.deleteProperty")}
               </button>
             </div>
           </motion.div>

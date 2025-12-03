@@ -20,15 +20,15 @@ const Categories = () => {
   return (
     <div className="pt-10 pb-16">
       <div className="grid grid-cols-1 gap-16 sm:grid-cols-2 md:grid-cols-4">
-        <div className="md:col-span-1">
+        <div className="md:col-span-1 mt-24">
           <h1 className="sub-heading">{t('categories.title')}</h1>
           <h1 className="heading">
             {t('categories.heading')}
           </h1>
-          <p className="mt-3">
+          {/* <p className="mt-3">
             {t('categories.description')}
-          </p>
-          <button className="mt-4 btn btn-primary">{t('categories.allCategories')}</button>
+          </p> */}
+          {/* <button className="mt-4 btn btn-primary">{t('categories.allCategories')}</button> */}
         </div>
         <div className="md:col-span-3 ">
           <div className="justify-end flex-align-center gap-x-3">

@@ -101,4 +101,5 @@ const UsersTable = ({ users, onEdit, onDelete, onToggleStatus }) => {
   );
 };
 
-export default UsersTable;
+// export default UsersTable;
+// DISABLED: This component is currently not in use

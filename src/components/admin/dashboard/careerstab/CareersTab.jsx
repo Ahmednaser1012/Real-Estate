@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { BiBookmark, BiPlus } from "react-icons/bi";
+import { useTranslation } from "react-i18next";
 import AdminCard from "../../ui/AdminCard";
 import AdminButton from "../../ui/AdminButton";
+import DeleteConfirmModal from "../../ui/DeleteConfirmModal";
 import CareersList from "./components/CareersList";
 import CareerForm from "./components/CareerForm";
 import {
@@ -12,6 +14,7 @@ import {
 } from "../../../../features/careersApi";
 
 const CareersTab = () => {
+  const { t } = useTranslation();
   // API hooks
   const { data: careers = [], isLoading, error } = useGetAllCareersQuery();
   const [createCareer] = useCreateCareerMutation();
@@ -21,8 +24,11 @@ const CareersTab = () => {
   // Modal state
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [editingCareer, setEditingCareer] = useState(null);
+  const [deletingCareerId, setDeletingCareerId] = useState(null);
+  const [deletingCareerTitle, setDeletingCareerTitle] = useState("");
 
   // Form state
   const [formData, setFormData] = useState({
@@ -158,31 +164,40 @@ const CareersTab = () => {
     }
   };
 
-  // Handle delete career
-  const handleDeleteCareer = async (id) => {
-    if (window.confirm("Are you sure you want to delete this career?")) {
-      try {
-        await deleteCareer(id).unwrap();
-      } catch (error) {
-        console.error("Failed to delete career:", error);
-        alert("Failed to delete career. Please try again.");
-      }
+  // Handle delete career - open modal
+  const handleDeleteCareer = (id, title) => {
+    setDeletingCareerId(id);
+    setDeletingCareerTitle(title);
+    setIsDeleteModalOpen(true);
+  };
+
+  // Handle confirm delete
+  const handleConfirmDelete = async () => {
+    try {
+      await deleteCareer(deletingCareerId).unwrap();
+      setIsDeleteModalOpen(false);
+      setDeletingCareerId(null);
+      setDeletingCareerTitle("");
+    } catch (error) {
+      console.error("Failed to delete career:", error);
+      alert("Failed to delete career. Please try again.");
+      setIsDeleteModalOpen(false);
     }
   };
 
   return (
     <AdminCard
-      title="Careers Management"
-      subtitle="Manage and create career opportunities"
+      title={t("career.management")}
+      subtitle={t("career.manageAndCreate")}
       icon={BiBookmark}
     >
       <div className="space-y-6">
         {/* Header with Add Button */}
         <div className="flex justify-between items-center">
           <div>
-            <h3 className="text-lg font-semibold text-white">All Careers</h3>
+            <h3 className="text-lg font-semibold text-white">{t("career.allCareers")}</h3>
             <p className="text-sm text-gray-400 mt-1">
-              {careers.length} career{careers.length !== 1 ? "s" : ""} total
+              {careers.length} {careers.length !== 1 ? t("career.totalCareersPlural") : t("career.totalCareers")} 
             </p>
           </div>
           <AdminButton
@@ -191,7 +206,7 @@ const CareersTab = () => {
             icon={BiPlus}
             onClick={() => setIsAddModalOpen(true)}
           >
-            Add New Career
+            {t("career.addNewCareer")}
           </AdminButton>
         </div>
 
@@ -230,6 +245,14 @@ const CareersTab = () => {
           isEditing={true}
         />
       )}
+
+      {/* Delete Confirm Modal */}
+      <DeleteConfirmModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+        title={deletingCareerTitle}
+      />
     </AdminCard>
   );
 };

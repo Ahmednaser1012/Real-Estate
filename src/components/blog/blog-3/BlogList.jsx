@@ -1,8 +1,10 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useGetAllBlogsQuery } from "../../../features/blogsApi";
 import SingleFeedCard from "../../common/page-componets/SingleFeedCard";
 
 const BlogList = () => {
+  const { t } = useTranslation();
   const { data: blogs = [], isLoading, isError } = useGetAllBlogsQuery();
 
   if (isLoading) {
@@ -27,7 +29,7 @@ const BlogList = () => {
   if (isError) {
     return (
       <div className="text-center py-8 mt-8">
-        <p className="text-red-500">Failed to load blogs. Please try again later.</p>
+        <p className="text-red-500">{t("blog.failedToLoad")}</p>
       </div>
     );
   }
@@ -35,7 +37,7 @@ const BlogList = () => {
   if (!blogs.length) {
     return (
       <div className="text-center py-8 mt-8">
-        <p className="text-gray-500 dark:text-gray-400">No blogs available at the moment.</p>
+        <p className="text-gray-500 dark:text-gray-400">{t("blog.noBlogsAvailable")}</p>
       </div>
     );
   }
