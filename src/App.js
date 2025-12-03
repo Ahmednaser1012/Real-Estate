@@ -17,7 +17,7 @@ const BackgroundAnimation = lazy(() =>
 
 const Home = lazy(() => import("./pages/Home"));
 const AboutTwo = lazy(() => import("./pages/AboutTwo"));
-const Services = lazy(() => import("./pages/Services"));
+// const Services = lazy(() => import("./pages/Services"));
 const PropertyFive = lazy(() => import("./pages/PropertyFive"));
 const ProjectDetails = lazy(() => import("./pages/ProjectDetails"));
 const BlogThree = lazy(() => import("./pages/BlogThree"));
@@ -94,7 +94,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about-2" element={<AboutTwo />} />
-                <Route path="/services" element={<Services />} />
+                {/* <Route path="/services" element={<Services />} /> */}
                 <Route path="/projects" element={<PropertyFive />} />
                 <Route path="/projects/:id" element={<ProjectDetails />} />
                 <Route path="/blog-3" element={<BlogThree />} />

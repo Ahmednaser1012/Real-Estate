@@ -52,7 +52,7 @@ const AdminDashboard = () => {
         return <PropertiesTab />;
       case "projects":
         return <ProjectsTab />;
-      case "services":
+      case "facilities":
         return <ServicesTab />;
       case "locations":
         return <LocationsTab />;

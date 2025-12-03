@@ -9,11 +9,11 @@ import {
 const Services = () => {
   return (
     <div className="pt-20 max-w-7xl mx-auto px-4">
-      <ServicesList />
+      {/* <ServicesList /> */}
       <Categories />
       <Counter />
-      {/* <Team /> */}
-      <Feeds />
+      <Team />
+      {/* <Feeds /> */}
     </div>
   );
 };

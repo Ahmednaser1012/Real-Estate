@@ -1,13 +1,16 @@
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { teamMembers } from "../../../data/dummyData";
 
 const Team = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="pt-10 pb-16">
       <div className="text-center">
-        <h1 className="mx-auto sub-heading">our team</h1>
-        <h1 className="heading">meet with our experienced team</h1>
+        <h1 className="mx-auto sub-heading">{t("team.boardMembers")}</h1>
+        <h1 className="heading">{t("team.meetExperienced")}</h1>
       </div>
       <div>
         <div className="grid grid-cols-1 gap-3 mt-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

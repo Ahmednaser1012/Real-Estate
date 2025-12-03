@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useGetProjectByIdQuery } from "../features/projectsApi";
 import { useGetAllPropertiesQuery } from "../features/propertiesApi";
 import {
@@ -13,6 +14,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 
 const ProjectDetails = () => {
+  const { t, i18n } = useTranslation();
   const { id } = useParams();
   const { data: project, isLoading, error } = useGetProjectByIdQuery(id);
   const { data: propertiesResponse = {} } = useGetAllPropertiesQuery();
@@ -101,10 +103,10 @@ const ProjectDetails = () => {
       <div className="flex justify-center items-center min-h-screen">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
-            Project Not Found
+            {t("projects.projectNotFound")}
           </h2>
           <p className="text-gray-600 dark:text-gray-400">
-            The project you're looking for doesn't exist or has been removed.
+            {t("projects.projectNotFoundDesc")}
           </p>
         </div>
       </div>
@@ -125,7 +127,7 @@ const ProjectDetails = () => {
                   : "text-gray-600 dark:text-gray-400 hover:text-primary"
               }`}
             >
-              Overview
+              {t("projects.overview")}
               {activeTab === "overview" && (
                 <motion.div
                   layoutId="activeTab"
@@ -141,7 +143,7 @@ const ProjectDetails = () => {
                   : "text-gray-600 dark:text-gray-400 hover:text-primary"
               }`}
             >
-              Properties ({projectProperties.length})
+              {t("projects.properties")} ({projectProperties.length})
               {activeTab === "properties" && (
                 <motion.div
                   layoutId="activeTab"
@@ -158,7 +160,7 @@ const ProjectDetails = () => {
                     : "text-gray-600 dark:text-gray-400 hover:text-primary"
                 }`}
               >
-                Videos ({videos.length})
+                {t("projects.videos")} ({videos.length})
                 {activeTab === "videos" && (
                   <motion.div
                     layoutId="activeTab"
@@ -185,7 +187,7 @@ const ProjectDetails = () => {
                 <div className="lg:col-span-2">
                   <div className="bg-white dark:bg-dark-light rounded-lg p-6 shadow-md">
                     <h2 className="text-2xl font-bold mb-4">
-                      About This Project
+                      {t("projects.aboutThisProject")}
                     </h2>
 
                     {/* Project Title and Info */}
@@ -197,19 +199,19 @@ const ProjectDetails = () => {
                         <div className="flex items-center gap-2">
                           <BiMap className="text-primary" />
                           <span>
-                            {project.city?.name_en ||
-                              project.city?.name ||
-                              project.city}
+                            {i18n.language === "ar"
+                              ? project.city?.name_ar || project.city?.name || project.city
+                              : project.city?.name_en || project.city?.name || project.city}
                             ,{" "}
-                            {project.area?.name_en ||
-                              project.area?.name ||
-                              project.area}
+                            {i18n.language === "ar"
+                              ? project.area?.name_ar || project.area?.name || project.area
+                              : project.area?.name_en || project.area?.name || project.area}
                           </span>
                         </div>
                         {project.type && (
                           <div className="flex items-center gap-2">
                             <BiBuilding className="text-primary" />
-                            <span className="capitalize">{project.type}</span>
+                            <span className="capitalize">{t(`enums.projectTypes.${project.type}`)}</span>
                           </div>
                         )}
                         {project.ProjectArea && (
@@ -254,10 +256,12 @@ const ProjectDetails = () => {
                     {(project.short_description_en || project.short_description_ar) && (
                       <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
                         <h4 className="text-lg font-semibold mb-2 text-blue-900 dark:text-blue-100">
-                          Quick Overview
+                          {t("projects.quickOverview")}
                         </h4>
                         <p className="text-blue-800 dark:text-blue-200 leading-relaxed">
-                          {project.short_description_en || project.short_description_ar}
+                          {i18n.language === "ar"
+                            ? project.short_description_ar || project.short_description_en
+                            : project.short_description_en || project.short_description_ar}
                         </p>
                       </div>
                     )}
@@ -265,10 +269,12 @@ const ProjectDetails = () => {
                     {/* Description */}
                     <div className="mb-6">
                       <h4 className="text-lg font-semibold mb-3">
-                        Description
+                        {t("projects.description")}
                       </h4>
                       <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line">
-                        {project.description_en || project.description_ar || "No description available."}
+                        {i18n.language === "ar"
+                          ? project.description_ar || project.description_en || "No description available."
+                          : project.description_en || project.description_ar || "No description available."}
                       </p>
                     </div>
 
@@ -276,7 +282,7 @@ const ProjectDetails = () => {
                     {project.services && project.services.length > 0 && (
                       <div>
                         <h4 className="text-lg font-semibold mb-4">
-                          Amenities & Services
+                          {t("projects.amenitiesServices")}
                         </h4>
                         <div className="relative">
                           <AnimatePresence mode="wait">
@@ -330,11 +336,13 @@ const ProjectDetails = () => {
                               {/* Service Name */}
                               <div className="flex-1 px-4">
                                 <p className="text-xl font-bold text-gray-900 dark:text-white text-center">
-                                  {project.services[currentServiceIndex]
-                                    ?.name_en ||
-                                    project.services[currentServiceIndex]
-                                      ?.name_ar ||
-                                    "Service"}
+                                  {i18n.language === "ar"
+                                    ? project.services[currentServiceIndex]?.name_ar ||
+                                      project.services[currentServiceIndex]?.name_en ||
+                                      "Service"
+                                    : project.services[currentServiceIndex]?.name_en ||
+                                      project.services[currentServiceIndex]?.name_ar ||
+                                      "Service"}
                                 </p>
                               </div>
 
@@ -377,59 +385,61 @@ const ProjectDetails = () => {
                 <div className="lg:col-span-1">
                   <div className="bg-white dark:bg-dark-light rounded-lg p-6 shadow-md sticky top-24">
                     <h3 className="text-xl font-bold mb-4">
-                      Project Information
+                      {t("projects.projectInformation")}
                     </h3>
                     <div className="space-y-4">
                       <div className="flex justify-between items-center pb-3 border-b border-gray-200 dark:border-gray-700">
                         <span className="text-gray-600 dark:text-gray-400">
-                          Type
+                          {t("projects.type")}
                         </span>
                         <span className="font-semibold capitalize">
-                          {project.type || "N/A"}
+                          {project.type ? t(`enums.projectTypes.${project.type}`) : "N/A"}
                         </span>
                       </div>
                       <div className="flex justify-between items-center pb-3 border-b border-gray-200 dark:border-gray-700">
                         <span className="text-gray-600 dark:text-gray-400">
-                          City
+                          {t("projects.city")}
                         </span>
                         <span className="font-semibold text-right">
-                          {project.city?.name_en ||
-                            project.city?.name ||
-                            project.city}
+                          {i18n.language === "ar"
+                            ? project.city?.name_ar || project.city?.name || project.city
+                            : project.city?.name_en || project.city?.name || project.city}
                         </span>
                       </div>
                       <div className="flex justify-between items-center pb-3 border-b border-gray-200 dark:border-gray-700">
                         <span className="text-gray-600 dark:text-gray-400">
-                          Area
+                          {t("projects.area")}
                         </span>
                         <span className="font-semibold text-right">
-                          {project.area?.name_en ||
-                            project.area?.name ||
-                            project.area}
+                          {i18n.language === "ar"
+                            ? project.area?.name_ar || project.area?.name || project.area
+                            : project.area?.name_en || project.area?.name || project.area}
                         </span>
                       </div>
-                      {project.ProjectArea && (
-                        <div className="flex justify-between items-center pb-3 border-b border-gray-200 dark:border-gray-700">
+
+
+                     
+                        {/* <div className="flex justify-between items-center pb-3 border-b border-gray-200 dark:border-gray-700">
                           <span className="text-gray-600 dark:text-gray-400">
-                            Project Area
+                            {t("projects.projectArea")}
                           </span>
                           <span className="font-semibold">
                             {project.ProjectArea}
                           </span>
-                        </div>
-                      )}
-                      <div className="flex justify-between items-center pb-3 border-b border-gray-200 dark:border-gray-700">
+                        </div> */}
+                      
+                      {/* <div className="flex justify-between items-center pb-3 border-b border-gray-200 dark:border-gray-700">
                         <span className="text-gray-600 dark:text-gray-400">
-                          Properties
+                          {t("projects.properties")}
                         </span>
                         <span className="font-semibold">
                           {projectProperties.length}
                         </span>
-                      </div>
+                      </div> */}
                       {project.location && (
                         <div className="flex justify-between items-center pb-3 border-b border-gray-200 dark:border-gray-700">
                           <span className="text-gray-600 dark:text-gray-400">
-                            Location
+                            {t("projects.location")}
                           </span>
                           <a
                             href={project.location}
@@ -438,14 +448,14 @@ const ProjectDetails = () => {
                             className="font-semibold text-primary hover:underline flex items-center gap-1"
                           >
                             <BiMap className="text-lg" />
-                            View Map
+                            {t("projects.viewMap")}
                           </a>
                         </div>
                       )}
                       {project.project_area && (
                         <div className="flex justify-between items-center pb-3 border-b border-gray-200 dark:border-gray-700">
                           <span className="text-gray-600 dark:text-gray-400">
-                            Total Area
+                            {t("projects.totalArea")}
                           </span>
                           <span className="font-semibold">
                             {project.project_area} m²
@@ -455,7 +465,7 @@ const ProjectDetails = () => {
                       {project.delivery_date && (
                         <div className="flex justify-between items-center pb-3 border-b border-gray-200 dark:border-gray-700">
                           <span className="text-gray-600 dark:text-gray-400">
-                            Delivery Date
+                            {t("projects.deliveryDate")}
                           </span>
                           <span className="font-semibold">
                             {new Date(project.delivery_date).toLocaleDateString()}
@@ -465,7 +475,7 @@ const ProjectDetails = () => {
                       {project.video_link && (
                         <div className="flex justify-between items-center">
                           <span className="text-gray-600 dark:text-gray-400">
-                            Video
+                            {t("projects.videos")}
                           </span>
                           <a
                             href={project.video_link}
@@ -473,7 +483,7 @@ const ProjectDetails = () => {
                             rel="noopener noreferrer"
                             className="font-semibold text-primary hover:underline"
                           >
-                            Watch Video
+                            {t("projects.watchVideo")}
                           </a>
                         </div>
                       )}
@@ -481,7 +491,7 @@ const ProjectDetails = () => {
 
                     {project.master_plan && (
                       <div className="mt-6">
-                        <h4 className="font-semibold mb-2">Master Plan</h4>
+                        <h4 className="font-semibold mb-2">{t("projects.masterPlan")}</h4>
                         <div
                           className="cursor-pointer group relative overflow-hidden rounded-lg"
                           onClick={() => {
@@ -538,17 +548,17 @@ const ProjectDetails = () => {
                         />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
                         <div className="absolute top-3 left-3 bg-primary text-white px-3 py-1 rounded-full text-sm font-semibold capitalize">
-                          {property.type}
+                          {t(`enums.propertyTypes.${property.type}`)}
                         </div>
                       </div>
                       <div className="p-4">
                         <h3 className="text-lg font-bold mb-2 capitalize">
-                          {property.type}
+                          {t(`enums.propertyTypes.${property.type}`)}
                         </h3>
                         <div className="space-y-2 text-sm">
                           <div className="flex justify-between">
                             <span className="text-gray-600 dark:text-gray-400">
-                              Area
+                              {t("property.area")}
                             </span>
                             <span className="font-semibold">
                               {property.areaMin} - {property.areaMax} m²
@@ -556,9 +566,9 @@ const ProjectDetails = () => {
                           </div>
                           <div className="flex justify-between">
                             <span className="text-gray-600 dark:text-gray-400">
-                              Price
+                              {t("property.price")}
                             </span>
-                            <span className="font-semibold text-primary">
+                            <span className="font-semibold ">
                               {property.priceMin?.toLocaleString()} -{" "}
                               {property.priceMax?.toLocaleString()} EGP
                             </span>
@@ -566,7 +576,7 @@ const ProjectDetails = () => {
                           {property.noOfBedroomsMin > 0 && (
                             <div className="flex justify-between">
                               <span className="text-gray-600 dark:text-gray-400">
-                                Bedrooms
+                                {t("property.bedrooms")}
                               </span>
                               <span className="font-semibold">
                                 {property.noOfBedroomsMin}m -{" "}
@@ -577,7 +587,7 @@ const ProjectDetails = () => {
                           {property.noOfBathroomsMin > 0 && (
                             <div className="flex justify-between">
                               <span className="text-gray-600 dark:text-gray-400">
-                                Bathrooms
+                                {t("property.bathrooms")}
                               </span>
                               <span className="font-semibold">
                                 {property.noOfBathroomsMin}m -{" "}
@@ -593,7 +603,7 @@ const ProjectDetails = () => {
               ) : (
                 <div className="text-center py-20">
                   <p className="text-gray-500">
-                    No properties available for this project yet.
+                    {t("projects.noPropertiesAvailable")}
                   </p>
                 </div>
               )}

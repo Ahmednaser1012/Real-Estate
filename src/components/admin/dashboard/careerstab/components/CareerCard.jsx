@@ -1,7 +1,11 @@
 import React from "react";
 import { BiEdit, BiTrash, BiCalendar, BiDollarCircle, BiMapPin, BiBriefcase } from "react-icons/bi";
+import { useTranslation } from "react-i18next";
 
 const CareerCard = ({ career, onEdit, onDelete }) => {
+  const { t, i18n } = useTranslation();
+  const isArabic = i18n.language === "ar";
+
   const formatDate = (dateString) => {
     if (!dateString) return "";
     const date = new Date(dateString);
@@ -17,6 +21,17 @@ const CareerCard = ({ career, onEdit, onDelete }) => {
       "Internship": "bg-purple-100 text-purple-700",
     };
     return colors[type] || "bg-gray-100 text-gray-700";
+  };
+
+  const getTypeLabel = (type) => {
+    const typeMap = {
+      "Full-time": t("career.fullTime"),
+      "Part-time": t("career.partTime"),
+      "Contract": "Contract",
+      "Temporary": "Temporary",
+      "Internship": t("career.internship"),
+    };
+    return typeMap[type] || type;
   };
 
   return (
@@ -45,7 +60,7 @@ const CareerCard = ({ career, onEdit, onDelete }) => {
             <BiEdit className="w-5 h-5" />
           </button>
           <button
-            onClick={() => onDelete(career.id)}
+            onClick={() => onDelete(career.id, career.title_en || career.title_ar)}
             className="p-3 bg-white rounded-full hover:bg-red-500 hover:text-white transition-all duration-200 shadow-lg transform hover:scale-110"
             title="Delete Career"
           >
@@ -58,7 +73,7 @@ const CareerCard = ({ career, onEdit, onDelete }) => {
           <div className="absolute top-3 left-3">
             <span className={`inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold rounded-full shadow-md ${getTypeColor(career.type)}`}>
               <BiBriefcase className="w-3 h-3" />
-              {career.type}
+              {getTypeLabel(career.type)}
             </span>
           </div>
         )}
@@ -69,20 +84,15 @@ const CareerCard = ({ career, onEdit, onDelete }) => {
         {/* Title Section */}
         <div className="space-y-2">
           <h3 className="text-lg font-bold text-gray-900 line-clamp-2 group-hover:text-green-600 transition-colors">
-            {career.title_en || career.title_ar || "Untitled Position"}
+            {(isArabic ? career.title_ar : career.title_en) || "Untitled Position"}
           </h3>
-          {career.title_ar && career.title_en && (
-            <p className="text-sm text-gray-600 line-clamp-1 font-medium" dir="rtl">
-              {career.title_ar}
-            </p>
-          )}
         </div>
 
         {/* Description */}
-        {(career.description_en || career.description_ar) && (
+        {(isArabic ? career.description_ar : career.description_en) && (
           <div className="bg-gray-50 rounded-lg p-3 border border-gray-100">
             <p className="text-sm text-gray-700 line-clamp-2">
-              {career.description_en || career.description_ar}
+              {isArabic ? career.description_ar : career.description_en}
             </p>
           </div>
         )}
@@ -96,43 +106,18 @@ const CareerCard = ({ career, onEdit, onDelete }) => {
                 <BiBriefcase className="w-4 h-4 text-blue-600" />
               </div>
               <div className="flex-1">
-                <p className="text-xs text-gray-500 font-medium">Department</p>
+                <p className="text-xs text-gray-500 font-medium">{t("career.department")}</p>
                 <p className="text-sm font-semibold text-gray-900">{career.department}</p>
               </div>
             </div>
           )}
 
-          {/* Location */}
-          {career.location && (
-            <div className="flex items-center gap-3 text-sm">
-              <div className="flex items-center justify-center w-8 h-8 bg-red-100 rounded-lg">
-                <BiMapPin className="w-4 h-4 text-red-600" />
-              </div>
-              <div className="flex-1">
-                <p className="text-xs text-gray-500 font-medium">Location</p>
-                <p className="text-sm font-semibold text-gray-900 line-clamp-1">{career.location}</p>
-              </div>
-            </div>
-          )}
-
-          {/* Salary */}
-          {career.salary && (
-            <div className="flex items-center gap-3 text-sm">
-              <div className="flex items-center justify-center w-8 h-8 bg-green-100 rounded-lg">
-                <BiDollarCircle className="w-4 h-4 text-green-600" />
-              </div>
-              <div className="flex-1">
-                <p className="text-xs text-gray-500 font-medium">Salary</p>
-                <p className="text-sm font-semibold text-gray-900">{career.salary}</p>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Footer */}
         <div className="pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
           <span>
-            Created: {career.created_at ? formatDate(career.created_at) : "N/A"}
+            {t("career.created")}: {career.created_at ? formatDate(career.created_at) : "N/A"}
           </span>
           <span className="px-2 py-1 bg-gray-100 rounded-full text-gray-600 font-medium">
             ID: {career.id}

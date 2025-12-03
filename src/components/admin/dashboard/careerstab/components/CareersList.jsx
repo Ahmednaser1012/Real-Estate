@@ -1,15 +1,18 @@
 import React from "react";
 import { BiBookmark } from "react-icons/bi";
+import { useTranslation } from "react-i18next";
 import CareerCard from "./CareerCard";
 
 const CareersList = ({ careers, isLoading, error, onEdit, onDelete }) => {
+  const { t } = useTranslation();
+
   if (isLoading) {
     return (
       <div className="text-center py-12">
         <div className="inline-block">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
         </div>
-        <p className="text-gray-500 mt-4">Loading careers...</p>
+        <p className="text-gray-500 mt-4">{t("career.loadingCareers")}</p>
       </div>
     );
   }
@@ -17,7 +20,7 @@ const CareersList = ({ careers, isLoading, error, onEdit, onDelete }) => {
   if (error) {
     return (
       <div className="text-center py-12 bg-red-50 rounded-lg border border-red-200">
-        <p className="text-red-600 font-medium">Error loading careers</p>
+        <p className="text-red-600 font-medium">{t("career.errorLoadingCareers")}</p>
         <p className="text-red-500 text-sm mt-1">{error.message}</p>
       </div>
     );
@@ -27,8 +30,8 @@ const CareersList = ({ careers, isLoading, error, onEdit, onDelete }) => {
     return (
       <div className="text-center py-12">
         <BiBookmark className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-        <p className="text-gray-500 mb-2">No careers found</p>
-        <p className="text-gray-400 text-sm">Create your first career opportunity to get started</p>
+        <p className="text-gray-500 mb-2">{t("career.noCareerFound")}</p>
+        <p className="text-gray-400 text-sm">{t("career.createFirstCareer")}</p>
       </div>
     );
   }

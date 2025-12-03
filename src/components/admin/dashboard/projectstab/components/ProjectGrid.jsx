@@ -1,15 +1,18 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { MdEdit, MdDelete, MdApartment } from "react-icons/md";
 import { BiBuildings, BiArea } from "react-icons/bi";
 
 const ProjectGrid = ({ projects, onView, onEdit, onDelete }) => {
+  const { t, i18n } = useTranslation();
+
   if (projects.length === 0) {
     return (
       <div className="py-12 text-center">
         <div className="mb-4 text-6xl text-gray-400">🏢</div>
-        <p className="text-lg text-gray-500">No projects found</p>
+        <p className="text-lg text-gray-500">{t("projects.noProjectsFound")}</p>
       </div>
     );
   }
@@ -50,7 +53,7 @@ const ProjectGrid = ({ projects, onView, onEdit, onDelete }) => {
                     : "bg-blue-500 text-white"
                 }`}
               >
-                {project.type}
+                {t(`enums.projectTypes.${project.type}`)}
               </span>
             </div>
           </div>
@@ -58,17 +61,17 @@ const ProjectGrid = ({ projects, onView, onEdit, onDelete }) => {
           {/* Project Info */}
           <div className="p-4">
             <h3 className="mb-2 text-lg font-bold text-gray-800 truncate">
-              {project.title_en || project.title_ar || "N/A"}
+              {i18n.language === "ar" ? (project.title_ar || project.title_en || "N/A") : (project.title_en || project.title_ar || "N/A")}
             </h3>
             <p className="mb-3 text-sm text-gray-600 line-clamp-2">
-              {project.description_en || project.description_ar || "N/A"}
+              {i18n.language === "ar" ? (project.description_ar || project.description_en || "N/A") : (project.description_en || project.description_ar || "N/A")}
             </p>
 
             <div className="flex items-center mb-3 text-sm">
               <FaMapMarkerAlt className="mr-2 text-red-500" />
               <span className="font-medium text-gray-700 truncate">
-                {typeof project.area === 'object' ? project.area?.name_en : project.area || "N/A"},{" "}
-                {typeof project.city === 'object' ? project.city?.name_en : project.city || "N/A"}
+                {typeof project.area === 'object' ? (i18n.language === "ar" ? project.area?.name_ar : project.area?.name_en) : project.area || "N/A"},{" "}
+                {typeof project.city === 'object' ? (i18n.language === "ar" ? project.city?.name_ar : project.city?.name_en) : project.city || "N/A"}
               </span>
             </div>
 
@@ -76,7 +79,7 @@ const ProjectGrid = ({ projects, onView, onEdit, onDelete }) => {
               <div className="p-2.5 rounded-lg border border-blue-200">
                 <div className="flex items-center gap-1.5">
                   <BiArea className="text-lg text-blue-600" />
-                  <span className="text-xs text-gray-600">Area:</span>
+                  <span className="text-xs text-gray-600">{t("filters.area")}:</span>
                   <span className="block mt-1 font-bold text-blue-700">
                     {project.project_area || "N/A"} m²
                   </span>
@@ -85,7 +88,7 @@ const ProjectGrid = ({ projects, onView, onEdit, onDelete }) => {
               {project.delivery_date && (
                 <div className="p-2.5 rounded-lg border border-green-200">
                   <div className="flex items-center gap-1.5">
-                    <span className="text-xs text-gray-600">Delivery:</span>
+                    <span className="text-xs text-gray-600">{t("events.date")}:</span>
                     <span className="block mt-1 font-bold text-green-700">
                       {new Date(project.delivery_date).toLocaleDateString()}
                     </span>
@@ -104,7 +107,7 @@ const ProjectGrid = ({ projects, onView, onEdit, onDelete }) => {
                 className="flex items-center justify-center flex-1 gap-2 px-3 py-2 text-blue-600 transition-colors rounded-lg bg-blue-50 hover:bg-blue-100"
               >
                 <MdEdit />
-                <span className="text-sm font-medium">Edit</span>
+                <span className="text-sm font-medium">{t("common.edit")}</span>
               </button>
               <button
                 onClick={(e) => {
@@ -114,7 +117,7 @@ const ProjectGrid = ({ projects, onView, onEdit, onDelete }) => {
                 className="flex items-center justify-center flex-1 gap-2 px-3 py-2 text-red-600 transition-colors rounded-lg bg-red-50 hover:bg-red-100"
               >
                 <MdDelete />
-                <span className="text-sm font-medium">Delete</span>
+                <span className="text-sm font-medium">{t("common.delete")}</span>
               </button>
             </div>
           </div>

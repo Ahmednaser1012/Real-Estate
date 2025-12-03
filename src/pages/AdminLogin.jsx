@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { FiMail, FiEye, FiEyeOff, FiSun, FiMoon } from "react-icons/fi";
 import { BiShield } from "react-icons/bi";
@@ -15,6 +16,7 @@ import AdminInput from "../components/admin/ui/AdminInput";
 import AdminButton from "../components/admin/ui/AdminButton";
 
 const AdminLogin = () => {
+  const { t, i18n } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -25,8 +27,8 @@ const AdminLogin = () => {
   const { darkMode } = useSelector(uiStore);
 
   // Admin credentials (in real app should be in database)
-  const ADMIN_EMAIL = "admin@realestate.com";
-  const ADMIN_PASSWORD = "admin123";
+  const ADMIN_EMAIL = "admin@admin.com";
+  const ADMIN_PASSWORD = "admin";
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -53,7 +55,7 @@ const AdminLogin = () => {
         dispatch(loginSuccess({ email }));
         navigate("/admin/dashboard");
       } else {
-        dispatch(loginFailure("Invalid email or password"));
+        dispatch(loginFailure(t('adminLogin.invalidCredentials')));
       }
     }, 1000);
   };
@@ -65,7 +67,7 @@ const AdminLogin = () => {
   return (
     <div className="min-h-screen bg-main-bg dark:bg-main-dark flex-center-center px-4 transition-a">
       {/* Dark Mode Toggle */}
-      <button
+      {/* <button
         onClick={handleToggleDarkMode}
         className="fixed top-4 left-4 icon-box z-10"
         title={darkMode ? "Light Mode" : "Dark Mode"}
@@ -75,7 +77,7 @@ const AdminLogin = () => {
         ) : (
           <FiMoon className="w-5 h-5" />
         )}
-      </button>
+      </button> */}
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -92,37 +94,37 @@ const AdminLogin = () => {
           >
             <BiShield className="w-10 h-10 text-white" />
           </motion.div>
-          <h2 className="heading text-2xl mb-2">Admin Login</h2>
+          <h2 className="heading text-2xl mb-2">{t('adminLogin.title')}</h2>
           <p className="text-muted">
-            Enter your credentials to access the dashboard
+            {t('adminLogin.subtitle')}
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <AdminInput
-            label="Email Address"
+            label={t('adminLogin.emailLabel')}
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="admin@realestate.com"
+            placeholder={t('adminLogin.emailPlaceholder')}
             icon={FiMail}
             required
           />
 
           <div className="space-y-2">
             <label className="block text-sm font-medium text-secondary dark:text-slate-300">
-              Password
+              {t('adminLogin.passwordLabel')}
             </label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="input w-full pl-10 pr-10"
-                placeholder="••••••••"
+                className={`input w-full ${i18n.language === 'ar' ? 'pl-10 pr-3' : 'pl-3 pr-10'}`}
+                placeholder={t('adminLogin.passwordPlaceholder')}
                 required
               />
-              <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+              <div className={`absolute inset-y-0 ${i18n.language === 'ar' ? 'left-0 pl-3' : 'right-0 pr-3'} flex items-center`}>
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
@@ -155,15 +157,15 @@ const AdminLogin = () => {
             loading={loading}
             className="w-full"
           >
-            Sign In
+            {t('adminLogin.signIn')}
           </AdminButton>
         </form>
 
         <div className="mt-6 text-center">
           <div className="bg-slate-50 dark:bg-dark-light rounded-lg p-4">
-            <p className="text-sm text-muted mb-2">Demo Credentials:</p>
+            <p className="text-sm text-muted mb-2">{t('adminLogin.demoCredentials')}</p>
             <p className="text-sm font-mono text-secondary dark:text-slate-300">
-              admin@realestate.com / admin123
+              admin@admin.com / admin
             </p>
           </div>
         </div>

@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 import AdminButton from "../../../ui/AdminButton";
 
 const CityFormModal = ({ city, isOpen, onClose, onSave }) => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name_en: "",
     name_ar: "",
@@ -72,7 +74,7 @@ const CityFormModal = ({ city, isOpen, onClose, onSave }) => {
         {/* Header */}
         <div className="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between z-10">
           <h2 className="text-2xl font-bold text-gray-800">
-            {city ? "Edit City" : "Add New City"}
+            {city ? t("locations.editCity") : t("locations.addNewCity")}
           </h2>
           <button
             onClick={onClose}
@@ -94,7 +96,7 @@ const CityFormModal = ({ city, isOpen, onClose, onSave }) => {
             {/* English Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                City Name (English) *
+                {t("locations.cityNameEnglish")} *
               </label>
               <input
                 type="text"
@@ -107,14 +109,14 @@ const CityFormModal = ({ city, isOpen, onClose, onSave }) => {
                 }`}
               />
               {errors.name_en && (
-                <p className="text-red-500 text-sm mt-1">{errors.name_en}</p>
+                <p className="text-red-500 text-sm mt-1">{t("locations.cityRequired")}</p>
               )}
             </div>
 
             {/* Arabic Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                City Name (Arabic) *
+                {t("locations.cityNameArabic")} *
               </label>
               <input
                 type="text"
@@ -128,7 +130,7 @@ const CityFormModal = ({ city, isOpen, onClose, onSave }) => {
                 }`}
               />
               {errors.name_ar && (
-                <p className="text-red-500 text-sm mt-1">{errors.name_ar}</p>
+                <p className="text-red-500 text-sm mt-1">{t("locations.cityArabicRequired")}</p>
               )}
             </div>
           </div>
@@ -141,7 +143,7 @@ const CityFormModal = ({ city, isOpen, onClose, onSave }) => {
               size="md"
               onClick={onClose}
             >
-              Cancel
+              {t("common.cancel")}
             </AdminButton>
             <AdminButton
               type="submit"
@@ -149,7 +151,7 @@ const CityFormModal = ({ city, isOpen, onClose, onSave }) => {
               size="md"
               loading={loading}
             >
-              {city ? "Save Changes" : "Add City"}
+              {city ? t("locations.saveChanges") : t("locations.addCity")}
             </AdminButton>
           </div>
         </form>

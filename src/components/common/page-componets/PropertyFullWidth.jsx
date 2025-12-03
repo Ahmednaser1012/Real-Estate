@@ -1,8 +1,10 @@
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { dataStore } from "../../../features/dataSlice";
 import SingleProductCardFullWidth from "./SingleProductCardFullWidth";
 
 const PropertyFullWidth = () => {
+  const { t } = useTranslation();
   const { currentDataItems, totalCount, loading } = useSelector(dataStore);
 
   if (loading) {
@@ -17,10 +19,10 @@ const PropertyFullWidth = () => {
     return (
       <div className="text-center py-20">
         <p className="text-gray-500 text-lg">
-          No results match your search criteria
+          {t("property.noResultsMatch")}
         </p>
         <p className="text-gray-400 text-sm mt-2">
-          try changing the search criteria and try again
+          {t("property.tryChangingCriteria")}
         </p>
       </div>
     );

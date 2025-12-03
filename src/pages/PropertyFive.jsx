@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { FiDelete } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import {
   AdvancedSearch,
   CTA,
@@ -15,6 +16,7 @@ import { useGetAllProjectsQuery } from "../features/projectsApi";
 import { setIsLoading, setTotalCount, dataStore } from "../features/dataSlice";
 
 const PropertyFive = () => {
+  const { t } = useTranslation();
   const { isFilterMenuOpen } = useSelector(uiStore);
   const { totalCount, currentPage, searchFilters } = useSelector(dataStore);
   const dispatch = useDispatch();
@@ -82,7 +84,7 @@ const PropertyFive = () => {
       {error && (
         <div className="text-center py-20">
           <p className="text-red-500">
-            Error loading projects. Please try again later.
+            {t('filters.errorLoading')}
           </p>
         </div>
       )}
@@ -109,7 +111,7 @@ const PropertyFive = () => {
                   >
                     <FiDelete />
                   </div>
-                  <p className="uppercase">Filters</p>
+                  <p className="uppercase">{t('filters.label')}</p>
                 </div>
                 <AdvancedSearch />
                 {/* <PriceRange />ا*/}

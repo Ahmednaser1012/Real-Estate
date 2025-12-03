@@ -9,11 +9,11 @@ export const navLinks = [
     linkTextKey: "nav.about",
     url: "/about-2",
   },
-  {
-    id: 3,
-    linkTextKey: "nav.services",
-    url: "/services",
-  },
+  // {
+  //   id: 3,
+  //   linkTextKey: "nav.services",
+  //   url: "/services",
+  // },
   {
     id: 4,
     linkTextKey: "nav.projects",

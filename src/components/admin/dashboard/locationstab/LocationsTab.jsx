@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { FaMapMarkerAlt, FaPlus, FaEdit, FaTrash } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 import AdminCard from "../../ui/AdminCard";
 import AdminButton from "../../ui/AdminButton";
 import CityFormModal from "./components/CityFormModal";
 import AreaFormModal from "./components/AreaFormModal";
-import DeleteConfirmModal from "./components/DeleteConfirmModal";
+import DeleteConfirmModal from "../../ui/DeleteConfirmModal";
 import {
   useGetAllCitiesQuery,
   useCreateCityMutation,
@@ -17,6 +18,8 @@ import {
 } from "../../../../features/locationsApi";
 
 const LocationsTab = () => {
+  const { t, i18n } = useTranslation();
+  const isArabic = i18n.language === "ar";
   // RTK Query hooks
   const { data: cities = [], isLoading: citiesLoading } = useGetAllCitiesQuery();
   const { data: areas = [], isLoading: areasLoading } = useGetAllAreasQuery();
@@ -133,8 +136,8 @@ const LocationsTab = () => {
   return (
     <>
       <AdminCard
-        title="Locations Management"
-        subtitle={`Cities: ${cities.length} | Areas: ${areas.length}`}
+        title={t("locations.management")}
+        subtitle={`${t("locations.citiesCount")}: ${cities.length} | ${t("locations.areasCount")}: ${areas.length}`}
         icon={FaMapMarkerAlt}
         headerActions={
           <div className="flex gap-2">
@@ -143,14 +146,14 @@ const LocationsTab = () => {
               size="sm"
               onClick={() => setActiveTab("cities")}
             >
-              Cities
+              {t("locations.citiesTab")}
             </AdminButton>
             <AdminButton
               variant={activeTab === "areas" ? "primary" : "outline"}
               size="sm"
               onClick={() => setActiveTab("areas")}
             >
-              Areas
+              {t("locations.areasTab")}
             </AdminButton>
           </div>
         }
@@ -165,28 +168,28 @@ const LocationsTab = () => {
                 icon={FaPlus}
                 onClick={handleAddCity}
               >
-                Add New City
+                {t("locations.addNewCity")}
               </AdminButton>
             </div>
 
             {/* Cities Table */}
             {isLoading ? (
-              <div className="text-center py-8">Loading cities...</div>
+              <div className="text-center py-8">{t("locations.loadingCities")}</div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead className="bg-gray-50 border-b">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        ID
+                      <th className={`px-6 py-3 ${isArabic ? "text-right" : "text-left"} text-xs font-medium text-gray-500 uppercase tracking-wider`}>
+                        {t("locations.tableHeaderId")}
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Name (English)
+                      <th className={`px-6 py-3 ${isArabic ? "text-right" : "text-left"} text-xs font-medium text-gray-500 uppercase tracking-wider`}>
+                        {t("locations.tableHeaderNameEnglish")}
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Name (Arabic)
+                      <th className={`px-6 py-3 ${isArabic ? "text-right" : "text-left"} text-xs font-medium text-gray-500 uppercase tracking-wider`}>
+                        {t("locations.tableHeaderNameArabic")}
                       </th>
-                      {/* <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      {/* <th className={`px-6 py-3 ${isArabic ? "text-left" : "text-right"} text-xs font-medium text-gray-500 uppercase tracking-wider`}>
                         Actions
                       </th> */}
                     </tr>
@@ -223,7 +226,7 @@ const LocationsTab = () => {
                 </table>
                 {cities.length === 0 && (
                   <div className="text-center py-8 text-gray-500">
-                    No cities found. Add your first city!
+                    {t("locations.noCitiesFound")}
                   </div>
                 )}
               </div>
@@ -238,31 +241,31 @@ const LocationsTab = () => {
                 icon={FaPlus}
                 onClick={handleAddArea}
               >
-                Add New Area
+                {t("locations.addNewArea")}
               </AdminButton>
             </div>
 
             {/* Areas Table */}
             {isLoading ? (
-              <div className="text-center py-8">Loading areas...</div>
+              <div className="text-center py-8">{t("locations.loadingAreas")}</div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead className="bg-gray-50 border-b">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        ID
+                      <th className={`px-6 py-3 ${isArabic ? "text-right" : "text-left"} text-xs font-medium text-gray-500 uppercase tracking-wider`}>
+                        {t("locations.tableHeaderId")}
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        City
+                      <th className={`px-6 py-3 ${isArabic ? "text-right" : "text-left"} text-xs font-medium text-gray-500 uppercase tracking-wider`}>
+                        {t("locations.tableHeaderCity")}
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Name (English)
+                      <th className={`px-6 py-3 ${isArabic ? "text-right" : "text-left"} text-xs font-medium text-gray-500 uppercase tracking-wider`}>
+                        {t("locations.tableHeaderNameEnglish")}
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Name (Arabic)
+                      <th className={`px-6 py-3 ${isArabic ? "text-right" : "text-left"} text-xs font-medium text-gray-500 uppercase tracking-wider`}>
+                        {t("locations.tableHeaderNameArabic")}
                       </th>
-                      {/* <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      {/* <th className={`px-6 py-3 ${isArabic ? "text-left" : "text-right"} text-xs font-medium text-gray-500 uppercase tracking-wider`}>
                         Actions
                       </th> */}
                     </tr>
@@ -302,7 +305,7 @@ const LocationsTab = () => {
                 </table>
                 {areas.length === 0 && (
                   <div className="text-center py-8 text-gray-500">
-                    No areas found. Add your first area!
+                    {t("locations.noAreasFound")}
                   </div>
                 )}
               </div>

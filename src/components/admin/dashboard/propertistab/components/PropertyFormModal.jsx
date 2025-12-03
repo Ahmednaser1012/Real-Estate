@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTimes } from "react-icons/fa";
 import AdminButton from "../../../ui/AdminButton";
 import { useGetAllProjectsQuery } from "../../../../../features/projectsApi";
 
 const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
+  const { t, i18n } = useTranslation();
   const { data: projectsResponse = {} } = useGetAllProjectsQuery(undefined, { skip: !isOpen });
 
   // Extract projects array from response (handle both array and object responses)
@@ -86,26 +88,26 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
   const validate = () => {
     const newErrors = {};
     
-    if (!formData.type) newErrors.type = "Property type is required";
-    if (!formData.projectId) newErrors.projectId = "Project is required";
-    if (!property && !formData.image) newErrors.image = "Image is required";
-    if (!formData.area_min) newErrors.area_min = "Minimum area is required";
-    if (!formData.area_max) newErrors.area_max = "Maximum area is required";
-    if (!formData.price_min) newErrors.price_min = "Minimum price is required";
-    if (!formData.price_max) newErrors.price_max = "Maximum price is required";
+    if (!formData.type) newErrors.type = t("validation.propertyTypeRequired");
+    if (!formData.projectId) newErrors.projectId = t("validation.projectRequired");
+    if (!property && !formData.image) newErrors.image = t("validation.imageRequired");
+    if (!formData.area_min) newErrors.area_min = t("validation.minimumAreaRequired");
+    if (!formData.area_max) newErrors.area_max = t("validation.maximumAreaRequired");
+    if (!formData.price_min) newErrors.price_min = t("validation.minimumPriceRequired");
+    if (!formData.price_max) newErrors.price_max = t("validation.maximumPriceRequired");
     
     // Validate min/max ranges
     if (formData.area_min && formData.area_max && parseFloat(formData.area_min) > parseFloat(formData.area_max)) {
-      newErrors.area_max = "Maximum area must be greater than minimum area";
+      newErrors.area_max = t("validation.maximumAreaGreater");
     }
     if (formData.price_min && formData.price_max && parseFloat(formData.price_min) > parseFloat(formData.price_max)) {
-      newErrors.price_max = "Maximum price must be greater than minimum price";
+      newErrors.price_max = t("validation.maximumPriceGreater");
     }
     if (formData.no_of_bedrooms_min && formData.no_of_bedrooms_max && parseInt(formData.no_of_bedrooms_min) > parseInt(formData.no_of_bedrooms_max)) {
-      newErrors.no_of_bedrooms_max = "Maximum bedrooms must be greater than minimum bedrooms";
+      newErrors.no_of_bedrooms_max = t("validation.maximumBedroomsGreater");
     }
     if (formData.no_of_bathrooms_min && formData.no_of_bathrooms_max && parseInt(formData.no_of_bathrooms_min) > parseInt(formData.no_of_bathrooms_max)) {
-      newErrors.no_of_bathrooms_max = "Maximum bathrooms must be greater than minimum bathrooms";
+      newErrors.no_of_bathrooms_max = t("validation.maximumBathroomsGreater");
     }
 
     setErrors(newErrors);
@@ -165,7 +167,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
             {/* Header */}
             <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex items-center justify-between z-10">
               <h2 className="text-2xl font-bold text-gray-800">
-                {property ? "Edit Property Type" : "Add New Property Type"}
+                {property ? t("properties.editProperty") : t("properties.addNewProperty")}
               </h2>
               <button
                 onClick={onClose}
@@ -187,7 +189,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                 {/* Project Selection */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Project *
+                    {t("properties.project")} *
                   </label>
                   <select
                     name="projectId"
@@ -197,10 +199,10 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                       errors.projectId ? "border-red-500" : "border-gray-300"
                     }`}
                   >
-                    <option value="">Select Project</option>
+                    <option value="">{t("properties.selectProject")}</option>
                     {projects.map((project) => (
                       <option key={project.id} value={project.id}>
-                        {project.title_en || project.title_ar || `Project ${project.id}`}
+                        {i18n.language === "ar" ? (project.title_ar || project.title_en || `Project ${project.id}`) : (project.title_en || project.title_ar || `Project ${project.id}`)}
                       </option>
                     ))}
                   </select>
@@ -212,7 +214,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                 {/* Property Type */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Property Type *
+                    {t("properties.propertyType")} *
                   </label>
                   <select
                     name="type"
@@ -222,12 +224,12 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                       errors.type ? "border-red-500" : "border-gray-300"
                     }`}
                   >
-                        <option value="apartments">Apartments</option>
-                        <option value="duplexes">Duplexes</option>
-                        <option value="studios">Studios</option>
-                        <option value="offices">Offices</option>
-                        <option value="clinics">Clinics</option>
-                        <option value="retails">Retails</option>
+                        <option value="apartments">{t("enums.propertyTypes.apartments")}</option>
+                        <option value="duplexes">{t("enums.propertyTypes.duplexes")}</option>
+                        <option value="studios">{t("enums.propertyTypes.studios")}</option>
+                        <option value="offices">{t("enums.propertyTypes.offices")}</option>
+                        <option value="clinics">{t("enums.propertyTypes.clinics")}</option>
+                        <option value="retails">{t("enums.propertyTypes.retails")}</option>
                   </select>
                   {errors.type && (
                     <p className="text-red-500 text-sm mt-1">{errors.type}</p>
@@ -237,16 +239,16 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                 {/* Image */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Property Image {!property && "*"}
+                    {t("properties.propertyImage")} {!property && "*"}
                   </label>
                   {property && property.image && (
                     <div className="mb-2">
                       <img 
                         src={property.image} 
-                        alt="Current Property" 
+                        alt={t("properties.currentImage")}
                         className="object-cover w-32 h-32 border border-gray-300 rounded-lg"
                       />
-                      <p className="mt-1 text-xs text-gray-600">Current Image</p>
+                      <p className="mt-1 text-xs text-gray-600">{t("properties.currentImage")}</p>
                     </div>
                   )}
                   <input
@@ -261,7 +263,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                     <p className="text-red-500 text-sm mt-1">{errors.image}</p>
                   )}
                   {property && (
-                    <p className="text-gray-500 text-xs mt-1">Leave empty to keep current image</p>
+                    <p className="text-gray-500 text-xs mt-1">{t("properties.keepCurrentImage")}</p>
                   )}
                 </div>
 
@@ -269,7 +271,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Minimum Area (m²) *
+                      {t("properties.minimumArea")} *
                     </label>
                     <input
                       type="number"
@@ -279,7 +281,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                       className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black ${
                         errors.area_min ? "border-red-500" : "border-gray-300"
                       }`}
-                      placeholder="Example: 100"
+                      placeholder={`${t("properties.example")}: 100`}
                     />
                     {errors.area_min && (
                       <p className="text-red-500 text-sm mt-1">{errors.area_min}</p>
@@ -288,7 +290,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Maximum Area (m²) *
+                      {t("properties.maximumArea")} *
                     </label>
                     <input
                       type="number"
@@ -298,7 +300,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                       className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black ${
                         errors.area_max ? "border-red-500" : "border-gray-300"
                       }`}
-                      placeholder="Example: 200"
+                      placeholder={`${t("properties.example")}: 200`}
                     />
                     {errors.area_max && (
                       <p className="text-red-500 text-sm mt-1">{errors.area_max}</p>
@@ -310,7 +312,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Minimum Price (EGP) *
+                      {t("properties.minimumPrice")} *
                     </label>
                     <input
                       type="number"
@@ -320,7 +322,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                       className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black ${
                         errors.price_min ? "border-red-500" : "border-gray-300"
                       }`}
-                      placeholder="Example: 1500000"
+                      placeholder={`${t("properties.example")}: 1500000`}
                     />
                     {errors.price_min && (
                       <p className="text-red-500 text-sm mt-1">{errors.price_min}</p>
@@ -329,7 +331,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Maximum Price (EGP) *
+                      {t("properties.maximumPrice")} *
                     </label>
                     <input
                       type="number"
@@ -339,7 +341,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                       className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black ${
                         errors.price_max ? "border-red-500" : "border-gray-300"
                       }`}
-                      placeholder="Example: 2500000"
+                      placeholder={`${t("properties.example")}: 2500000`}
                     />
                     {errors.price_max && (
                       <p className="text-red-500 text-sm mt-1">{errors.price_max}</p>
@@ -351,7 +353,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Minimum Bedrooms
+                      {t("properties.minimumBedrooms")}
                     </label>
                     <input
                       type="number"
@@ -361,7 +363,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                       className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black ${
                         errors.no_of_bedrooms_min ? "border-red-500" : "border-gray-300"
                       }`}
-                      placeholder="Example: 2"
+                      placeholder={`${t("properties.example")}: 2`}
                     />
                     {errors.no_of_bedrooms_min && (
                       <p className="text-red-500 text-sm mt-1">{errors.no_of_bedrooms_min}</p>
@@ -370,7 +372,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Maximum Bedrooms
+                      {t("properties.maximumBedrooms")}
                     </label>
                     <input
                       type="number"
@@ -380,7 +382,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                       className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black ${
                         errors.no_of_bedrooms_max ? "border-red-500" : "border-gray-300"
                       }`}
-                      placeholder="Example: 4"
+                      placeholder={`${t("properties.example")}: 4`}
                     />
                     {errors.no_of_bedrooms_max && (
                       <p className="text-red-500 text-sm mt-1">{errors.no_of_bedrooms_max}</p>
@@ -392,7 +394,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Minimum Bathrooms
+                      {t("properties.minimumBathrooms")}
                     </label>
                     <input
                       type="number"
@@ -402,7 +404,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                       className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black ${
                         errors.no_of_bathrooms_min ? "border-red-500" : "border-gray-300"
                       }`}
-                      placeholder="Example: 1"
+                      placeholder={`${t("properties.example")}: 1`}
                     />
                     {errors.no_of_bathrooms_min && (
                       <p className="text-red-500 text-sm mt-1">{errors.no_of_bathrooms_min}</p>
@@ -411,7 +413,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Maximum Bathrooms
+                      {t("properties.maximumBathrooms")}
                     </label>
                     <input
                       type="number"
@@ -421,7 +423,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                       className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black ${
                         errors.no_of_bathrooms_max ? "border-red-500" : "border-gray-300"
                       }`}
-                      placeholder="Example: 3"
+                      placeholder={`${t("properties.example")}: 3`}
                     />
                     {errors.no_of_bathrooms_max && (
                       <p className="text-red-500 text-sm mt-1">{errors.no_of_bathrooms_max}</p>
@@ -440,7 +442,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                   onClick={onClose}
                   className="flex-1 w-full sm:w-auto"
                 >
-                  Cancel
+                  {t("common.cancel")}
                 </AdminButton>
                 <AdminButton
                   type="submit"
@@ -449,7 +451,7 @@ const PropertyFormModal = ({ property, isOpen, onClose, onSave }) => {
                   loading={loading}
                   className="flex-1 w-full sm:w-auto"
                 >
-                  {property ? "Save Changes" : "Add Property Type"}
+                  {property ? t("common.save") : t("properties.addNewProperty")}
                 </AdminButton>
               </div>
             </form>

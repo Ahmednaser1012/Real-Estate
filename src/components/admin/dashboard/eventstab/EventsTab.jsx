@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { BiCalendar, BiPlus } from "react-icons/bi";
+import { useTranslation } from "react-i18next";
 import AdminCard from "../../ui/AdminCard";
 import AdminButton from "../../ui/AdminButton";
+import DeleteConfirmModal from "../../ui/DeleteConfirmModal";
 import EventsList from "./components/EventsList";
 import EventForm from "./components/EventForm";
 import {
@@ -12,6 +14,7 @@ import {
 } from "../../../../features/eventsApi";
 
 const EventsTab = () => {
+  const { t } = useTranslation();
   // API hooks
   const { data: events = [], isLoading, error } = useGetAllEventsQuery();
   const [createEvent] = useCreateEventMutation();
@@ -21,8 +24,11 @@ const EventsTab = () => {
   // Modal state
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [editingEvent, setEditingEvent] = useState(null);
+  const [deletingEventId, setDeletingEventId] = useState(null);
+  const [deletingEventTitle, setDeletingEventTitle] = useState("");
 
   // Form state
   const [formData, setFormData] = useState({
@@ -210,31 +216,40 @@ const EventsTab = () => {
     }
   };
 
-  // Handle delete event
-  const handleDeleteEvent = async (id) => {
-    if (window.confirm("Are you sure you want to delete this event?")) {
-      try {
-        await deleteEvent(id).unwrap();
-      } catch (error) {
-        console.error("Failed to delete event:", error);
-        alert("Failed to delete event. Please try again.");
-      }
+  // Handle delete event - open modal
+  const handleDeleteEvent = (id, title) => {
+    setDeletingEventId(id);
+    setDeletingEventTitle(title);
+    setIsDeleteModalOpen(true);
+  };
+
+  // Handle confirm delete
+  const handleConfirmDelete = async () => {
+    try {
+      await deleteEvent(deletingEventId).unwrap();
+      setIsDeleteModalOpen(false);
+      setDeletingEventId(null);
+      setDeletingEventTitle("");
+    } catch (error) {
+      console.error("Failed to delete event:", error);
+      alert("Failed to delete event. Please try again.");
+      setIsDeleteModalOpen(false);
     }
   };
 
   return (
     <AdminCard
-      title="Events Management"
-      subtitle="Manage and create events"
+      title={t("events.management")}
+      subtitle={t("events.manageAndCreate")}
       icon={BiCalendar}
     >
       <div className="space-y-6">
         {/* Header with Add Button */}
         <div className="flex justify-between items-center">
           <div>
-            <h3 className="text-lg font-semibold text-white">All Events</h3>
+            <h3 className="text-lg font-semibold text-white">{t("events.allEvents")}</h3>
             <p className="text-sm text-gray-400 mt-1">
-              {events.length} event{events.length !== 1 ? "s" : ""} total
+              {events.length} {events.length !== 1 ? t("events.totalEventsPlural") : t("events.totalEvents")}  
             </p>
           </div>
           <AdminButton
@@ -243,7 +258,7 @@ const EventsTab = () => {
             icon={BiPlus}
             onClick={() => setIsAddModalOpen(true)}
           >
-            Add New Event
+            {t("events.addNewEvent")}
           </AdminButton>
         </div>
 
@@ -282,6 +297,14 @@ const EventsTab = () => {
           isEditing={true}
         />
       )}
+
+      {/* Delete Confirm Modal */}
+      <DeleteConfirmModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+        title={deletingEventTitle}
+      />
     </AdminCard>
   );
 };

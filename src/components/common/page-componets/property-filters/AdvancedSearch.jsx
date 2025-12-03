@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import {
   setSearchFilters,
   clearSearchFilters,
@@ -11,6 +12,7 @@ import {
 } from "../../../../features/locationsApi";
 
 const AdvancedSearch = () => {
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const { searchFilters } = useSelector(dataStore);
 
@@ -90,9 +92,17 @@ const AdvancedSearch = () => {
     dispatch(clearSearchFilters());
   };
 
+  // Helper function to get the correct language name
+  const getLocalizedName = (item) => {
+    if (i18n.language === 'ar') {
+      return item.name_ar || item.name || item.name_en;
+    }
+    return item.name_en || item.name || item.name_ar;
+  };
+
   return (
     <div className="p-3 border dark:border-dark">
-      <h1 className="font-semibold">Advanced Search</h1>
+      <h1 className="font-semibold">{t('filters.advancedSearch')}</h1>
 
       {/* Project Type */}
       <div className="mt-3">
@@ -102,9 +112,9 @@ const AdvancedSearch = () => {
           onChange={handleFilterChange}
           className="filter"
         >
-          <option value="">Project Type</option>
-          <option value="residential">Residential</option>
-          <option value="commercial">Commercial</option>
+          <option value="">{t('filters.projectType')}</option>
+          <option value="residential">{t('enums.projectTypes.residential')}</option>
+          <option value="commercial">{t('enums.projectTypes.commercial')}</option>
         </select>
       </div>
 
@@ -118,13 +128,13 @@ const AdvancedSearch = () => {
           disabled={citiesLoading}
         >
           <option value="">
-            {citiesLoading ? "Loading cities..." : "Select City"}
+            {citiesLoading ? t('filters.loadingCities') : t('filters.selectCity')}
           </option>
           {cities &&
             cities.length > 0 &&
             cities.map((city) => (
               <option key={city.id} value={city.id}>
-                {city.name || city.name_en || city.name_ar}
+                {getLocalizedName(city)}
               </option>
             ))}
         </select>
@@ -141,16 +151,16 @@ const AdvancedSearch = () => {
         >
           <option value="">
             {!localFilters.city
-              ? "Select City First"
+              ? t('filters.selectCityFirst')
               : areasLoading
-              ? "Loading areas..."
-              : "Select Area"}
+              ? t('filters.loadingAreas')
+              : t('filters.selectArea')}
           </option>
           {areas &&
             areas.length > 0 &&
             areas.map((area) => (
               <option key={area.id} value={area.id}>
-                {area.name || area.name_en || area.name_ar}
+                {getLocalizedName(area)}
               </option>
             ))}
         </select>
@@ -162,19 +172,19 @@ const AdvancedSearch = () => {
         className="mt-4 w-full px-3 py-2 bg-slate-100 dark:bg-dark-light text-slate-700 dark:text-slate-300 rounded text-sm hover:bg-slate-200 dark:hover:bg-card-dark transition-a"
       >
         {showPropertyFilters
-          ? "Hide Property Filters ▲"
-          : "Show Property Filters ▼"}
+          ? t('filters.hidePropertyFilters')
+          : t('filters.showPropertyFilters')}
       </button>
 
       {/* Property Filters */}
       {showPropertyFilters && (
         <div className="mt-4 p-3 bg-slate-50 dark:bg-dark-light rounded border border-slate-200 dark:border-card-dark">
-          <h3 className="font-semibold text-sm mb-3">Property Details</h3>
+          <h3 className="font-semibold text-sm mb-3">{t('filters.propertyDetails')}</h3>
 
           {/* Property Type */}
           <div className="mt-3">
             <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">
-              Property Type
+              {t('filters.propertyType')}
             </label>
             <select
               name="propertyType"
@@ -182,20 +192,20 @@ const AdvancedSearch = () => {
               onChange={handleFilterChange}
               className="filter w-full"
             >
-              <option value="">All Types</option>
-              <option value="apartments">Apartments</option>
-              <option value="duplexes">Duplexes</option>
-              <option value="studios">Studios</option>
-              <option value="offices">Offices</option>
-              <option value="clinics">Clinics</option>
-              <option value="retails">Retails</option>
+              <option value="">{t('filters.allTypes')}</option>
+              <option value="apartments">{t('enums.propertyTypes.apartments')}</option>
+              <option value="duplexes">{t('enums.propertyTypes.duplexes')}</option>
+              <option value="studios">{t('enums.propertyTypes.studios')}</option>
+              <option value="offices">{t('enums.propertyTypes.offices')}</option>
+              <option value="clinics">{t('enums.propertyTypes.clinics')}</option>
+              <option value="retails">{t('enums.propertyTypes.retails')}</option>
             </select>
           </div>
 
           {/* Area Range */}
           <div className="mt-3">
             <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">
-              Area (m²)
+              {t('filters.area')} ({t('filters.areaUnit')})
             </label>
             <div className="flex gap-2 mt-1">
               <input
@@ -203,7 +213,7 @@ const AdvancedSearch = () => {
                 name="areaMin"
                 value={localFilters.areaMin || ""}
                 onChange={handleFilterChange}
-                placeholder="Min"
+                placeholder={t('filters.min')}
                 className="filter flex-1"
               />
               <input
@@ -211,7 +221,7 @@ const AdvancedSearch = () => {
                 name="areaMax"
                 value={localFilters.areaMax || ""}
                 onChange={handleFilterChange}
-                placeholder="Max"
+                placeholder={t('filters.max')}
                 className="filter flex-1"
               />
             </div>
@@ -220,7 +230,7 @@ const AdvancedSearch = () => {
           {/* Price Range */}
           <div className="mt-3">
             <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">
-              Price (EGP)
+              {t('filters.price')} ({t('filters.priceUnit')})
             </label>
             <div className="flex gap-2 mt-1">
               <input
@@ -228,7 +238,7 @@ const AdvancedSearch = () => {
                 name="priceMin"
                 value={localFilters.priceMin || ""}
                 onChange={handleFilterChange}
-                placeholder="Min"
+                placeholder={t('filters.min')}
                 className="filter flex-1"
               />
               <input
@@ -236,7 +246,7 @@ const AdvancedSearch = () => {
                 name="priceMax"
                 value={localFilters.priceMax || ""}
                 onChange={handleFilterChange}
-                placeholder="Max"
+                placeholder={t('filters.max')}
                 className="filter flex-1"
               />
             </div>
@@ -245,14 +255,14 @@ const AdvancedSearch = () => {
           {/* Bedrooms */}
           <div className="mt-3">
             <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">
-              Bedrooms
+              {t('filters.bedrooms')}
             </label>
             <input
               type="number"
               name="noOfRooms"
               value={localFilters.noOfRooms || ""}
               onChange={handleFilterChange}
-              placeholder="Number of bedrooms"
+              placeholder={t('filters.numberOfBedrooms')}
               className="filter w-full"
             />
           </div>
@@ -269,17 +279,17 @@ const AdvancedSearch = () => {
           {isSearching ? (
             <>
               <div className="animate-spin rounded-full h-4 w-4 border-2 border-slate-200 border-t-transparent"></div>
-              Searching...
+              {t('filters.searching')}
             </>
           ) : (
-            "Search"
+            t('filters.search')
           )}
         </button>
         <button
           onClick={handleClear}
           className="btn bg-gray-400 dark:bg-gray-600 flex-1 text-slate-200 !rounded-none hover:bg-gray-500 transition-a flex items-center justify-center"
         >
-          Clear
+          {t('filters.clear')}
         </button>
       </div>
     </div>

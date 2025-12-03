@@ -1,10 +1,13 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const ProjectFilter = ({ activeFilter, onFilterChange }) => {
+  const { t } = useTranslation();
+
   const filters = [
-    { id: "all", label: "All Projects" },
-    { id: "residential", label: "Residential" },
-    { id: "commercial", label: "Commercial" },
+    { id: "all", label: t("common.viewAll") },
+    { id: "residential", label: t("enums.projectTypes.residential") },
+    { id: "commercial", label: t("enums.projectTypes.commercial") },
   ];
 
   return (

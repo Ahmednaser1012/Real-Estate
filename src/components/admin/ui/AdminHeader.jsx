@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { toggleDarkMode, uiStore } from "../../../features/uiSlice";
 import { adminStore } from "../../../features/adminSlice";
 import { FiSun, FiMoon, FiLogOut, FiSettings, FiUser } from "react-icons/fi";
@@ -7,6 +8,7 @@ import { BiUser, BiChevronDown, BiMenu, BiX } from "react-icons/bi";
 import { motion, AnimatePresence } from "framer-motion";
 
 const AdminHeader = ({ onLogout, isMobileMenuOpen, onToggleMobileMenu }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { darkMode } = useSelector(uiStore);
   const { adminEmail } = useSelector(adminStore);
@@ -47,10 +49,10 @@ const AdminHeader = ({ onLogout, isMobileMenuOpen, onToggleMobileMenu }) => {
           {/* Left side - Title with space for mobile menu button */}
           <div className="flex-1 min-w-0">
             <h1 className="text-lg sm:text-2xl font-bold text-secondary dark:text-slate-300 truncate">
-              Admin Dashboard
+              {t("admin.dashboard")}
             </h1>
             <p className="text-xs sm:text-sm text-muted truncate">
-              Welcome back, {adminEmail}
+              {t("admin.welcomeBack")}, {adminEmail}
             </p>
           </div>
 
@@ -70,7 +72,7 @@ const AdminHeader = ({ onLogout, isMobileMenuOpen, onToggleMobileMenu }) => {
             </button>
 
             {/* Dark Mode Toggle */}
-            <button
+            {/* <button
               onClick={handleToggleDarkMode}
               className="icon-box"
               title={darkMode ? "Light Mode" : "Dark Mode"}
@@ -80,7 +82,7 @@ const AdminHeader = ({ onLogout, isMobileMenuOpen, onToggleMobileMenu }) => {
               ) : (
                 <FiMoon className="w-5 h-5" />
               )}
-            </button>
+            </button> */}
 
             {/* Profile Dropdown */}
             <div className="relative" ref={dropdownRef}>
@@ -93,7 +95,7 @@ const AdminHeader = ({ onLogout, isMobileMenuOpen, onToggleMobileMenu }) => {
                 </div>
                 <div className="hidden sm:block text-left">
                   <p className="text-sm font-medium text-secondary dark:text-slate-300 truncate max-w-[120px]">
-                    Admin
+                    {t("admin.admin")}
                   </p>
                   <p className="text-xs text-muted truncate max-w-[120px]">
                     {adminEmail}
@@ -124,7 +126,7 @@ const AdminHeader = ({ onLogout, isMobileMenuOpen, onToggleMobileMenu }) => {
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="font-medium text-secondary dark:text-slate-800 truncate">
-                            Administrator
+                            {t("admin.administrator")}
                           </p>
                           <p className="text-sm text-muted truncate">
                             {adminEmail}
@@ -143,7 +145,7 @@ const AdminHeader = ({ onLogout, isMobileMenuOpen, onToggleMobileMenu }) => {
                         className="w-full px-4 py-2 text-left flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-hover-color-dark transition-a text-secondary dark:text-slate-800"
                       >
                         <FiUser className="w-4 h-4" />
-                        <span>Profile Settings</span>
+                        <span>{t("admin.profileSettings")}</span>
                       </button>
 
                       <button
@@ -154,7 +156,7 @@ const AdminHeader = ({ onLogout, isMobileMenuOpen, onToggleMobileMenu }) => {
                         className="w-full px-4 py-2 text-left flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-hover-color-dark transition-a text-secondary dark:text-slate-800"
                       >
                         <FiSettings className="w-4 h-4" />
-                        <span>Account Settings</span>
+                        <span>{t("admin.accountSettings")}</span>
                       </button>
 
                       <div className="border-t border-light my-2"></div>
@@ -164,7 +166,7 @@ const AdminHeader = ({ onLogout, isMobileMenuOpen, onToggleMobileMenu }) => {
                         className="w-full px-4 py-2 text-left flex items-center gap-3 hover:bg-red-50 dark:hover:bg-red-900/20 transition-a text-red-600"
                       >
                         <FiLogOut className="w-4 h-4" />
-                        <span>Log Out</span>
+                        <span>{t("admin.logout")}</span>
                       </button>
                     </div>
                   </motion.div>

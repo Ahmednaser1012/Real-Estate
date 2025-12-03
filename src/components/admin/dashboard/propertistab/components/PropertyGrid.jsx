@@ -1,13 +1,16 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import PropertyCard from "./PropertyCard";
 import { motion } from "framer-motion";
 
 const PropertyGrid = ({ properties, onView, onEdit, onDelete }) => {
+  const { t } = useTranslation();
+
   if (properties.length === 0) {
     return (
       <div className="text-center py-12">
         <div className="text-gray-400 text-6xl mb-4">🏢</div>
-        <p className="text-gray-500 text-lg">No properties available</p>
+        <p className="text-gray-500 text-lg">{t("properties.noPropertiesFound")}</p>
       </div>
     );
   }

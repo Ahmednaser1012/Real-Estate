@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { BiBuildings, BiMap, BiMoney } from "react-icons/bi";
 import { setSearchFilters } from "../../../features/dataSlice";
 import {
@@ -9,8 +10,10 @@ import {
 } from "../../../features/locationsApi";
 
 const Filters = () => {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isRTL = i18n.language === "ar";
 
   const [filters, setFilters] = useState({
     title: "",
@@ -80,7 +83,7 @@ const Filters = () => {
           {/* Project Type */}
           <div className="flex flex-col">
             <label className="font-bold text-sm mb-2 text-gray-700 dark:text-gray-300">
-              Project Type
+              {t("filters.projectType")}
             </label>
             <div className="flex items-center gap-2 p-3 rounded-lg bg-slate-100 dark:bg-hover-color-dark h-10">
               <BiBuildings className="text-gray-600 dark:text-gray-400 flex-shrink-0" />
@@ -91,13 +94,13 @@ const Filters = () => {
                 className="w-full bg-transparent border-0 outline-none dark:bg-hover-color-dark opacity-70"
               >
                 <option className="text-black" value="">
-                  All Types
+                  {t("filters.allTypes")}
                 </option>
                 <option className="text-black" value="residential">
-                  Residential
+                  {t("enums.projectTypes.residential")}
                 </option>
                 <option className="text-black" value="commercial">
-                  Commercial
+                  {t("enums.projectTypes.commercial")}
                 </option>
               </select>
             </div>
@@ -106,7 +109,7 @@ const Filters = () => {
           {/* City */}
           <div className="flex flex-col">
             <label className="font-bold text-sm mb-2 text-gray-700 dark:text-gray-300">
-              City
+              {t("filters.selectCity")}
             </label>
             <div className="flex items-center gap-2 p-3 rounded-lg bg-slate-100 dark:bg-hover-color-dark h-10">
               <BiMap className="text-gray-600 dark:text-gray-400 flex-shrink-0" />
@@ -118,7 +121,7 @@ const Filters = () => {
                 className="w-full bg-transparent border-0 outline-none dark:bg-hover-color-dark opacity-70"
               >
                 <option className="text-black " value="">
-                  {citiesLoading ? "Loading..." : "Select City"}
+                  {citiesLoading ? t("common.loading") : t("filters.selectCity")}
                 </option>
                 {cities &&
                   cities.length > 0 &&
@@ -128,7 +131,7 @@ const Filters = () => {
                       key={city.id}
                       value={city.id}
                     >
-                      {city.name || city.name_en || city.name_ar}
+                      {i18n.language === "ar" ? (city.name_ar || city.name_en || city.name) : (city.name_en || city.name || city.name_ar)}
                     </option>
                   ))}
               </select>
@@ -138,7 +141,7 @@ const Filters = () => {
           {/* Area */}
           <div className="flex flex-col">
             <label className="font-bold text-sm mb-2 text-gray-700 dark:text-gray-300">
-              Area
+              {t("filters.selectArea")}
             </label>
             <div className="flex items-center gap-2 p-3 rounded-lg bg-slate-100 dark:bg-hover-color-dark h-10">
               <BiMap className="text-gray-600 dark:text-gray-400 flex-shrink-0" />
@@ -151,10 +154,10 @@ const Filters = () => {
               >
                 <option className="text-black" value="">
                   {!filters.city
-                    ? "Select City First"
+                    ? t("filters.selectCityFirst")
                     : areasLoading
-                    ? "Loading..."
-                    : "Select Area"}
+                    ? t("common.loading")
+                    : t("filters.selectArea")}
                 </option>
                 {areas &&
                   areas.length > 0 &&
@@ -164,7 +167,7 @@ const Filters = () => {
                       key={area.id}
                       value={area.id}
                     >
-                      {area.name || area.name_en || area.name_ar}
+                      {i18n.language === "ar" ? (area.name_ar || area.name_en || area.name) : (area.name_en || area.name || area.name_ar)}
                     </option>
                   ))}
               </select>
@@ -174,7 +177,7 @@ const Filters = () => {
           {/* Price Range */}
           <div className="flex flex-col">
             <label className="font-bold text-sm mb-2 text-gray-700 dark:text-gray-300">
-              Price (EGP)
+              {t("filters.price")} ({t("properties.currency")})
             </label>
             <div className="flex items-center gap-2 p-3 rounded-lg bg-slate-100 dark:bg-hover-color-dark h-10">
               <BiMoney className="text-gray-600 dark:text-gray-400 flex-shrink-0" />
@@ -184,7 +187,7 @@ const Filters = () => {
                   name="priceMin"
                   value={filters.priceMin}
                   onChange={handleFilterChange}
-                  placeholder="Min"
+                  placeholder={t("filters.min")}
                   className="w-12 bg-transparent border-0 outline-none text-sm"
                 />
                 <span className="text-gray-400 text-sm">-</span>
@@ -193,7 +196,7 @@ const Filters = () => {
                   name="priceMax"
                   value={filters.priceMax}
                   onChange={handleFilterChange}
-                  placeholder="Max"
+                  placeholder={t("filters.max")}
                   className="w-12 bg-transparent border-0 outline-none text-sm"
                 />
               </div>
@@ -206,7 +209,7 @@ const Filters = () => {
               onClick={handleSearch}
               className="w-full btn btn-primary px-6 py-3 font-semibold rounded-lg h-10 flex items-center justify-center"
             >
-              Search
+              {t("filters.search")}
             </button>
           </div>
         </div>

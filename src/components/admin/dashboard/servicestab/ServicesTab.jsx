@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { MdMiscellaneousServices } from "react-icons/md";
 import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 import AdminCard from "../../ui/AdminCard";
 import AdminButton from "../../ui/AdminButton";
 import ServiceFormModal from "./components/ServiceFormModal";
-import DeleteConfirmModal from "./components/DeleteConfirmModal";
+import DeleteConfirmModal from "../../ui/DeleteConfirmModal";
 import {
   useGetAllServicesQuery,
   useCreateServiceMutation,
@@ -13,6 +14,8 @@ import {
 } from "../../../../features/servicesApi";
 
 const ServicesTab = () => {
+  const { t, i18n } = useTranslation();
+  const isArabic = i18n.language === "ar";
   // RTK Query hooks
   const { data: services = [], isLoading } = useGetAllServicesQuery();
   const [createService] = useCreateServiceMutation();
@@ -75,8 +78,8 @@ const ServicesTab = () => {
   return (
     <>
       <AdminCard
-        title="Services Management"
-        subtitle={`Total Services: ${services.length}`}
+        title={t("services.management")}
+        subtitle={`${t("services.totalFacilities")}: ${services.length}`}
         icon={MdMiscellaneousServices}
         headerActions={
           <AdminButton
@@ -85,32 +88,32 @@ const ServicesTab = () => {
             icon={FaPlus}
             onClick={handleAddService}
           >
-            Add New Service
+            {t("services.addNewFacility")}
           </AdminButton>
         }
       >
-        {/* Services Grid */}
+        {/* Facilities Grid */}
         {isLoading ? (
-          <div className="text-center py-8">Loading services...</div>
+          <div className="text-center py-8">{t("services.loadingFacilities")}</div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-50 border-b">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    ID
+                  <th className={`px-6 py-3 ${isArabic ? "text-right" : "text-left"} text-xs font-medium text-gray-500 uppercase tracking-wider`}>
+                    {t("services.tableHeaderId")}
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Image
+                  <th className={`px-6 py-3 ${isArabic ? "text-right" : "text-left"} text-xs font-medium text-gray-500 uppercase tracking-wider`}>
+                    {t("services.tableHeaderImage")}
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Name (English)
+                  <th className={`px-6 py-3 ${isArabic ? "text-right" : "text-left"} text-xs font-medium text-gray-500 uppercase tracking-wider`}>
+                    {t("services.tableHeaderNameEnglish")}
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Name (Arabic)
+                  <th className={`px-6 py-3 ${isArabic ? "text-right" : "text-left"} text-xs font-medium text-gray-500 uppercase tracking-wider`}>
+                    {t("services.tableHeaderNameArabic")}
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
+                  <th className={`px-6 py-3 ${isArabic ? "text-left" : "text-right"} text-xs font-medium text-gray-500 uppercase tracking-wider`}>
+                    {t("services.tableHeaderActions")}
                   </th>
                 </tr>
               </thead>
@@ -139,7 +142,7 @@ const ServicesTab = () => {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {service.name_ar}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <td className={`px-6 py-4 whitespace-nowrap ${isArabic ? "text-left" : "text-right"} text-sm font-medium`}>
                       <button
                         onClick={() => handleEditService(service)}
                         className="text-blue-600 hover:text-blue-900 mr-4"
@@ -159,14 +162,14 @@ const ServicesTab = () => {
             </table>
             {services.length === 0 && (
               <div className="text-center py-8 text-gray-500">
-                No services found. Add your first service!
+                {t("services.noFacilitiesFound")}
               </div>
             )}
           </div>
         )}
       </AdminCard>
 
-      {/* Service Form Modal (Add/Edit) */}
+      {/* Facility Form Modal (Add/Edit) */}
       <ServiceFormModal
         service={serviceToEdit}
         isOpen={isFormModalOpen}
@@ -186,7 +189,7 @@ const ServicesTab = () => {
         }}
         onConfirm={confirmDeleteService}
         itemName={serviceToDelete?.name_en}
-        itemType="Service"
+        itemType="Facility"
       />
     </>
   );

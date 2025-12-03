@@ -38,4 +38,5 @@ const PermissionsSection = ({ permissions, onPermissionChange }) => {
   );
 };
 
-export default PermissionsSection;
+// export default PermissionsSection;
+// DISABLED: This component is currently not in use

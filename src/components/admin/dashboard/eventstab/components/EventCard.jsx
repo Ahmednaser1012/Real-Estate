@@ -1,7 +1,10 @@
 import React from "react";
 import { BiEdit, BiTrash, BiCalendar, BiTime, BiMapPin, BiCategory } from "react-icons/bi";
+import { useTranslation } from "react-i18next";
 
 const EventCard = ({ event, onEdit, onDelete }) => {
+  const { t, i18n } = useTranslation();
+  const isArabic = i18n.language === "ar";
   const formatDate = (dateString) => {
     if (!dateString) return "";
     const date = new Date(dateString);
@@ -34,7 +37,7 @@ const EventCard = ({ event, onEdit, onDelete }) => {
             <BiEdit className="w-5 h-5" />
           </button>
           <button
-            onClick={() => onDelete(event.id)}
+            onClick={() => onDelete(event.id, event.title_en || event.title_ar)}
             className="p-3 bg-white rounded-full hover:bg-red-500 hover:text-white transition-all duration-200 shadow-lg transform hover:scale-110"
             title="Delete Event"
           >
@@ -58,20 +61,15 @@ const EventCard = ({ event, onEdit, onDelete }) => {
         {/* Title Section */}
         <div className="space-y-2">
           <h3 className="text-lg font-bold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
-            {event.title_en || event.title_ar || "Untitled Event"}
+            {(isArabic ? event.title_ar : event.title_en) || "Untitled Event"}
           </h3>
-          {event.title_ar && event.title_en && (
-            <p className="text-sm text-gray-600 line-clamp-1 font-medium" dir="rtl">
-              {event.title_ar}
-            </p>
-          )}
         </div>
 
         {/* Description */}
-        {(event.description_en || event.description_ar) && (
+        {(isArabic ? event.description_ar : event.description_en) && (
           <div className="bg-gray-50 rounded-lg p-3 border border-gray-100">
             <p className="text-sm text-gray-700 line-clamp-2">
-              {event.description_en || event.description_ar}
+              {isArabic ? event.description_ar : event.description_en}
             </p>
           </div>
         )}
@@ -85,7 +83,7 @@ const EventCard = ({ event, onEdit, onDelete }) => {
                 <BiCalendar className="w-4 h-4 text-blue-600" />
               </div>
               <div className="flex-1">
-                <p className="text-xs text-gray-500 font-medium">Date</p>
+                <p className="text-xs text-gray-500 font-medium">{t("events.dateLabel")}</p>
                 <p className="text-sm font-semibold text-gray-900">{formatDate(event.date)}</p>
               </div>
             </div>
@@ -98,7 +96,7 @@ const EventCard = ({ event, onEdit, onDelete }) => {
                 <BiTime className="w-4 h-4 text-purple-600" />
               </div>
               <div className="flex-1">
-                <p className="text-xs text-gray-500 font-medium">Time</p>
+                <p className="text-xs text-gray-500 font-medium">{t("events.timeLabel")}</p>
                 <p className="text-sm font-semibold text-gray-900">
                   {event.start_time}
                   {event.end_time && ` - ${event.end_time}`}
@@ -111,7 +109,7 @@ const EventCard = ({ event, onEdit, onDelete }) => {
         {/* Footer */}
         <div className="pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
           <span>
-            Created: {event.created_at ? formatDate(event.created_at) : "N/A"}
+            {t("events.createdLabel")}: {event.created_at ? formatDate(event.created_at) : "N/A"}
           </span>
           <span className="px-2 py-1 bg-gray-100 rounded-full text-gray-600 font-medium">
             ID: {event.id}

@@ -1,8 +1,10 @@
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { dataStore } from "../../../features/dataSlice";
 import SingleProductCard from "../../common/page-componets/SingleProductCard";
 
 const PropertyList = ({ basis }) => {
+  const { t } = useTranslation();
   const { currentDataItems, totalCount, loading } = useSelector(dataStore);
 
   if (loading) {
@@ -17,17 +19,17 @@ const PropertyList = ({ basis }) => {
     return (
       <div className="text-center py-20">
         <p className="text-gray-500 text-lg">
-          No results match your search criteria
+          {t("property.noResultsMatch")}
         </p>
         <p className="text-gray-400 text-sm mt-2">
-          try changing the search criteria and try again
+          {t("property.tryChangingCriteria")}
         </p>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-wrap gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {currentDataItems?.map((property) => (
         <SingleProductCard key={property.id} {...property} basis={basis} />
       ))}

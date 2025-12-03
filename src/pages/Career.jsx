@@ -49,7 +49,7 @@ export default function Career() {
             >
               {/* Image */}
               {career.image && (
-                <div className="h-48 bg-gray-200 dark:bg-gray-700 overflow-hidden">
+                <div className="h-80 bg-gray-200 dark:bg-gray-700 overflow-hidden">
                   <img
                     src={career.image}
                     alt={i18n.language === 'ar' ? (career.title_ar || career.title_en) : (career.title_en || career.title_ar)}
@@ -74,7 +74,12 @@ export default function Career() {
                   {career.type && (
                     <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                       <Clock className="w-4 h-4 text-secondary flex-shrink-0" />
-                      <span className="capitalize">{career.type}</span>
+                      <span>
+                        {career.type === 'Full-time' ? t('career.fullTime') : 
+                         career.type === 'Part-time' ? t('career.partTime') : 
+                         career.type === 'internship' ? t('career.internship') : 
+                         career.type}
+                      </span>
                     </div>
                   )}
                 </div>
@@ -87,10 +92,10 @@ export default function Career() {
                 )}
 
                 {/* Button */}
-                <button className="w-full mt-4 px-4 py-2 bg-gradient-to-r from-primary to-secondary text-white rounded-lg hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 font-semibold flex items-center justify-center gap-2 group/btn">
+                {/* <button className="w-full mt-4 px-4 py-2 bg-gradient-to-r from-primary to-secondary text-white rounded-lg hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 font-semibold flex items-center justify-center gap-2 group/btn">
                   {t('career.applyNow')}
                   <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                </button>
+                </button> */}
               </div>
             </div>
           ))}

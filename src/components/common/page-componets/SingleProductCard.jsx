@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { BiBed, BiMap, BiTab } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import CardHoverIcons from "./CardHoverIcons";
@@ -18,7 +19,11 @@ const SingleProductCard = ({
   basis,
   // New project fields
   title,
+  title_ar,
+  title_en,
   description,
+  description_ar,
+  description_en,
   ProjectArea,
   type,
   city,
@@ -26,20 +31,32 @@ const SingleProductCard = ({
   galleries,
   masterPlan,
 }) => {
+  const { t, i18n } = useTranslation();
+  
   // Use project data if available, otherwise use property data
-  const displayTitle = title || name;
-  const displayLocation = location || (city && area ? `${city?.name || city}, ${area?.name || area}` : 'Location not specified');
+  // Select title based on language
+  const displayTitle = 
+    i18n.language === "ar" 
+      ? (title_ar || title || name)
+      : (title_en || title || name);
+  
+  const displayLocation = location || (city && area ? `${city?.name || city}, ${area?.name || area}` : t("property.locationNotSpecified"));
   const displayImage = galleries?.[0]?.url || masterPlan || image || '/images/property (1).jpg';
   const displayType = type || purpose;
   const displayArea = ProjectArea || distance;
+  
+  // Select description based on language
+  const displayDescription = 
+    i18n.language === "ar" 
+      ? (description_ar || description)
+      : (description_en || description);
+  
   const isProject = !!title; // Check if it's a project
   const itemId = title ? id : id; // Use id for both
 
   return (
     <div
-      className={`flex-1 ${
-        basis ? basis : "basis-[18rem]"
-      } shadow-light dark:border-card-dark border rounded-lg overflow-hidden relative group`}
+      className="shadow-light dark:border-card-dark border rounded-lg overflow-hidden relative group h-full"
     >
       <div className="group !opacity-100 overflow-hidden relative">
         <Link to={`/projects/${itemId}`} className="!opacity-100">
@@ -63,20 +80,20 @@ const SingleProductCard = ({
           <h1 className="text-lg font-bold capitalize line-clamp-2">{displayTitle}</h1>
         </Link>
         
-        {description && (
+        {displayDescription && (
           <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 line-clamp-2">
-            {description}
+            {displayDescription}
           </p>
         )}
 
-        {(number_of_beds || number_of_bathrooms) && (
+        {/* {(number_of_beds || number_of_bathrooms) && (
           <div className="flex justify-between mt-3">
             {number_of_beds && (
               <div className="flex-align-center gap-x-2">
                 <div className="icon-box !w-7 !h-7 bg-primary/20 hover:!bg-primary/40 text-primary">
                   <BiBed />
                 </div>
-                <p className="text-sm">{number_of_beds} Beds</p>
+                <p className="text-sm">{number_of_beds} {t("property.bedrooms")}</p>
               </div>
             )}
             {number_of_bathrooms && (
@@ -84,16 +101,16 @@ const SingleProductCard = ({
                 <div className="icon-box !w-7 !h-7 bg-primary/20 hover:!bg-primary/40 text-primary">
                   <BiTab />
                 </div>
-                <p className="text-sm">{number_of_bathrooms} Bathrooms</p>
+                <p className="text-sm">{number_of_bathrooms} {t("property.bathrooms")}</p>
               </div>
             )}
           </div>
-        )}
+        )} */}
 
         <div className="mt-4 flex-center-between">
           {price && <h1 className="text-lg font-semibold text-primary">{price}</h1>}
           <Link to={ `/projects/${itemId}`}>
-            <button className="btn btn-secondary">details</button>
+            <button className="btn btn-secondary">{t("property.viewDetails")}</button>
           </Link>
         </div>
       </div>

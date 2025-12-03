@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FiSend, FiX } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
 import { useCreateClientMutation } from "../../features/clientsApi";
 import {
   useGetAllCitiesQuery,
@@ -8,6 +9,8 @@ import {
 import { useGetAllProjectsQuery } from "../../features/projectsApi";
 
 const RegisterForm = ({ onClose }) => {
+  const { t, i18n } = useTranslation();
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -87,7 +90,7 @@ const RegisterForm = ({ onClose }) => {
 
     // Validate required fields
     if (!formData.name || !formData.email || !formData.phone) {
-      setSubmitError("Please fill in all required fields");
+      setSubmitError(t("registerForm.fillAllRequired"));
       return;
     }
 
@@ -113,7 +116,7 @@ const RegisterForm = ({ onClose }) => {
     } catch (error) {
       console.error("Error creating client:", error);
       setSubmitError(
-        error?.data?.message || "Failed to submit form. Please try again."
+        error?.data?.message || t("registerForm.failedToSubmit")
       );
     }
   };
@@ -124,9 +127,9 @@ const RegisterForm = ({ onClose }) => {
         <div className="icon-box !h-14 !w-14 !bg-green-500 text-white mx-auto text-2xl">
           <FiSend />
         </div>
-        <h3 className="mt-4 text-xl font-semibold">Thank You!</h3>
+        <h3 className="mt-4 text-xl font-semibold">{t("registerForm.thankYou")}</h3>
         <p className="mt-2 text-gray-600 dark:text-gray-400">
-          Your registration has been received. We'll contact you soon.
+          {t("registerForm.registrationReceived")}
         </p>
       </div>
     );
@@ -136,7 +139,7 @@ const RegisterForm = ({ onClose }) => {
     return (
       <div className="text-center py-8">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-        <p className="mt-4">Submitting...</p>
+        <p className="mt-4">{t("registerForm.submitting")}</p>
       </div>
     );
   }
@@ -145,7 +148,7 @@ const RegisterForm = ({ onClose }) => {
     <div className="flex flex-col h-full max-h-screen sm:max-h-[90vh] md:max-h-[85vh]">
       {/* Header with Close Button */}
       <div className="flex items-center justify-between p-4 border-b dark:border-gray-700 flex-shrink-0">
-        <h2 className="text-lg sm:text-xl font-semibold">Register Now</h2>
+        <h2 className="text-lg sm:text-xl font-semibold">{t("registerForm.title")}</h2>
         <button
           onClick={onClose}
           className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
@@ -168,7 +171,7 @@ const RegisterForm = ({ onClose }) => {
 
         <div>
           <label htmlFor="name" className="block text-sm font-medium mb-1">
-            Full Name *
+            {t("registerForm.fullName")} {t("registerForm.required")}
           </label>
           <input
             type="text"
@@ -177,14 +180,14 @@ const RegisterForm = ({ onClose }) => {
             value={formData.name}
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-md outline-none bg-transparent dark:border-gray-700"
-            placeholder="Your full name"
+            placeholder={t("registerForm.yourFullName")}
             required
           />
         </div>
 
         <div>
           <label htmlFor="email" className="block text-sm font-medium mb-1">
-            Email Address *
+            {t("registerForm.emailAddress")} {t("registerForm.required")}
           </label>
           <input
             type="email"
@@ -193,14 +196,14 @@ const RegisterForm = ({ onClose }) => {
             value={formData.email}
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-md outline-none bg-transparent dark:border-gray-700"
-            placeholder="Your email address"
+            placeholder={t("registerForm.yourEmailAddress")}
             required
           />
         </div>
 
         <div>
           <label htmlFor="phone" className="block text-sm font-medium mb-1">
-            Phone Number *
+            {t("registerForm.phoneNumber")} {t("registerForm.required")}
           </label>
           <input
             type="tel"
@@ -209,14 +212,14 @@ const RegisterForm = ({ onClose }) => {
             value={formData.phone}
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-md outline-none bg-transparent dark:border-gray-700"
-            placeholder="Your phone number"
+            placeholder={t("registerForm.yourPhoneNumber")}
             required
           />
         </div>
 
         <div>
           <label htmlFor="project_id" className="block text-sm font-medium mb-1">
-            Project
+            {t("registerForm.project")}
           </label>
           <select
             id="project_id"
@@ -227,13 +230,13 @@ const RegisterForm = ({ onClose }) => {
             className="w-full px-3 py-2 border rounded-md outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           >
             <option value="">
-              {projectsLoading ? "Loading..." : "Select Project"}
+              {projectsLoading ? t("registerForm.loading") : t("registerForm.selectProject")}
             </option>
             {projects &&
               projects.length > 0 &&
               projects.map((project) => (
                 <option key={project.id} value={project.id}>
-                  {project.title_en || project.title_ar || `Project ${project.id}`}
+                  {i18n.language === "ar" ? (project.title_ar || project.title_en || `Project ${project.id}`) : (project.title_en || project.title_ar || `Project ${project.id}`)}
                 </option>
               ))}
           </select>
@@ -241,7 +244,7 @@ const RegisterForm = ({ onClose }) => {
 
         <div>
           <label htmlFor="city_id" className="block text-sm font-medium mb-1">
-            City
+            {t("registerForm.city")}
           </label>
           <select
             id="city_id"
@@ -252,13 +255,13 @@ const RegisterForm = ({ onClose }) => {
             className="w-full px-3 py-2 border rounded-md outline-none bg-slate-100 dark:bg-hover-color-dark opacity-70"
           >
             <option value="">
-              {citiesLoading ? "Loading..." : "Select City"}
+              {citiesLoading ? t("registerForm.loading") : t("registerForm.selectCity")}
             </option>
             {cities &&
               cities.length > 0 &&
               cities.map((city) => (
                 <option key={city.id} value={city.id} className="text-black">
-                  {city.name_en || city.name || city.name_ar}
+                  {i18n.language === "ar" ? (city.name_ar || city.name || city.name_en) : (city.name_en || city.name || city.name_ar)}
                 </option>
               ))}
           </select>
@@ -266,7 +269,7 @@ const RegisterForm = ({ onClose }) => {
 
         <div>
           <label htmlFor="area_id" className="block text-sm font-medium mb-1">
-            Area
+            {t("registerForm.area")}
           </label>
           <select
             id="area_id"
@@ -278,16 +281,16 @@ const RegisterForm = ({ onClose }) => {
           >
             <option value="">
               {!formData.city_id
-                ? "Select City First"
+                ? t("registerForm.selectCityFirst")
                 : areasLoading
-                ? "Loading..."
-                : "Select Area"}
+                ? t("registerForm.loading")
+                : t("registerForm.selectArea")}
             </option>
             {areas &&
               areas.length > 0 &&
               areas.map((area) => (
                 <option key={area.id} value={area.id} className="text-black">
-                  {area.name_en || area.name || area.name_ar}
+                  {i18n.language === "ar" ? (area.name_ar || area.name || area.name_en) : (area.name_en || area.name || area.name_ar)}
                 </option>
               ))}
           </select>
@@ -295,7 +298,7 @@ const RegisterForm = ({ onClose }) => {
 
         <div>
           <label htmlFor="unit_type" className="block text-sm font-medium mb-1">
-            Unit Type
+            {t("registerForm.unitType")}
           </label>
           <select
             id="unit_type"
@@ -304,31 +307,31 @@ const RegisterForm = ({ onClose }) => {
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-md outline-none bg-slate-100 dark:bg-hover-color-dark opacity-70"
           >
-            <option value="">Select Unit Type</option>
+            <option value="">{t("registerForm.selectUnitType")}</option>
             <option className="text-black" value="apartments">
-              Apartments
+              {t("enums.unitTypes.apartments")}
             </option>
             <option className="text-black" value="studios">
-              Studios
+              {t("enums.unitTypes.studios")}
             </option>
             <option className="text-black" value="duplexes">
-              Duplexes
+              {t("enums.unitTypes.duplexes")}
             </option>
             <option className="text-black" value="offices">
-              Offices
+              {t("enums.unitTypes.offices")}
             </option>
             <option className="text-black" value="clinics">
-              Clinics
+              {t("enums.unitTypes.clinics")}
             </option>
             <option className="text-black" value="retails">
-              Retails
+              {t("enums.unitTypes.retails")}
             </option>
           </select>
         </div>
 
         <div>
           <label htmlFor="message" className="block text-sm font-medium mb-1">
-            Message
+            {t("registerForm.message")}
           </label>
           <textarea
             id="message"
@@ -337,7 +340,7 @@ const RegisterForm = ({ onClose }) => {
             onChange={handleChange}
             rows="3"
             className="w-full px-3 py-2 border rounded-md outline-none bg-transparent dark:border-gray-700"
-            placeholder="Tell us about your interest"
+            placeholder={t("registerForm.tellUsAboutInterest")}
           ></textarea>
         </div>
       </form>
@@ -349,7 +352,7 @@ const RegisterForm = ({ onClose }) => {
           disabled={isSubmitting}
           className="w-full btn btn-primary"
         >
-          {isSubmitting ? "Submitting..." : "Register Now"}
+          {isSubmitting ? t("registerForm.submitting") : t("registerForm.registerNow")}
         </button>
       </div>
     </div>

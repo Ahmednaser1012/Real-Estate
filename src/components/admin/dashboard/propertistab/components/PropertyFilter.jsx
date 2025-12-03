@@ -1,15 +1,18 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { FaBuilding, FaBriefcase, FaStore, FaHome, FaHospital, FaCouch } from "react-icons/fa";
 
 const PropertyFilter = ({ activeFilter, onFilterChange }) => {
+  const { t } = useTranslation();
+
   const filters = [
-    { id: "all", label: "All", icon: FaBuilding },
-    { id: "apartments", label: "Apartments", icon: FaBuilding },
-    { id: "duplexes", label: "Duplexes", icon: FaHome },
-    { id: "studios", label: "Studios", icon: FaCouch },
-    { id: "offices", label: "Offices", icon: FaBriefcase },
-    { id: "clinics", label: "Clinics", icon: FaHospital },
-    { id: "retails", label: "Retails", icon: FaStore },
+    { id: "all", label: t("common.viewAll"), icon: FaBuilding },
+    { id: "apartments", label: t("enums.propertyTypes.apartments"), icon: FaBuilding },
+    { id: "duplexes", label: t("enums.propertyTypes.duplexes"), icon: FaHome },
+    { id: "studios", label: t("enums.propertyTypes.studios"), icon: FaCouch },
+    { id: "offices", label: t("enums.propertyTypes.offices"), icon: FaBriefcase },
+    { id: "clinics", label: t("enums.propertyTypes.clinics"), icon: FaHospital },
+    { id: "retails", label: t("enums.propertyTypes.retails"), icon: FaStore },
   ];
 
   return (

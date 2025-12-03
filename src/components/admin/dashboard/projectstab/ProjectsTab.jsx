@@ -1,14 +1,15 @@
 import React, { useState, useMemo } from "react";
 import { BiBuildings } from "react-icons/bi";
 import { FaPlus } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 import AdminCard from "../../ui/AdminCard";
 import AdminButton from "../../ui/AdminButton";
+import DeleteConfirmModal from "../../ui/DeleteConfirmModal";
 import {
   ProjectFilter,
   ProjectGrid,
   ProjectDetailsModal,
   ProjectFormModal,
-  DeleteConfirmModal,
 } from "./components";
 import {
   useGetAllProjectsQuery,
@@ -18,6 +19,7 @@ import {
 } from "../../../../features/projectsApi";
 
 const ProjectsTab = () => {
+  const { t } = useTranslation();
   // API hooks
   const { data: response = {}, isLoading, error } = useGetAllProjectsQuery();
   const [createProject] = useCreateProjectMutation();
@@ -114,8 +116,8 @@ const ProjectsTab = () => {
   return (
     <>
       <AdminCard
-        title="Projects Management"
-        subtitle={`Total Projects: ${projects.length}`}
+        title={t("projects.management")}
+        subtitle={`${t("projects.totalProjects")}: ${projects.length}`}
         icon={BiBuildings}
         headerActions={
           <AdminButton
@@ -124,7 +126,7 @@ const ProjectsTab = () => {
             icon={FaPlus}
             onClick={handleAddProject}
           >
-            Add New Project
+            {t("projects.addNewProject")}
           </AdminButton>
         }
       >
@@ -136,10 +138,10 @@ const ProjectsTab = () => {
 
         {/* Projects Grid */}
         {isLoading ? (
-          <div className="py-8 text-center">Loading projects...</div>
+          <div className="py-8 text-center">{t("projects.loadingProjects")}</div>
         ) : error ? (
           <div className="py-8 text-center text-red-500">
-            Error loading projects: {error.message}
+            {t("projects.errorLoadingProjects")}: {error.message}
           </div>
         ) : (
           <ProjectGrid

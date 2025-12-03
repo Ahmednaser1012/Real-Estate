@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 import AdminButton from "../../../ui/AdminButton";
 
 const AreaFormModal = ({ area, cities, isOpen, onClose, onSave }) => {
+  const { t, i18n } = useTranslation();
+  const isArabic = i18n.language === "ar";
   const [formData, setFormData] = useState({
     name_en: "",
     name_ar: "",
@@ -76,7 +79,7 @@ const AreaFormModal = ({ area, cities, isOpen, onClose, onSave }) => {
         {/* Header */}
         <div className="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between z-10">
           <h2 className="text-2xl font-bold text-gray-800">
-            {area ? "Edit Area" : "Add New Area"}
+            {area ? t("locations.editArea") : t("locations.addNewArea")}
           </h2>
           <button
             onClick={onClose}
@@ -98,7 +101,7 @@ const AreaFormModal = ({ area, cities, isOpen, onClose, onSave }) => {
             {/* City Selection */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                City *
+                {t("locations.tableHeaderCity")} *
               </label>
               <select
                 name="city_id"
@@ -108,22 +111,22 @@ const AreaFormModal = ({ area, cities, isOpen, onClose, onSave }) => {
                   errors.city_id ? "border-red-500" : "border-gray-300"
                 }`}
               >
-                <option value="">Select City</option>
+                <option value="">{t("locations.selectCity")}</option>
                 {cities.map((city) => (
                   <option key={city.id} value={city.id}>
-                    {city.name_en}
+                    {isArabic ? city.name_ar : city.name_en}
                   </option>
                 ))}
               </select>
               {errors.city_id && (
-                <p className="text-red-500 text-sm mt-1">{errors.city_id}</p>
+                <p className="text-red-500 text-sm mt-1">{t("locations.citySelectRequired")}</p>
               )}
             </div>
 
             {/* English Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Area Name (English) *
+                {t("locations.areaNameEnglish")} *
               </label>
               <input
                 type="text"
@@ -136,14 +139,14 @@ const AreaFormModal = ({ area, cities, isOpen, onClose, onSave }) => {
                 }`}
               />
               {errors.name_en && (
-                <p className="text-red-500 text-sm mt-1">{errors.name_en}</p>
+                <p className="text-red-500 text-sm mt-1">{t("locations.areaRequired")}</p>
               )}
             </div>
 
             {/* Arabic Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Area Name (Arabic) *
+                {t("locations.areaNameArabic")} *
               </label>
               <input
                 type="text"
@@ -157,7 +160,7 @@ const AreaFormModal = ({ area, cities, isOpen, onClose, onSave }) => {
                 }`}
               />
               {errors.name_ar && (
-                <p className="text-red-500 text-sm mt-1">{errors.name_ar}</p>
+                <p className="text-red-500 text-sm mt-1">{t("locations.areaArabicRequired")}</p>
               )}
             </div>
           </div>
@@ -170,7 +173,7 @@ const AreaFormModal = ({ area, cities, isOpen, onClose, onSave }) => {
               size="md"
               onClick={onClose}
             >
-              Cancel
+              {t("common.cancel")}
             </AdminButton>
             <AdminButton
               type="submit"
@@ -178,7 +181,7 @@ const AreaFormModal = ({ area, cities, isOpen, onClose, onSave }) => {
               size="md"
               loading={loading}
             >
-              {area ? "Save Changes" : "Add Area"}
+              {area ? t("locations.saveChanges") : t("locations.addArea")}
             </AdminButton>
           </div>
         </form>
